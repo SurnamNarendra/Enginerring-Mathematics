@@ -2,66 +2,218 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 02: Types of Matrices</title>
+  <title>Lecture 2: Types of Matrices</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #004080;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table, th, td {
+      border: 1px solid #555;
+      padding: 8px 15px;
+      text-align: center;
+    }
+    .example {
+      background: #eef7ff;
+      padding: 10px;
+      margin: 15px 0;
+      border-left: 4px solid #0073e6;
+    }
+    .application {
+      background: #f9f0ff;
+      padding: 10px;
+      margin: 15px 0;
+      border-left: 4px solid #8000ff;
+    }
+    .calculator {
+      margin-top: 30px;
+      padding: 20px;
+      border: 2px dashed #0073e6;
+      background: #f0faff;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+    }
+    button {
+      padding: 8px 12px;
+      margin-top: 10px;
+      background: #0073e6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #005bb5;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #004080;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Lecture 02: Types of Matrices</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
+  <h1>Lecture 2: Types of Matrices</h1>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
-      <ul>
-        <li>Understand the basic concepts of Types of Matrices.</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
-      </ul>
-    </section>
+  <h2>1. Introduction</h2>
+  <p>In this lecture, we will study different types of matrices, their properties, and their importance in engineering and applied mathematics. Recognizing the type of a matrix helps simplify computations and provides insights into the underlying system.</p>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Types of Matrices is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+  <h2>2. Common Types of Matrices</h2>
+  <h3>(a) Row Matrix</h3>
+  <p>A matrix that has only one row.</p>
+  <div class="example">
+    Example: \( A = [2 \;\; 5 \;\; -3] \) is a row matrix of order \(1 \times 3\).
+  </div>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+  <h3>(b) Column Matrix</h3>
+  <p>A matrix that has only one column.</p>
+  <div class="example">
+    Example: \( B = \begin{bmatrix} 4 \\ -2 \\ 6 \end{bmatrix} \) is a column matrix of order \(3 \times 1\).
+  </div>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Types of Matrices is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+  <h3>(c) Square Matrix</h3>
+  <p>A matrix with the same number of rows and columns.</p>
+  <div class="example">
+    Example: \( C = \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix} \) is a \(2 \times 2\) square matrix.
+  </div>
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Types of Matrices in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+  <h3>(d) Diagonal Matrix</h3>
+  <p>A square matrix with all non-diagonal elements equal to zero.</p>
+  <div class="example">
+    Example: \( D = \begin{bmatrix} 5 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 7 \end{bmatrix} \).
+  </div>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 02</p>
-  </footer>
+  <h3>(e) Identity Matrix</h3>
+  <p>A diagonal matrix where all diagonal elements are equal to 1.</p>
+  <div class="example">
+    Example: \( I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \).
+  </div>
+
+  <h3>(f) Zero (Null) Matrix</h3>
+  <p>All entries are zero.</p>
+  <div class="example">
+    Example: \( O = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix} \).
+  </div>
+
+  <h3>(g) Symmetric Matrix</h3>
+  <p>A square matrix that satisfies \( A = A^T \).</p>
+  <div class="example">
+    Example: \( A = \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix} \).
+  </div>
+
+  <h3>(h) Skew-Symmetric Matrix</h3>
+  <p>A square matrix that satisfies \( A^T = -A \).</p>
+  <div class="example">
+    Example: \( A = \begin{bmatrix} 0 & 2 \\ -2 & 0 \end{bmatrix} \).
+  </div>
+
+  <h3>(i) Upper and Lower Triangular Matrices</h3>
+  <p>
+    <ul>
+      <li><b>Upper triangular:</b> All entries below the diagonal are zero.</li>
+      <li><b>Lower triangular:</b> All entries above the diagonal are zero.</li>
+    </ul>
+  </p>
+  <div class="example">
+    Example: \( U = \begin{bmatrix} 3 & 4 \\ 0 & 2 \end{bmatrix} \) (Upper triangular) <br>
+    Example: \( L = \begin{bmatrix} 5 & 0 \\ 7 & 3 \end{bmatrix} \) (Lower triangular).
+  </div>
+
+  <h2>3. Applications</h2>
+  <div class="application">
+    <ul>
+      <li><b>Diagonal matrices</b> simplify computations in engineering simulations.</li>
+      <li><b>Symmetric matrices</b> appear in stiffness matrices in structural engineering.</li>
+      <li><b>Identity matrix</b> is used in defining linear transformations.</li>
+      <li><b>Triangular matrices</b> are crucial in solving systems of linear equations using LU decomposition.</li>
+    </ul>
+  </div>
+
+  <h2>4. Homework Problems</h2>
+  <ol>
+    <li>Identify the type of each matrix:
+      <br> \( A = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix} \),
+      <br> \( B = \begin{bmatrix} 1 & 2 \\ 2 & 1 \end{bmatrix} \),
+      <br> \( C = \begin{bmatrix} 0 & 5 \\ -5 & 0 \end{bmatrix} \).
+    </li>
+    <li>Give an example of a \(3 \times 3\) symmetric matrix and a skew-symmetric matrix.</li>
+    <li>Explain one engineering application of triangular matrices.</li>
+  </ol>
+
+  <h2>5. Interactive Matrix Type Checker</h2>
+  <div class="calculator">
+    <p>Enter a matrix (rows separated by newline, numbers by spaces):</p>
+    <textarea id="matrixInput">1 2 3
+2 5 6
+3 6 9</textarea><br>
+    <button onclick="checkMatrixType()">Check Matrix Type</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function parseMatrix(text) {
+      return text.trim().split("\n").map(row => row.trim().split(/\s+/).map(Number));
+    }
+
+    function isSquare(matrix) {
+      return matrix.length === matrix[0].length;
+    }
+
+    function checkMatrixType() {
+      let text = document.getElementById("matrixInput").value;
+      let matrix = parseMatrix(text);
+      let rows = matrix.length, cols = matrix[0].length;
+      let result = [];
+
+      if (rows === 1) result.push("Row Matrix");
+      if (cols === 1) result.push("Column Matrix");
+      if (isSquare(matrix)) result.push("Square Matrix");
+
+      // Zero Matrix
+      if (matrix.every(row => row.every(val => val === 0))) result.push("Zero Matrix");
+
+      // Identity
+      if (isSquare(matrix)) {
+        let identity = true;
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            if ((i === j && matrix[i][j] !== 1) || (i !== j && matrix[i][j] !== 0)) {
+              identity = false;
+              break;
+            }
+          }
+        }
+        if (identity) result.push("Identity Matrix");
+      }
+
+      // Symmetric / Skew-Symmetric
+      if (isSquare(matrix)) {
+        let symmetric = true, skew = true;
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            if (matrix[i][j] !== matrix[j][i]) symmetric = false;
+            if (matrix[i][j] !== -matrix[j][i]) skew = false;
+          }
+        }
+        if (symmetric) result.push("Symmetric Matrix");
+        if (skew) result.push("Skew-Symmetric Matrix");
+      }
+
+      document.getElementById("result").innerText = result.length ? result.join(", ") : "General Matrix";
+    }
+  </script>
+
 </body>
 </html>
