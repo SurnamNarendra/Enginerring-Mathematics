@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engineering Mathematics: Matrices – Course Index</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #111827;       /* gray-900 */
+      --panel-2: #0b1220;     /* darker */
+      --text: #e5e7eb;        /* gray-200 */
+      --muted: #9ca3af;       /* gray-400 */
+      --accent: #22d3ee;      /* cyan-400 */
+      --accent-2: #60a5fa;    /* blue-400 */
+      --ring: rgba(34, 211, 238, .35);
+      --card: #0b1220;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      background: radial-gradient(1200px 700px at 10% -10%, rgba(34,211,238,.15), transparent 60%),
+                  radial-gradient(900px 600px at 90% -20%, rgba(96,165,250,.12), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 48px 20px 24px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 2.6vw + 1rem, 2.6rem);
+      letter-spacing: .3px;
+    }
+    header p { margin: 0; color: var(--muted); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 12px 20px 60px; }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .card h2 {
+      margin: 0 0 8px; font-size: 1.15rem;
+    }
+    .badge {
+      display: inline-block; font-size: .75rem; padding: 2px 10px; border-radius: 999px;
+      color: #0b1220; background: linear-gradient(90deg, var(--accent), var(--accent-2)); font-weight: 700;
+    }
+
+    details.chapter {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    details.chapter > summary {
+      list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; font-weight: 700; font-size: 1.05rem;
+    }
+    details.chapter > summary::-webkit-details-marker { display: none; }
+    .summary-right { color: var(--muted); font-weight: 600; font-size: .95rem; }
+
+    .lectures { margin-top: 14px; }
+    .lectures ol { margin: 10px 0 0; padding: 0 0 0 22px; }
+    .lectures li { margin: 8px 0; }
+    .lectures a {
+      color: var(--text); text-decoration: none; border-bottom: 1px dashed rgba(34,211,238,.4);
+    }
+    .lectures a:hover { color: var(--accent); }
+
+    .soon {
+      opacity: .8; color: var(--muted); font-style: italic; margin-top: 6px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .chip { font-size: .72rem; color: var(--muted); border: 1px solid rgba(148,163,184,.18); padding: 4px 8px; border-radius: 999px; }
+
+    footer { text-align: center; color: var(--muted); padding: 36px 12px; font-size: .9rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Engineering Mathematics – Matrices</h1>
+    <p>Course Index • 4 Chapters • Chapter 1 includes 10 lectures</p>
+  </header>
+
+  <main class="container">
+    <!-- Chapter Cards Overview -->
+    <section class="chapter-grid" aria-label="Chapters overview">
+      <div class="card">
+        <h2>Chapter 1: Matrix Foundations</h2>
+        <div class="chips">
+          <span class="chip">Basics</span>
+          <span class="chip">RREF & Rank</span>
+          <span class="chip">Eigen Theory</span>
+          <span class="chip">Quadratic Forms</span>
+        </div>
+        <p class="soon">10 lectures • fully available</p>
+        <p><a href="#ch1">Jump to Chapter 1 lectures →</a></p>
+      </div>
+      <div class="card">
+        <h2>Chapter 2: Linear Systems & Applications</h2>
+        <span class="badge">Coming Soon</span>
+        <p class="soon">LU/QR, least squares, conditioning, numerical aspects.</p>
+      </div>
+      <div class="card">
+        <h2>Chapter 3: Vector Spaces & Linear Transformations</h2>
+        <span class="badge">Coming Soon</span>
+        <p class="soon">Subspaces, basis, dimension, linear maps, change of basis.</p>
+      </div>
+      <div class="card">
+        <h2>Chapter 4: Advanced Topics</h2>
+        <span class="badge">Coming Soon</span>
+        <p class="soon">SVD, PCA, Jordan form (optional), applications in ML.</p>
+      </div>
+    </section>
+
+    <!-- Chapter 1 Detailed List -->
+    <section id="ch1" style="margin-top: 32px;">
+      <details class="chapter" open>
+        <summary>
+          <span>Chapter 1: Matrix Foundations — Detailed Lecture List</span>
+          <span class="summary-right">10 lectures</span>
+        </summary>
+        <div class="lectures">
+          <ol>
+            <li><a href="ch1-lecture-01-introduction-to-matrices.html">Lecture 1: Introduction to Matrices</a></li>
+            <li><a href="ch1-lecture-02-types-of-matrices.html">Lecture 2: Types of Matrices</a></li>
+            <li><a href="ch1-lecture-03-elementary-operations.html">Lecture 3: Elementary Operations on Matrices</a></li>
+            <li><a href="ch1-lecture-04-row-reduced-echelon-form.html">Lecture 4: Row Reduced Echelon Form (RREF)</a></li>
+            <li><a href="ch1-lecture-05-rank-of-a-matrix.html">Lecture 5: Rank of a Matrix</a></li>
+            <li><a href="ch1-lecture-06-consistency-of-linear-systems.html">Lecture 6: Consistency of Linear Systems</a></li>
+            <li><a href="ch1-lecture-07-eigenvalues-intro.html">Lecture 7: Eigenvalues & Eigenvectors (Part I)</a></li>
+            <li><a href="ch1-lecture-08-eigenvectors-computation.html">Lecture 8: Eigenvalues & Eigenvectors (Part II)</a></li>
+            <li><a href="ch1-lecture-09-cayley-hamilton.html">Lecture 9: Cayley–Hamilton Theorem</a></li>
+            <li><a href="ch1-lecture-10-diagonalization-quadratic-forms.html">Lecture 10: Diagonalization & Quadratic Forms (Orthogonal Reduction)</a></li>
+          </ol>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> Engineering Mathematics • Matrices | Designed for web delivery
+  </footer>
+
+  <script>
+    // year stamp
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+  <!--
+    Notes for integration:
+    • Save this file as index.html at the course root.
+    • Create the ten lecture files with the exact href names above in the same folder (or adjust paths).
+    • You can mark chapters 2–4 live by removing the "Coming Soon" badges and adding links.
+  -->
+</body>
+</html>
