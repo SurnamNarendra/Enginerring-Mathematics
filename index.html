@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Engineering Mathematics: Matrices – Course Index</title>
+  <title>Engineering Mathematics – Course Index</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -73,9 +73,7 @@
     .card a:hover { text-decoration: underline; }
 
     /* Lecture Details */
-    section.details {
-      margin-top: 32px;
-    }
+    section.details { margin-top: 32px; }
     details.chapter {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -103,6 +101,7 @@
       padding: 20px;
       text-align: center;
       box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      align-self: start;
     }
     .bio img {
       width: 120px; height: 120px;
@@ -129,6 +128,12 @@
       margin-top: 40px;
       border-top: 1px solid var(--border);
     }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .bio { margin-top: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -138,6 +143,7 @@
   </header>
 
   <main>
+    <!-- Left Content -->
     <section>
       <!-- Chapter Cards -->
       <div class="chapter-grid">
@@ -148,29 +154,46 @@
             <span class="chip">RREF & Rank</span>
             <span class="chip">Determinants</span>
             <span class="chip">Eigenvalues</span>
+            <span class="chip">Diagonalization</span>
           </div>
           <p class="soon">10 lectures • fully available</p>
           <p><a href="#ch1">Go to Lectures →</a></p>
         </div>
+
         <div class="card">
           <h2>Chapter 2: Calculus</h2>
           <div class="chips">
             <span class="chip">Limits</span>
             <span class="chip">Continuity</span>
             <span class="chip">Differentiability</span>
+            <span class="chip">Partial Derivatives</span>
           </div>
           <p class="soon">10 lectures • fully available</p>
           <p><a href="#ch2">Go to Lectures →</a></p>
         </div>
+
         <div class="card">
           <h2>Chapter 3: First Order Differential Equations</h2>
           <div class="chips">
             <span class="chip">Separable</span>
             <span class="chip">Linear</span>
             <span class="chip">Exact</span>
+            <span class="chip">Applications</span>
           </div>
           <p class="soon">8 lectures • fully available</p>
           <p><a href="#ch3">Go to Lectures →</a></p>
+        </div>
+
+        <div class="card">
+          <h2>Chapter 4: Higher Order Differential Equations</h2>
+          <div class="chips">
+            <span class="chip">Constant Coefficients</span>
+            <span class="chip">Cauchy–Euler</span>
+            <span class="chip">Undetermined Coefficients</span>
+            <span class="chip">Variation of Parameters</span>
+          </div>
+          <p class="soon">8 lectures • fully available</p>
+          <p><a href="#ch4">Go to Lectures →</a></p>
         </div>
       </div>
 
@@ -180,8 +203,72 @@
           <summary><span>Chapter 1: Matrix Foundations</span><span>10 lectures</span></summary>
           <div class="lectures">
             <ol>
-              <li><a href="#">Lecture 1: Introduction to Matrices</a></li>
-              <li><a href="#">Lecture 2: Types of Matrices</a></li>
+              <li><a href="ch1-lecture-01.html">Lecture 1: Introduction to Matrices</a></li>
+              <li><a href="ch1-lecture-02.html">Lecture 2: Types of Matrices</a></li>
+              <li><a href="ch1-lecture-03.html">Lecture 3: Elementary Operations</a></li>
+              <li><a href="ch1-lecture-04.html">Lecture 4: RREF</a></li>
+              <li><a href="ch1-lecture-05.html">Lecture 5: Rank of a Matrix</a></li>
+              <li><a href="ch1-lecture-06.html">Lecture 6: Consistency of Systems</a></li>
+              <li><a href="ch1-lecture-07.html">Lecture 7: Eigenvalues & Eigenvectors (I)</a></li>
+              <li><a href="ch1-lecture-08.html">Lecture 8: Eigenvalues & Eigenvectors (II)</a></li>
+              <li><a href="ch1-lecture-09.html">Lecture 9: Cayley–Hamilton Theorem</a></li>
+              <li><a href="ch1-lecture-10.html">Lecture 10: Diagonalization & Quadratic Forms</a></li>
+            </ol>
+          </div>
+        </details>
+      </section>
+
+      <section id="ch2" class="details">
+        <details class="chapter">
+          <summary><span>Chapter 2: Calculus</span><span>10 lectures</span></summary>
+          <div class="lectures">
+            <ol>
+              <li><a href="ch2-lecture-01.html">Lecture 1: Review of Functions</a></li>
+              <li><a href="ch2-lecture-02.html">Lecture 2: Limits and Continuity</a></li>
+              <li><a href="ch2-lecture-03.html">Lecture 3: Differentiability</a></li>
+              <li><a href="ch2-lecture-04.html">Lecture 4: Derivatives of Standard Functions</a></li>
+              <li><a href="ch2-lecture-05.html">Lecture 5: Maxima & Minima (One Variable)</a></li>
+              <li><a href="ch2-lecture-06.html">Lecture 6: Functions of Several Variables</a></li>
+              <li><a href="ch2-lecture-07.html">Lecture 7: Partial Derivatives</a></li>
+              <li><a href="ch2-lecture-08.html">Lecture 8: Taylor & Maclaurin Series</a></li>
+              <li><a href="ch2-lecture-09.html">Lecture 9: Applications of Differentiation</a></li>
+              <li><a href="ch2-lecture-10.html">Lecture 10: Optimization Problems</a></li>
+            </ol>
+          </div>
+        </details>
+      </section>
+
+      <section id="ch3" class="details">
+        <details class="chapter">
+          <summary><span>Chapter 3: First Order Differential Equations</span><span>8 lectures</span></summary>
+          <div class="lectures">
+            <ol>
+              <li><a href="ch3-lecture-01.html">Lecture 1: Introduction to Differential Equations</a></li>
+              <li><a href="ch3-lecture-02.html">Lecture 2: Formation of First Order DEs</a></li>
+              <li><a href="ch3-lecture-03.html">Lecture 3: Separable Equations</a></li>
+              <li><a href="ch3-lecture-04.html">Lecture 4: Linear Equations</a></li>
+              <li><a href="ch3-lecture-05.html">Lecture 5: Homogeneous Equations</a></li>
+              <li><a href="ch3-lecture-06.html">Lecture 6: Exact Equations</a></li>
+              <li><a href="ch3-lecture-07.html">Lecture 7: Integrating Factors</a></li>
+              <li><a href="ch3-lecture-08.html">Lecture 8: Applications (Growth & Decay)</a></li>
+            </ol>
+          </div>
+        </details>
+      </section>
+
+      <section id="ch4" class="details">
+        <details class="chapter">
+          <summary><span>Chapter 4: Higher Order Differential Equations</span><span>8 lectures</span></summary>
+          <div class="lectures">
+            <ol>
+              <li><a href="ch4-lecture-01.html">Lecture 1: Higher Order DEs with Constant Coefficients</a></li>
+              <li><a href="ch4-lecture-02.html">Lecture 2: Auxiliary Equation & Solution Structure</a></li>
+              <li><a href="ch4-lecture-03.html">Lecture 3: Cauchy–Euler Equations</a></li>
+              <li><a href="ch4-lecture-04.html">Lecture 4: Method of Undetermined Coefficients</a></li>
+              <li><a href="ch4-lecture-05.html">Lecture 5: Method of Variation of Parameters</a></li>
+              <li><a href="ch4-lecture-06.html">Lecture 6: Applications in Mechanical Vibrations</a></li>
+              <li><a href="ch4-lecture-07.html">Lecture 7: Coupled Differential Equations</a></li>
+              <li><a href="ch4-lecture-08.html">Lecture 8: Modeling with Higher Order DEs</a></li>
             </ol>
           </div>
         </details>
@@ -205,6 +292,8 @@
     © <span id="y"></span> Engineering Mathematics • Surnam Narendra
   </footer>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
