@@ -1,210 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lecture 1: Introduction to Matrices</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f9f9fc;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fa;
       color: #333;
       line-height: 1.6;
     }
-    h1, h2 {
-      color: #003366;
+    header {
+      background: linear-gradient(135deg, #004466, #0099cc);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
     }
-    .example, .application, .homework {
-      background: #eef;
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #002d40;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fff;
+      padding: 15px 20px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    nav a:hover {
+      background: #0099cc;
+    }
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+    h2 {
+      color: #004466;
+      margin-bottom: 20px;
+      border-left: 6px solid #0099cc;
+      padding-left: 10px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+    pre {
+      background: #eef6fa;
       padding: 12px;
-      margin: 12px 0;
-      border-left: 4px solid #003366;
-      border-radius: 6px;
+      border-radius: 8px;
+      overflow-x: auto;
     }
-    table.matrix {
-      border-collapse: collapse;
-      margin: 10px 0;
-    }
-    table.matrix td {
-      border: 1px solid #000;
-      padding: 6px 12px;
+    ul { list-style: square; padding-left: 20px; }
+    footer {
+      background: #002d40;
+      color: #fff;
       text-align: center;
-    }
-    .calculator {
-      margin-top: 30px;
       padding: 15px;
-      border: 2px solid #003366;
-      border-radius: 10px;
-      background: #fdfdfd;
+      margin-top: 40px;
     }
-    input {
+    .matrix-input {
       width: 40px;
-      padding: 4px;
-      margin: 2px;
+      padding: 5px;
       text-align: center;
+    }
+    .matrix-row { margin-bottom: 5px; }
+    .result-box {
+      background: #eef6fa;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-weight: bold;
+      white-space: pre-wrap;
     }
     button {
+      padding: 8px 16px;
       margin: 10px 5px;
-      padding: 8px 12px;
-      border-radius: 6px;
       border: none;
-      background: #003366;
-      color: #fff;
+      border-radius: 6px;
+      background: #0099cc;
+      color: white;
       cursor: pointer;
     }
-    button:hover {
-      background: #0055aa;
-    }
-    #result {
-      margin-top: 10px;
-      font-weight: bold;
-    }
+    button:hover { background: #007799; }
   </style>
 </head>
 <body>
 
-<h1>Lecture 1: Introduction to Matrices</h1>
+  <header>
+    <h1>Lecture 1: Introduction to Matrices</h1>
+    <p>Basics, Types, Examples, and Applications in Engineering</p>
+  </header>
 
-<h2>1. Definition</h2>
-<p>
-A <b>matrix</b> is a rectangular arrangement of numbers, symbols, or expressions in rows and columns. 
-It is usually denoted by a capital letter, e.g., \( A \).
-</p>
+  <nav>
+    <a href="#intro">Introduction</a>
+    <a href="#types">Types</a>
+    <a href="#examples">Examples</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#applications">Applications</a>
+  </nav>
 
-<h2>2. Notation and Order</h2>
-<p>
-If a matrix has \( m \) rows and \( n \) columns, it is called an <b>\( m \times n \)</b> (m by n) matrix.  
-The elements of the matrix are written as \( a_{ij} \), where \( i \) is the row number and \( j \) is the column number.
-</p>
+  <section id="intro">
+    <h2>Introduction</h2>
+    <p>
+      A <strong>matrix</strong> is a rectangular arrangement of numbers in rows and columns.
+      Each element is identified by its row and column position.
+    </p>
+    <div class="card">
+      <h3>General Form</h3>
+      <pre>
+A = | a11  a12  a13 |
+    | a21  a22  a23 |
+    | a31  a32  a33 |
+      </pre>
+    </div>
+  </section>
 
-<div class="example">
-<b>Example:</b> A \( 2 \times 3 \) matrix:
-<table class="matrix">
-  <tr><td>a<sub>11</sub></td><td>a<sub>12</sub></td><td>a<sub>13</sub></td></tr>
-  <tr><td>a<sub>21</sub></td><td>a<sub>22</sub></td><td>a<sub>23</sub></td></tr>
-</table>
-</div>
+  <section id="types">
+    <h2>Types of Matrices</h2>
+    <div class="card"><h3>1. Row Matrix</h3><pre>[1  2  3  4]</pre></div>
+    <div class="card"><h3>2. Column Matrix</h3><pre>| 5 |<br>| 6 |<br>| 7 |</pre></div>
+    <div class="card"><h3>3. Square Matrix</h3><pre>| 1  2  3 |<br>| 4  5  6 |<br>| 7  8  9 |</pre></div>
+    <div class="card"><h3>4. Diagonal Matrix</h3><pre>| 4  0  0 |<br>| 0  5  0 |<br>| 0  0  6 |</pre></div>
+    <div class="card"><h3>5. Identity Matrix</h3><pre>| 1  0  0 |<br>| 0  1  0 |<br>| 0  0  1 |</pre></div>
+    <div class="card"><h3>6. Zero Matrix</h3><pre>| 0  0  0 |<br>| 0  0  0 |<br>| 0  0  0 |</pre></div>
+    <div class="card"><h3>7. Symmetric Matrix</h3><pre>| 1  2  3 |<br>| 2  5  6 |<br>| 3  6  9 |</pre></div>
+    <div class="card"><h3>8. Skew-Symmetric Matrix</h3><pre>| 0  -2  3 |<br>| 2   0 -4 |<br>| -3  4  0 |</pre></div>
+    <div class="card"><h3>9. Upper Triangular Matrix</h3><pre>| 1  2  3 |<br>| 0  4  5 |<br>| 0  0  6 |</pre></div>
+    <div class="card"><h3>10. Lower Triangular Matrix</h3><pre>| 7  0  0 |<br>| 8  9  0 |<br>| 1  2  3 |</pre></div>
+    <div class="card"><h3>11. Scalar Matrix</h3><pre>| 5  0  0 |<br>| 0  5  0 |<br>| 0  0  5 |</pre></div>
+  </section>
 
-<h2>3. Basic Operations</h2>
-<p>
-Matrices can be added, subtracted, or multiplied by a scalar.
-</p>
+  <section id="examples">
+    <h2>Examples</h2>
+    <div class="card"><h3>Addition</h3>
+      <pre>
+A = | 1  2 |    B = | 3  4 |
+    | 5  6 |        | 7  8 |
 
-<div class="example">
-<b>Matrix Addition:</b><br>
-If \( A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \) and 
-\( B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} \),  
-then  
-\( A + B = \begin{bmatrix} 1+5 & 2+6 \\ 3+7 & 4+8 \end{bmatrix} = \begin{bmatrix} 6 & 8 \\ 10 & 12 \end{bmatrix} \).
-</div>
+A + B = | 4  6 |
+        | 12 14 |
+      </pre>
+    </div>
+    <div class="card"><h3>Subtraction</h3>
+      <pre>
+A - B = | -2 -2 |
+        | -2 -2 |
+      </pre>
+    </div>
+    <div class="card"><h3>Multiplication</h3>
+      <pre>
+A = | 1  2 |
+    | 3  4 |
 
-<div class="example">
-<b>Scalar Multiplication:</b><br>
-If \( k = 3 \) and \( A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \),  
-then  
-\( kA = \begin{bmatrix} 3 & 6 \\ 9 & 12 \end{bmatrix} \).
-</div>
+B = | 2  0 |
+    | 1  2 |
 
-<h2>4. Applications in Engineering</h2>
-<div class="application">
-Matrices are widely used in engineering:  
-<ul>
-  <li><b>Civil Engineering:</b> To solve systems of equations in structural analysis.</li>
-  <li><b>Electrical Engineering:</b> To analyze circuits using node/mesh equations.</li>
-  <li><b>Computer Graphics:</b> For transformations like rotation, scaling, and translation.</li>
-</ul>
-</div>
+A × B = | 4  4 |
+         | 10 8 |
+      </pre>
+    </div>
+  </section>
 
-<h2>5. Homework Problems</h2>
-<div class="homework">
-<ol>
-  <li>Add the matrices \( \begin{bmatrix} 2 & 3 \\ 4 & 5 \end{bmatrix} \) and \( \begin{bmatrix} 1 & 0 \\ -1 & 2 \end{bmatrix} \).</li>
-  <li>Find \( 4 \times \begin{bmatrix} 1 & -2 \\ 0 & 3 \end{bmatrix} \).</li>
-  <li>Subtract \( \begin{bmatrix} 5 & 7 & 9 \\ 1 & 0 & 2 \end{bmatrix} - \begin{bmatrix} 2 & 4 & 6 \\ 3 & 1 & 5 \end{bmatrix} \).</li>
-</ol>
-</div>
+  <section id="calculator">
+    <h2>Hands-on Matrix Calculator</h2>
+    <p>Select matrix size:</p>
+    <button onclick="setSize(3)">3 × 3</button>
+    <button onclick="setSize(5)">5 × 5</button>
 
-<h2>Interactive Matrix Calculator</h2>
-<div class="calculator">
-<p>Enter 2×2 matrices:</p>
-<table>
-  <tr>
-    <td><input id="a11" type="number"></td>
-    <td><input id="a12" type="number"></td>
-  </tr>
-  <tr>
-    <td><input id="a21" type="number"></td>
-    <td><input id="a22" type="number"></td>
-  </tr>
-</table>
-+
-<table>
-  <tr>
-    <td><input id="b11" type="number"></td>
-    <td><input id="b12" type="number"></td>
-  </tr>
-  <tr>
-    <td><input id="b21" type="number"></td>
-    <td><input id="b22" type="number"></td>
-  </tr>
-</table>
+    <div class="card" id="matrixInputs"></div>
+    <button onclick="operation('add')">Add (A + B)</button>
+    <button onclick="operation('sub')">Subtract (A - B)</button>
+    <button onclick="operation('mul')">Multiply (A × B)</button>
 
-<p>
-<button onclick="addMatrices()">Add</button>
-<button onclick="subtractMatrices()">Subtract</button>
-<button onclick="scalarMultiply()">Scalar × A</button>
-</p>
+    <div id="result" class="result-box"></div>
+  </section>
 
-<p>Scalar: <input id="scalar" type="number" value="2"></p>
+  <section id="applications">
+    <h2>Applications</h2>
+    <div class="card">
+      <ul>
+        <li><b>Civil Engineering:</b> Structural analysis of buildings and bridges.</li>
+        <li><b>Electrical Engineering:</b> Circuit analysis using mesh and nodal equations.</li>
+        <li><b>Computer Science:</b> Graphics transformations, image processing, AI.</li>
+        <li><b>Mechanical Engineering:</b> Vibration analysis and robotics kinematics.</li>
+        <li><b>Aerospace Engineering:</b> Flight dynamics and control systems.</li>
+      </ul>
+    </div>
+  </section>
 
-<div id="result"></div>
-</div>
+ 
 
-<script>
-function getMatrixA() {
-  return [
-    [parseFloat(document.getElementById("a11").value)||0, parseFloat(document.getElementById("a12").value)||0],
-    [parseFloat(document.getElementById("a21").value)||0, parseFloat(document.getElementById("a22").value)||0]
-  ];
-}
-function getMatrixB() {
-  return [
-    [parseFloat(document.getElementById("b11").value)||0, parseFloat(document.getElementById("b12").value)||0],
-    [parseFloat(document.getElementById("b21").value)||0, parseFloat(document.getElementById("b22").value)||0]
-  ];
-}
-function displayMatrix(M) {
-  let html = "<table class='matrix'>";
-  for (let i=0; i<M.length; i++) {
-    html += "<tr>";
-    for (let j=0; j<M[0].length; j++) {
-      html += "<td>"+M[i][j]+"</td>";
+  <footer>
+    <p>&copy; Enginerring Mathematics| Matrix Introduction</p>
+  </footer>
+
+  <script>
+    let size = 3;
+
+    function setSize(n) {
+      size = n;
+      const div = document.getElementById("matrixInputs");
+      div.innerHTML = "<h3>Matrix A</h3>";
+      for (let i = 0; i < n; i++) {
+        let row = '<div class="matrix-row">';
+        for (let j = 0; j < n; j++) {
+          row += `<input class="matrix-input" id="A${i}${j}" type="number" value="0">`;
+        }
+        row += "</div>";
+        div.innerHTML += row;
+      }
+      div.innerHTML += "<h3>Matrix B</h3>";
+      for (let i = 0; i < n; i++) {
+        let row = '<div class="matrix-row">';
+        for (let j = 0; j < n; j++) {
+          row += `<input class="matrix-input" id="B${i}${j}" type="number" value="0">`;
+        }
+        row += "</div>";
+        div.innerHTML += row;
+      }
     }
-    html += "</tr>";
-  }
-  html += "</table>";
-  document.getElementById("result").innerHTML = html;
-}
-function addMatrices() {
-  let A = getMatrixA(), B = getMatrixB();
-  let C = [[A[0][0]+B[0][0], A[0][1]+B[0][1]], [A[1][0]+B[1][0], A[1][1]+B[1][1]]];
-  displayMatrix(C);
-}
-function subtractMatrices() {
-  let A = getMatrixA(), B = getMatrixB();
-  let C = [[A[0][0]-B[0][0], A[0][1]-B[0][1]], [A[1][0]-B[1][0], A[1][1]-B[1][1]]];
-  displayMatrix(C);
-}
-function scalarMultiply() {
-  let A = getMatrixA();
-  let k = parseFloat(document.getElementById("scalar").value)||1;
-  let C = [[k*A[0][0], k*A[0][1]], [k*A[1][0], k*A[1][1]]];
-  displayMatrix(C);
-}
-</script>
+
+    function operation(type) {
+      let A = [], B = [];
+      for (let i = 0; i < size; i++) {
+        A[i] = [], B[i] = [];
+        for (let j = 0; j < size; j++) {
+          A[i][j] = parseFloat(document.getElementById(`A${i}${j}`).value) || 0;
+          B[i][j] = parseFloat(document.getElementById(`B${i}${j}`).value) || 0;
+        }
+      }
+      let C = [];
+      if (type === "add" || type === "sub") {
+        for (let i = 0; i < size; i++) {
+          C[i] = [];
+          for (let j = 0; j < size; j++) {
+            C[i][j] = type === "add" ? A[i][j] + B[i][j] : A[i][j] - B[i][j];
+          }
+        }
+      } else if (type === "mul") {
+        for (let i = 0; i < size; i++) {
+          C[i] = [];
+          for (let j = 0; j < size; j++) {
+            let sum = 0;
+            for (let k = 0; k < size; k++) sum += A[i][k] * B[k][j];
+            C[i][j] = sum;
+          }
+        }
+      }
+      let result = "";
+      for (let i = 0; i < size; i++) {
+        result += "| " + C[i].join("  ") + " |\n";
+      }
+      document.getElementById("result").textContent = result;
+    }
+
+    // Initialize 3x3 by default
+    setSize(3);
+  </script>
 
 </body>
 </html>
