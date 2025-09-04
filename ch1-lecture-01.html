@@ -1,472 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lecture 1 — Introduction to Matrices + Calculator</title>
-  <!-- MathJax for LaTeX rendering -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <meta charset="UTF-8">
+  <title>Lecture-1: Introduction to Matrices</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    :root{
-      --bg:#0f172a; /* slate-900 */
-      --panel:#111827; /* gray-900 */
-      --ink:#e5e7eb; /* gray-200 */
-      --muted:#94a3b8; /* slate-400 */
-      --brand:#22d3ee; /* cyan-400 */
-      --accent:#a78bfa; /* violet-400 */
-      --success:#34d399; /* green-400 */
-      --danger:#f87171; /* red-400 */
-      --card:#0b1220;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9fb;
+      color: #222;
+      line-height: 1.6;
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,var(--bg),#060b16);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    header{position:sticky;top:0;background:rgba(9,14,24,.8);backdrop-filter:blur(8px);border-bottom:1px solid #1f2937;z-index:10}
-    .wrap{max-width:1200px;margin:0 auto;padding:24px}
-    h1,h2,h3{line-height:1.15;margin:1.2em 0 .6em}
-    h1{font-size:clamp(28px,4vw,40px);letter-spacing:.3px}
-    h2{font-size:clamp(22px,3vw,30px)}
-    h3{font-size:clamp(18px,2.2vw,22px)}
-    p{margin:.5em 0;color:var(--ink)}
-    a{color:var(--brand);text-decoration:none}
-    nav{display:flex;gap:16px;flex-wrap:wrap}
-    nav a{padding:8px 12px;border:1px solid #243041;border-radius:999px;color:var(--muted)}
-    nav a:hover{color:var(--ink);border-color:#334155}
-    .grid{display:grid;gap:18px}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    @media (max-width:900px){.grid.cols-3{grid-template-columns:1fr}.grid.cols-2{grid-template-columns:1fr}}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid #1f2937;border-radius:16px;padding:18px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
-    .badge{display:inline-block;padding:2px 10px;border-radius:999px;border:1px solid #2b3b55;color:var(--muted);font-size:12px;margin-right:6px}
-    .muted{color:var(--muted)}
-    .katex-like{font-family: ui-serif, Charter, "Times New Roman", Times, serif}
-    code,kbd{background:#0b1220;border:1px solid #1f2937;padding:.2em .4em;border-radius:6px}
-    .formula{padding:8px 12px;background:#0b1220;border:1px dashed #283344;border-radius:12px;margin:.5rem 0}
-    .sticky-cta{position:fixed;right:16px;bottom:16px;background:linear-gradient(135deg,var(--brand),var(--accent));color:#0a0a0a;padding:12px 16px;border-radius:14px;font-weight:700;box-shadow:0 16px 40px rgba(0,0,0,.3)}
-    footer{border-top:1px solid #1f2937;margin-top:28px}
-    /* Calculator */
-    .calc{display:grid;gap:14px}
-    .controls{display:grid;gap:10px;grid-template-columns:repeat(4, minmax(0,1fr))}
-    @media (max-width:900px){.controls{grid-template-columns:1fr 1fr}}
-    label{font-size:14px;color:var(--muted)}
-    select,button,input[type="number"]{width:100%;padding:10px 12px;border-radius:12px;border:1px solid #233246;background:#0b1220;color:var(--ink)}
-    button.primary{background:linear-gradient(135deg,var(--brand),var(--accent));color:#0a0a0a;border:none;font-weight:700}
-    button.ghost{background:transparent;border:1px solid #2b3b55;color:var(--ink)}
-    .matrix-grid{display:grid;grid-template-columns:repeat(var(--cols), 1fr);gap:8px}
-    .panel{display:grid;gap:12px}
-    .output{min-height:60px;padding:12px;border-radius:12px;background:#0b1220;border:1px solid #283344}
-    .note{font-size:13px;color:var(--muted)}
+    header {
+      background: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background: #f0f0f5;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: #003366;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 6px;
+      background: #e6f0ff;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: #003366;
+      color: white;
+    }
+    section {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #003366;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 5px;
+    }
+    .calculator {
+      background: #f4f8ff;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-family: monospace;
+      margin-bottom: 10px;
+    }
+    button {
+      background: #003366;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #0055aa;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .example {
+      background: #eef7ff;
+      padding: 15px;
+      border-left: 4px solid #003366;
+      margin: 15px 0;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <h1>Introduction to Matrices — Notes + Interactive Calculator</h1>
-      <nav>
-        <a href="#intro">Intro & Notation</a>
-        <a href="#types">20+ Types</a>
-        <a href="#ops">Operations</a>
-        <a href="#calculator">Matrix Calculator</a>
-        <a href="#lecture">Lecture‑1</a>
-      </nav>
-    </div>
+    <h1>Lecture-1: Introduction to Matrices</h1>
   </header>
 
-  <main class="wrap">
+  <nav>
+    <a href="#definition">Definition</a>
+    <a href="#form">Mathematical Form</a>
+    <a href="#types">Types of Matrices</a>
+    <a href="#excel">Excel Operations</a>
+    <a href="#calculator">Matrix Calculator</a>
+    <a href="#applications">Applications</a>
+  </nav>
 
-    <section id="intro" class="card">
-      <span class="badge">Definition</span>
-      <h2>What is a Matrix?</h2>
-      <p>A <strong>matrix</strong> is a rectangular array of numbers or symbols arranged in rows and columns. It compactly represents data, linear transformations, and systems of linear equations.</p>
-      <div class="formula">$$A = [a_{ij}]_{m\times n} = \n\begin{bmatrix}
-        a_{11} & a_{12} & \cdots & a_{1n} \\
-        a_{21} & a_{22} & \cdots & a_{2n} \\
-        \vdots & \vdots & \ddots & \vdots \\
-        a_{m1} & a_{m2} & \cdots & a_{mn}
-      \end{bmatrix}$$</div>
-      <p class="note">Here, $a_{ij}$ is the element at row $i$, column $j$; $m$ = number of rows, $n$ = number of columns.</p>
-    </section>
+  <section id="definition">
+    <h2>1. Definition</h2>
+    <p>A <b>matrix</b> is a rectangular array of numbers arranged in rows and columns. It is denoted usually by capital letters like \(A, B, C\).</p>
+  </section>
 
-    <section id="types" class="card">
-      <span class="badge">Catalog</span>
-      <h2>Types of Matrices (with examples & applications)</h2>
+  <section id="form">
+    <h2>2. Mathematical Form & Order</h2>
+    <p>A general matrix of order \(m \times n\):</p>
+    <p>\[ A_{m \times n} = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} \]</p>
+    <div class="example">
+      <b>Example:</b> A 2x3 matrix:<br>
+      \[ B = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \]
+    </div>
+  </section>
 
-      <div class="grid cols-3">
-        <div class="card">
-          <h3>1) Row Matrix</h3>
-          <div class="formula">$$\begin{bmatrix}1 & 2 & 3 & 4\end{bmatrix}_{1\times4}$$</div>
-          <p class="note">Application: feature vectors in ML.</p>
-        </div>
-        <div class="card">
-          <h3>2) Column Matrix</h3>
-          <div class="formula">$$\begin{bmatrix}5\\6\\7\end{bmatrix}_{3\times1}$$</div>
-          <p class="note">Application: physical vectors (force, velocity).</p>
-        </div>
-        <div class="card">
-          <h3>3) Square Matrix</h3>
-          <div class="formula">$$\begin{bmatrix}2 & 3\\4 & 5\end{bmatrix}_{2\times2}$$</div>
-          <p class="note">Application: determinants, eigenvalues.</p>
-        </div>
+  <section id="types">
+    <h2>3. Types of Matrices (with formulas & examples)</h2>
+    <ol>
+      <li><b>Square Matrix:</b> Formula: \(n \times n\). <br> Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)</li>
+      <li><b>Rectangular Matrix:</b> Rows ≠ Columns. <br> Example: \(\begin{bmatrix}1&2&3\\4&5&6\end{bmatrix}\)</li>
+      <li><b>Diagonal Matrix:</b> Non-diagonal elements = 0. <br> Example: \(\begin{bmatrix}2&0&0\\0&3&0\\0&0&4\end{bmatrix}\)</li>
+      <li><b>Scalar Matrix:</b> Diagonal matrix with equal diagonal entries. <br> Example: \(\begin{bmatrix}5&0\\0&5\end{bmatrix}\)</li>
+      <li><b>Identity Matrix:</b> Diagonal entries = 1. <br> Example: \(I = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}\)</li>
+      <li><b>Zero Matrix:</b> All elements = 0. <br> Example: \(\begin{bmatrix}0&0\\0&0\end{bmatrix}\)</li>
+      <li><b>Row Matrix:</b> One row. <br> Example: \(\begin{bmatrix}1&2&3&4\end{bmatrix}\)</li>
+      <li><b>Column Matrix:</b> One column. <br> Example: \(\begin{bmatrix}1\\2\\3\\4\end{bmatrix}\)</li>
+      <li><b>Symmetric Matrix:</b> \(A = A^T\). <br> Example: \(\begin{bmatrix}1&2\\2&3\end{bmatrix}\)</li>
+      <li><b>Skew-Symmetric Matrix:</b> \(A^T = -A\). <br> Example: \(\begin{bmatrix}0&-2\\2&0\end{bmatrix}\)</li>
+      <li><b>Upper Triangular:</b> Below diagonal = 0. <br> Example: \(\begin{bmatrix}1&2&3\\0&4&5\\0&0&6\end{bmatrix}\)</li>
+      <li><b>Lower Triangular:</b> Above diagonal = 0. <br> Example: \(\begin{bmatrix}1&0&0\\2&3&0\\4&5&6\end{bmatrix}\)</li>
+      <li><b>Transpose:</b> \((A^T)_{ij} = A_{ji}\). <br> Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}^T = \begin{bmatrix}1&3\\2&4\end{bmatrix}\)</li>
+      <li><b>Trace:</b> Sum of diagonals. <br> Example: \(Tr(A) = 1+4 = 5\) for \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)</li>
+      <li><b>Orthogonal:</b> \(A^TA = I\). <br> Example: \(\begin{bmatrix}0&1\\-1&0\end{bmatrix}\)</li>
+      <li><b>Singular:</b> \(\det(A) = 0\). <br> Example: \(\det \begin{bmatrix}2&4\\1&2\end{bmatrix} = 0\)</li>
+      <li><b>Non-Singular:</b> \(\det(A) \neq 0\). <br> Example: \(\det \begin{bmatrix}1&2\\3&4\end{bmatrix} = -2\)</li>
+      <li><b>Idempotent:</b> \(A^2 = A\). <br> Example: \(\begin{bmatrix}1&0\\0&0\end{bmatrix}\)</li>
+      <li><b>Nilpotent:</b> \(A^k = 0\). <br> Example: \(\begin{bmatrix}0&1\\0&0\end{bmatrix}^2 = 0\)</li>
+      <li><b>Involutory:</b> \(A^2 = I\). <br> Example: \(\begin{bmatrix}0&1\\1&0\end{bmatrix}\)</li>
+    </ol>
+  </section>
 
-        <div class="card">
-          <h3>4) Zero (Null) Matrix</h3>
-          <div class="formula">$$\begin{bmatrix}0 & 0\\0 & 0\end{bmatrix}$$</div>
-          <p class="note">Application: additive identity.</p>
-        </div>
-        <div class="card">
-          <h3>5) Diagonal Matrix</h3>
-          <div class="formula">$$\begin{bmatrix}4 & 0 & 0\\0 & 7 & 0\\0 & 0 & 2\end{bmatrix}$$</div>
-          <p class="note">Application: scaling transforms.</p>
-        </div>
-        <div class="card">
-          <h3>6) Scalar Matrix</h3>
-          <div class="formula">$$3I_2=\begin{bmatrix}3&0\\0&3\end{bmatrix}$$</div>
-          <p class="note">Application: uniform scaling.</p>
-        </div>
+  <section id="excel">
+    <h2>4. Basic Operations in Excel</h2>
+    <div class="example">
+      <b>Addition Example:</b><br>
+      \[ A = \begin{bmatrix}1&2\\3&4\end{bmatrix}, \; B = \begin{bmatrix}5&6\\7&8\end{bmatrix} \]<br>
+      \[ A+B = \begin{bmatrix}6&8\\10&12\end{bmatrix} \]
+    </div>
+    <div class="example">
+      <b>Subtraction Example:</b><br>
+      \[ A-B = \begin{bmatrix}-4&-4\\-4&-4\end{bmatrix} \]
+    </div>
+    <div class="example">
+      <b>Multiplication Example:</b><br>
+      \[ A \times B = \begin{bmatrix}1&2\\3&4\end{bmatrix} \times \begin{bmatrix}5&6\\7&8\end{bmatrix} = \begin{bmatrix}19&22\\43&50\end{bmatrix} \]
+    </div>
+  </section>
 
-        <div class="card">
-          <h3>7) Identity Matrix</h3>
-          <div class="formula">$$I_3=\begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}$$</div>
-          <p class="note">Application: multiplicative identity.</p>
-        </div>
-        <div class="card">
-          <h3>8) Upper Triangular</h3>
-          <div class="formula">$$\begin{bmatrix}2&3&4\\0&5&6\\0&0&7\end{bmatrix}$$</div>
-          <p class="note">Application: LU decomposition.</p>
-        </div>
-        <div class="card">
-          <h3>9) Lower Triangular</h3>
-          <div class="formula">$$\begin{bmatrix}2&0&0\\4&5&0\\7&8&9\end{bmatrix}$$</div>
-          <p class="note">Application: forward substitution.</p>
-        </div>
-
-        <div class="card">
-          <h3>10) Symmetric</h3>
-          <div class="formula">$$A=A^T,\;\; \begin{bmatrix}1&2&3\\2&4&5\\3&5&6\end{bmatrix}$$</div>
-          <p class="note">Application: covariance matrices.</p>
-        </div>
-        <div class="card">
-          <h3>11) Skew‑Symmetric</h3>
-          <div class="formula">$$A^T=-A,\;\; \begin{bmatrix}0&-2&3\\2&0&-4\\-3&4&0\end{bmatrix}$$</div>
-          <p class="note">Application: angular velocity (physics).</p>
-        </div>
-        <div class="card">
-          <h3>12) Orthogonal</h3>
-          <div class="formula">$$Q^TQ=I,\;\; Q=\begin{bmatrix}0&1\\-1&0\end{bmatrix}$$</div>
-          <p class="note">Application: rotations/reflections.</p>
-        </div>
-
-        <div class="card">
-          <h3>13) Singular</h3>
-          <div class="formula">$$\det\begin{bmatrix}2&4\\1&2\end{bmatrix}=0$$</div>
-          <p class="note">Application: indicates non‑invertibility.</p>
-        </div>
-        <div class="card">
-          <h3>14) Non‑Singular</h3>
-          <div class="formula">$$\det\begin{bmatrix}3&2\\1&4\end{bmatrix}=10\neq0$$</div>
-          <p class="note">Application: solvable linear systems.</p>
-        </div>
-        <div class="card">
-          <h3>15) Idempotent</h3>
-          <div class="formula">$$A^2=A,\; A=\begin{bmatrix}1&0\\0&0\end{bmatrix}$$</div>
-          <p class="note">Application: projections.</p>
-        </div>
-
-        <div class="card">
-          <h3>16) Involutory</h3>
-          <div class="formula">$$A^2=I,\; A=\begin{bmatrix}0&1\\1&0\end{bmatrix}$$</div>
-          <p class="note">Application: reflections, bit‑swap.</p>
-        </div>
-        <div class="card">
-          <h3>17) Nilpotent</h3>
-          <div class="formula">$$A^k=0,\; \begin{bmatrix}0&1\\0&0\end{bmatrix}^2=0$$</div>
-          <p class="note">Application: differential equations.</p>
-        </div>
-        <div class="card">
-          <h3>18) Permutation</h3>
-          <div class="formula">$$P=\begin{bmatrix}0&1\\1&0\end{bmatrix}$$</div>
-          <p class="note">Application: reordering algorithms.</p>
-        </div>
-
-        <div class="card">
-          <h3>19) Hollow</h3>
-          <div class="formula">$$\operatorname{diag}(A)=0,\; \begin{bmatrix}0&3\\4&0\end{bmatrix}$$</div>
-          <p class="note">Application: graph adjacency.</p>
-        </div>
-        <div class="card">
-          <h3>20) Stochastic</h3>
-          <div class="formula">$$P=\begin{bmatrix}0.5&0.3\\0.5&0.7\end{bmatrix},\; \text{cols sum to }1$$</div>
-          <p class="note">Application: Markov chains.</p>
-        </div>
-        <div class="card">
-          <h3>21) Hermitian</h3>
-          <div class="formula">$$A=\overline{A^T},\; \begin{bmatrix}2&i\\-i&3\end{bmatrix}$$</div>
-          <p class="note">Application: quantum mechanics.</p>
-        </div>
-
-        <div class="card">
-          <h3>22) Unitary</h3>
-          <div class="formula">$$U^*U=I,\; U=\tfrac{1}{\sqrt2}\begin{bmatrix}1&1\\-1&1\end{bmatrix}$$</div>
-          <p class="note">Application: signal processing, QC.</p>
-        </div>
-        <div class="card">
-          <h3>23) Orthogonal Projector</h3>
-          <div class="formula">$$P=Q(Q^TQ)^{-1}Q^T,\; P^2=P=P^T$$</div>
-          <p class="note">Application: least‑squares projection.</p>
-        </div>
-        <div class="card">
-          <h3>24) Vandermonde</h3>
-          <div class="formula">$$V=\begin{bmatrix}1&x_1&x_1^2\\1&x_2&x_2^2\\1&x_3&x_3^2\end{bmatrix}$$</div>
-          <p class="note">Application: polynomial interpolation.</p>
-        </div>
-
-        <div class="card">
-          <h3>25) Toeplitz</h3>
-          <div class="formula">$$T=\begin{bmatrix}a_0&a_1&a_2\\a_{-1}&a_0&a_1\\a_{-2}&a_{-1}&a_0\end{bmatrix}$$</div>
-          <p class="note">Application: time‑invariant systems.</p>
-        </div>
-        <div class="card">
-          <h3>26) Hankel</h3>
-          <div class="formula">$$H=\begin{bmatrix}h_0&h_1&h_2\\h_1&h_2&h_3\\h_2&h_3&h_4\end{bmatrix}$$</div>
-          <p class="note">Application: system identification.</p>
-        </div>
-        <div class="card">
-          <h3>27) Sparse</h3>
-          <div class="formula">$$\text{Most entries }=0$$</div>
-          <p class="note">Application: large‑scale graphs, PDEs.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="ops" class="card">
-      <span class="badge">Formulas</span>
-      <h2>Basic Matrix Operations</h2>
-      <h3>Addition & Subtraction</h3>
-      <div class="formula">$$A+B=[a_{ij}+b_{ij}],\quad A-B=[a_{ij}-b_{ij}]\;\;\text{(same order)}$$</div>
-
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>2×2 Example (Addition)</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}1&2\\3&4\end{bmatrix},\; B=\begin{bmatrix}5&6\\7&8\end{bmatrix}\\
-            A+B&=\begin{bmatrix}6&8\\10&12\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-        <div class="card">
-          <h3>3×3 Example (Addition)</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}2&1&0\\3&-1&4\\1&2&3\end{bmatrix},\; B=\begin{bmatrix}-1&2&3\\0&5&-2\\4&-3&1\end{bmatrix}\\
-            A+B&=\begin{bmatrix}1&3&3\\3&4&2\\5&-1&4\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-      </div>
-
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>2×2 Example (Subtraction)</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}4&3\\2&1\end{bmatrix},\; B=\begin{bmatrix}1&2\\3&4\end{bmatrix}\\
-            A-B&=\begin{bmatrix}3&1\\-1&-3\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-        <div class="card">
-          <h3>3×3 Example (Subtraction)</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}5&4&3\\2&1&0\\1&2&3\end{bmatrix},\; B=\begin{bmatrix}3&1&2\\1&0&-1\\0&4&2\end{bmatrix}\\
-            A-B&=\begin{bmatrix}2&3&1\\1&1&1\\1&-2&1\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-      </div>
-
-      <h3>Multiplication</h3>
-      <div class="formula">$$C=AB,\; c_{ij}=\sum_{k=1}^{n} a_{ik}b_{kj},\; (A_{m\times n})(B_{n\times p})=C_{m\times p}$$</div>
-
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>2×2 Example</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}1&2\\3&4\end{bmatrix},\; B=\begin{bmatrix}2&0\\1&2\end{bmatrix}\\
-            AB&=\begin{bmatrix}4&4\\10&8\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-        <div class="card">
-          <h3>3×3 Example</h3>
-          <div class="formula">$$\begin{aligned}
-            A&=\begin{bmatrix}1&2&3\\4&5&6\\7&8&9\end{bmatrix},\; B=\begin{bmatrix}9&8&7\\6&5&4\\3&2&1\end{bmatrix}\\
-            AB&=\begin{bmatrix}30&24&18\\84&69&54\\138&114&90\end{bmatrix}
-          \end{aligned}$$</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="calculator" class="card">
-      <span class="badge">Interactive</span>
-      <h2>Matrix Calculator (2×2 & 3×3)</h2>
-      <p class="note">Choose size and operation, enter numbers, then <strong>Compute</strong>. Output is shown in LaTeX (MathJax).</p>
-
+  <section id="calculator">
+    <h2 id="calc">6. Interactive Calculator</h2>
       <div class="calc">
-        <div class="controls">
-          <div>
-            <label for="size">Matrix Size</label>
-            <select id="size">
-              <option value="2">2 × 2</option>
-              <option value="3">3 × 3</option>
-            </select>
-          </div>
-          <div>
-            <label for="op">Operation</label>
-            <select id="op">
-              <option value="add">Addition (A + B)</option>
-              <option value="sub">Subtraction (A − B)</option>
-              <option value="mul">Multiplication (A · B)</option>
-            </select>
-          </div>
-          <div>
-            <label>Quick Actions</label>
-            <div style="display:flex; gap:8px;">
-              <button class="ghost" id="rand">Randomize</button>
-              <button class="ghost" id="clear">Clear</button>
-            </div>
-          </div>
-          <div style="align-self:end">
-            <button class="primary" id="compute">Compute</button>
-          </div>
+        <div>
+          <label>Rows: <input id="rows" type="number" value="2" min="1" max="6"></label>
+          <label>Cols: <input id="cols" type="number" value="2" min="1" max="6"></label>
+          <button id="build">Build Matrices</button>
         </div>
-
-        <div class="grid cols-2">
-          <div class="panel">
-            <h3>Matrix A</h3>
-            <div id="A" class="matrix-grid"></div>
-          </div>
-          <div class="panel">
-            <h3>Matrix B</h3>
-            <div id="B" class="matrix-grid"></div>
-          </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div><strong>Matrix A</strong><div id="matA" class="matrix-input"></div></div>
+          <div><strong>Matrix B</strong><div id="matB" class="matrix-input"></div></div>
         </div>
-
-        <div class="panel">
-          <h3>LaTeX Preview</h3>
-          <div id="latex" class="output katex-like"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="add">Add</button>
+          <button id="sub">Subtract</button>
+          <button id="mul">Multiply</button>
+          <button id="clear">Clear</button>
+        </div>
+        <div>
+          <strong>Result</strong>
+          <div id="result" class="example"></div>
         </div>
       </div>
-    </section>
 
-    <section id="lecture" class="card">
-      <span class="badge">Lecture‑1</span>
-      <h2>Lecture‑1: Matrices — Foundations</h2>
-      <ol>
-        <li>Motivation & real‑world examples (images, data tables, networks).</li>
-        <li>Definitions & notation, order of a matrix.</li>
-        <li>Types of matrices (at least 20) + where they arise.</li>
-        <li>Basic operations: addition, subtraction, multiplication; properties (commutativity fails for ×).</li>
-        <li>Worked examples (2×2, 3×3).</li>
-        <li>Hands‑on: try the calculator above.</li>
-        <li>Homework: prove $(A+B)^T=A^T+B^T$, and give an example where $AB\neq BA$.</li>
-      </ol>
-    </section>
+      <h2 id="apps">7. Applications</h2>
+      <ul>
+        <li>Computer graphics</li>
+        <li>Systems of equations</li>
+        <li>Markov chains</li>
+        <li>Machine learning</li>
+        <li>Signal processing</li>
+      </ul>
 
-    <footer class="wrap">
-      <p class="muted">© Lecture‑1 — Introduction to Matrices. Rendered with MathJax. Built for web teaching/learning.</p>
-    </footer>
+      <footer>Designed for teaching — extended with examples for each matrix type and calculator supporting multiplication.</footer>
+    </section>
   </main>
 
-  <a href="#calculator" class="sticky-cta">Try the Calculator →</a>
-
   <script>
-    const A = document.getElementById('A');
-    const B = document.getElementById('B');
-    const sizeSel = document.getElementById('size');
-    const opSel = document.getElementById('op');
-    const latexOut = document.getElementById('latex');
-    const btnCompute = document.getElementById('compute');
-    const btnRand = document.getElementById('rand');
-    const btnClear = document.getElementById('clear');
-
-    function buildGrids(n){
-      A.style.setProperty('--cols', n);
-      B.style.setProperty('--cols', n);
-      A.innerHTML = '';
-      B.innerHTML = '';
-      for(let i=0;i<n;i++){
-        for(let j=0;j<n;j++){
-          const ia = document.createElement('input');
-          ia.type='number'; ia.step='any'; ia.placeholder=`a${i+1}${j+1}`; ia.dataset.i=i; ia.dataset.j=j;
-          const ib = document.createElement('input');
-          ib.type='number'; ib.step='any'; ib.placeholder=`b${i+1}${j+1}`; ib.dataset.i=i; ib.dataset.j=j;
-          A.appendChild(ia); B.appendChild(ib);
+    function buildGrid(container, r, c, prefix){
+      container.innerHTML='';
+      for(let i=0;i<r;i++){
+        const row=document.createElement('div'); row.className='matrix-row';
+        for(let j=0;j<c;j++){
+          const cell=document.createElement('div'); cell.className='matrix-cell';
+          const inp=document.createElement('input'); inp.type='number'; inp.value='0'; inp.id=`${prefix}_${i}_${j}`;
+          cell.appendChild(inp); row.appendChild(cell);
+        }
+        container.appendChild(row);
+      }
+    }
+    function readMatrix(prefix, r, c){
+      const M=[]; for(let i=0;i<r;i++){const row=[]; for(let j=0;j<c;j++){row.push(Number(document.getElementById(`${prefix}_${i}_${j}`).value)||0);} M.push(row);} return M;
+    }
+    function renderMatrixInto(container, M){
+      container.innerHTML='';
+      const pre=document.createElement('pre');
+      pre.textContent=M.map(row=>'[ '+row.join(' , ')+' ]').join('\n');
+      container.appendChild(pre);
+    }
+    function addMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v+B[i][j]));}
+    function subMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v-B[i][j]));}
+    function mulMatrices(A,B){
+      const rA=A.length, cA=A[0].length, rB=B.length, cB=B[0].length;
+      if(cA!==rB){alert('Columns of A must equal rows of B'); return null;}
+      const R=Array.from({length:rA},()=>Array(cB).fill(0));
+      for(let i=0;i<rA;i++){
+        for(let j=0;j<cB;j++){
+          for(let k=0;k<cA;k++) R[i][j]+=A[i][k]*B[k][j];
         }
       }
-      latexOut.innerHTML='';
-      MathJax.typesetPromise?.();
+      return R;
     }
 
-    function getMatrix(container, n){
-      const m = Array.from({length:n}, ()=>Array(n).fill(0));
-      const inputs = container.querySelectorAll('input');
-      inputs.forEach(inp=>{
-        const i = +inp.dataset.i, j=+inp.dataset.j;
-        const v = inp.value.trim()===''?0:Number(inp.value);
-        m[i][j]=isFinite(v)?v:0;
-      });
-      return m;
+    const matA=document.getElementById('matA');
+    const matB=document.getElementById('matB');
+    const rowsInput=document.getElementById('rows');
+    const colsInput=document.getElementById('cols');
+    const resultDiv=document.getElementById('result');
+
+    function build(){
+      const r=Number(rowsInput.value)||2, c=Number(colsInput.value)||2;
+      buildGrid(matA,r,c,'A'); buildGrid(matB,r,c,'B'); resultDiv.innerHTML='';
     }
 
-    function toLatexMatrix(M){
-      return `\\begin{bmatrix}` + M.map(r=>r.join(' & ')).join(' \\ ') + `\\end{bmatrix}`;
-    }
+    document.getElementById('build').onclick=build;
+    document.getElementById('add').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,addMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
+    document.getElementById('sub').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,subMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
+    document.getElementById('mul').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); const A=readMatrix('A',r,c),B=readMatrix('B',r,c); const R=mulMatrices(A,B); if(R) renderMatrixInto(resultDiv,R);};
+    document.getElementById('clear').onclick=build;
 
-    function add(A,B){
-      return A.map((r,i)=>r.map((v,j)=>v+B[i][j]));
-    }
-    function sub(A,B){
-      return A.map((r,i)=>r.map((v,j)=>v-B[i][j]));
-    }
-    function mul(A,B){
-      const n=A.length; const C=Array.from({length:n},()=>Array(n).fill(0));
-      for(let i=0;i<n;i++) for(let j=0;j<n;j++) for(let k=0;k<n;k++) C[i][j]+=A[i][k]*B[k][j];
-      return C;
-    }
-
-    function randomize(){
-      document.querySelectorAll('#A input, #B input').forEach(inp=>{
-        const x = Math.round((Math.random()*20-10)*10)/10; // -10..10 step 0.1
-        inp.value = x;
-      });
-      latexOut.innerHTML='';
-    }
-    function clearAll(){
-      document.querySelectorAll('#A input, #B input').forEach(inp=> inp.value='');
-      latexOut.innerHTML='';
-      MathJax.typesetPromise?.();
-    }
-
-    function compute(){
-      const n = +sizeSel.value;
-      const MA = getMatrix(A,n);
-      const MB = getMatrix(B,n);
-      let MC, sym, title;
-      if(opSel.value==='add'){ MC = add(MA,MB); sym='+'; title='A+B'; }
-      else if(opSel.value==='sub'){ MC = sub(MA,MB); sym='-'; title='A-B'; }
-      else { MC = mul(MA,MB); sym='\\cdot'; title='AB'; }
-
-      const La = toLatexMatrix(MA);
-      const Lb = toLatexMatrix(MB);
-      const Lc = toLatexMatrix(MC);
-      latexOut.innerHTML = `$$A=${La},\; B=${Lb}$$<br/>$$${title}=A${sym}B=${Lc}$$`;
-      MathJax.typesetPromise?.();
-    }
-
-    // Initialize
-    sizeSel.addEventListener('change', ()=>buildGrids(+sizeSel.value));
-    btnCompute.addEventListener('click', compute);
-    btnRand.addEventListener('click', randomize);
-    btnClear.addEventListener('click', clearAll);
-    buildGrids(2);
+    build();
   </script>
 </body>
 </html>
