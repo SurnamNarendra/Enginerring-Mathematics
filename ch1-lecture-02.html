@@ -4,56 +4,101 @@
   <meta charset="UTF-8">
   <title>Lecture-3: Row Echelon Form (REF)</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 30px;
-      background: #f9f9fc;
-      color: #333;
+      margin: 0;
+      padding: 0;
+      background: #f9f9fb;
+      color: #222;
       line-height: 1.6;
     }
-    h1, h2, h3 {
-      color: #222;
+    header {
+      background: #003366;
+      color: white;
+      padding: 20px;
       text-align: center;
     }
-    .example {
-      background: #fff;
-      border: 2px solid #ddd;
-      border-radius: 10px;
+    nav {
+      background: #f0f0f5;
       padding: 15px;
-      margin: 15px 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    #calculator {
-      background: #eef7ff;
-      border: 2px solid #cce0ff;
-      border-radius: 12px;
+    nav a {
+      text-decoration: none;
+      color: #003366;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 6px;
+      background: #e6f0ff;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: #003366;
+      color: white;
+    }
+    section {
+      max-width: 1000px;
+      margin: 30px auto;
       padding: 20px;
-      margin-top: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #003366;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 5px;
+    }
+    .example {
+      background: #eef7ff;
+      padding: 15px;
+      border-left: 4px solid #003366;
+      margin: 15px 0;
+    }
+    .calculator {
+      background: #f4f8ff;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
     }
     textarea {
       width: 100%;
       height: 100px;
-      margin: 10px 0;
       font-family: monospace;
+      margin-bottom: 10px;
     }
     button {
-      background: #007bff;
+      background: #003366;
       color: white;
-      border: none;
       padding: 10px 20px;
-      border-radius: 8px;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 16px;
+      margin: 5px;
     }
     button:hover {
-      background: #0056b3;
+      background: #0055aa;
     }
-    #output {
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    td {
+      border: 1px solid #ccc;
+      padding: 8px 15px;
+      text-align: center;
+    }
+    #steps {
       margin-top: 20px;
       padding: 15px;
       background: #fff;
@@ -63,198 +108,265 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Lecture-3: Row Echelon Form (REF)</h1>
+  </header>
 
-<h1>Lecture-3: Row Echelon Form (REF)</h1>
-<section>
-  <h2>1. Importance of Elementary Operations</h2>
-  <ul>
-    <li>They help to <strong>simplify matrices</strong> into forms such as Row Echelon Form (REF) and Reduced Row Echelon Form (RREF).</li>
-    <li>They form the basis of the <strong>Gaussian elimination</strong> method used to solve systems of linear equations.</li>
-    <li>They make it possible to compute <strong>rank, determinant, and inverses</strong> in a systematic way.</li>
-    <li>They preserve the solution set of linear systems (row operations), allowing transformations without changing the results.</li>
-  </ul>
+  <nav>
+    <a href="#importance">Importance</a>
+    <a href="#operations">Elementary Operations</a>
+    <a href="#definition">Definition of REF</a>
+    <a href="#examples">Examples</a>
+    <a href="#calculator">REF Calculator</a>
+  </nav>
+
+  <section id="importance">
+    <h2>1. Importance of Elementary Operations</h2>
+    <ul>
+      <li>They help to <strong>simplify matrices</strong> into forms such as Row Echelon Form (REF) and Reduced Row Echelon Form (RREF).</li>
+      <li>They form the basis of the <strong>Gaussian elimination</strong> method used to solve systems of linear equations.</li>
+      <li>They make it possible to compute <strong>rank, determinant, and inverses</strong> in a systematic way.</li>
+      <li>They preserve the solution set of linear systems (row operations), allowing transformations without changing the results.</li>
+    </ul>
+  </section>
+
+  <section id="operations">
+    <h2>2. Three Types of Elementary Operations</h2>
+
+    <h3>(i) Interchange of Two Rows or Two Columns</h3>
+    <p>Notation: \( R_i \leftrightarrow R_j \) or \( C_i \leftrightarrow C_j \).</p>
+    <div class="example">
+      Example:  
+      \[
+      A = \begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
+      \]
+      After \( R_1 \leftrightarrow R_3 \):  
+      \[
+      \begin{bmatrix}7 & 8 & 9 \\ 4 & 5 & 6 \\ 1 & 2 & 3 \end{bmatrix}
+      \]
+    </div>
+
+    <h3>(ii) Multiplication of a Row or Column by a Non-zero Number</h3>
+    <p>Notation: \( R_i \to k R_i, \; k \neq 0 \).</p>
+    <div class="example">
+      Example:  
+      \[
+      A = \begin{bmatrix}2 & 3 \\ 4 & 5 \end{bmatrix}, \quad R_1 \to 3R_1
+      \]
+      Result:  
+      \[
+      \begin{bmatrix}6 & 9 \\ 4 & 5 \end{bmatrix}
+      \]
+    </div>
+
+    <h3>(iii) Multiplication of a Row (or Column) by a Non-zero Number and Adding to Another</h3>
+    <p>Notation: \( R_j \to R_j + kR_i \).</p>
+    <div class="example">
+      Example:  
+      \[
+      A = \begin{bmatrix}1 & 2 \\ 3 & 4 \end{bmatrix}, \quad R_2 \to R_2 - 3R_1
+      \]
+      Result:  
+      \[
+      \begin{bmatrix}1 & 2 \\ 0 & -2 \end{bmatrix}
+      \]
+    </div>
+  </section>
+
+  <section id="definition">
+    <h2>3. Definition of Row Echelon Form (REF)</h2>
+    <p>A matrix is in <b>Row Echelon Form</b> if:</p>
+    <ul>
+      <li>All nonzero rows are above rows of all zeros.</li>
+      <li>The leading entry (pivot) of each nonzero row is strictly to the right of the leading entry of the row above it.</li>
+      <li>All entries below each pivot are zero.</li>
+    </ul>
+  </section>
+
+  <section id="examples">
+    <h2>4. Examples of Row Echelon Form</h2>
+    <div class="example">\[
+    \begin{bmatrix}1 & 2 & 3 \\ 0 & 1 & 4 \\ 0 & 0 & 1\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & 5 & 2 \\ 0 & 1 & 7 \\ 0 & 0 & 0\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}2 & 3 & 4 & 5 \\ 0 & 1 & 6 & 7 \\ 0 & 0 & 0 & 0\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & -1 & 2 \\ 0 & 3 & 5 \\ 0 & 0 & 7\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & 4 & 6 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}3 & 2 & 1 \\ 0 & 5 & 4 \\ 0 & 0 & 6\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & 7 & 3 & 2 \\ 0 & 0 & 5 & 1 \\ 0 & 0 & 0 & 0\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & 2 \\ 0 & 1 \\ 0 & 0\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}2 & 4 & 6 \\ 0 & 3 & 5 \\ 0 & 0 & 8\end{bmatrix}
+    \]</div>
+    <div class="example">\[
+    \begin{bmatrix}1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 5 \\ 0 & 0 & 0 & 1\end{bmatrix}
+    \]</div>
+  </section>
+
+ <section id="definition">
+    <h2>3. Definition of Row Echelon Form (REF)</h2>
+    <p>A matrix is in <b>Row Echelon Form</b> if:</p>
+    <ul>
+      <li>All nonzero rows are above rows of all zeros.</li>
+      <li>The leading entry (pivot) of each nonzero row is strictly to the right of the leading entry of the row above it.</li>
+      <li>All entries below each pivot are zero.</li>
+    </ul>
+  </section>
+
+ <section id="examples">
+  <h2>4. Examples of Row Echelon Form (with Explanations)</h2>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 2 & 3 \\ 0 & 1 & 4 \\ 0 & 0 & 1\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> The pivots are at positions (1,1), (2,2), (3,3). Each pivot is to the right of the pivot above, and all entries below pivots are zero. ✔</p>
+  </div>
+<strong>Example 1</strong>
+    <div class="matrix">
+      \[
+      A = \begin{bmatrix}
+      0 & 2 & 3 \\
+      1 & 5 & 6 \\
+      0 & 0 & 7
+      \end{bmatrix}
+      \]
+    </div>
+    <p class="reason">
+      ❌ Not in echelon form because the first row begins with a zero. 
+      The pivot of the first nonzero row must be in column 1.
+    </p>
+  </div>
+
+  <div class="example">
+    <strong>Example 2</strong>
+    <div class="matrix">
+      \[
+      B = \begin{bmatrix}
+      1 & 2 & 3 \\
+      0 & 0 & 4 \\
+      0 & 5 & 6
+      \end{bmatrix}
+      \]
+    </div>
+    <p class="reason">
+      ❌ Not in echelon form because the third row has its pivot in column 2, 
+      which comes below a row with a pivot in column 3. 
+      Pivots must move strictly to the right as we go down rows.
+    </p>
+  </div>
+
+  <div class="example">
+    <strong>Example 3</strong>
+    <div class="matrix">
+      \[
+      C = \begin{bmatrix}
+      1 & 4 & 2 \\
+      0 & 2 & 5 \\
+      0 & 0 & 0 \\
+      0 & 3 & 1
+      \end{bmatrix}
+      \]
+    </div>
+    <p class="reason">
+      ❌ Not in echelon form because all-zero rows must be at the bottom, 
+      but here a nonzero row appears after a zero row.
+    </p>
+  </div>
+
+  <div class="example">
+    <strong>Example 4</strong>
+    <div class="matrix">
+      \[
+      D = \begin{bmatrix}
+      1 & 2 & 3 \\
+      1 & 4 & 5 \\
+      0 & 0 & 6
+      \end{bmatrix}
+      \]
+    </div>
+    <p class="reason">
+      ❌ Not in echelon form because the second row’s leading entry is in the same column as the first row’s pivot. 
+      Pivots must move strictly to the right.
+    </p>
+  </div>
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 5 & 2 \\ 0 & 1 & 7 \\ 0 & 0 & 0\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Nonzero rows are above the zero row. Pivots at (1,1) and (2,2) are in proper order. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}2 & 3 & 4 & 5 \\ 0 & 1 & 6 & 7 \\ 0 & 0 & 0 & 0\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivot in row 1 is at column 1, pivot in row 2 is at column 2. All-zero row is at the bottom. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & -1 & 2 \\ 0 & 3 & 5 \\ 0 & 0 & 7\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivots appear at (1,1), (2,2), (3,3). Each pivot moves strictly right as we go down rows. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 4 & 6 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivot of row 1 is at column 1, pivot of row 2 is at column 3. Row 3 is zero. Strictly increasing pivot positions are maintained. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}3 & 2 & 1 \\ 0 & 5 & 4 \\ 0 & 0 & 6\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivots are at diagonal positions (1,1), (2,2), (3,3). Matrix is upper triangular, which always satisfies REF conditions. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 7 & 3 & 2 \\ 0 & 0 & 5 & 1 \\ 0 & 0 & 0 & 0\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Row 1 pivot is at column 1, row 2 pivot is at column 3. The zero row is at the bottom. This is valid REF. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 2 \\ 0 & 1 \\ 0 & 0\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivot at (1,1), next pivot at (2,2), and row 3 is zero. Classic triangular REF form. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}2 & 4 & 6 \\ 0 & 3 & 5 \\ 0 & 0 & 8\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Upper triangular with pivots at (1,1), (2,2), (3,3). Automatically satisfies REF rules. ✔</p>
+  </div>
+
+  <div class="example">
+    \[
+    \begin{bmatrix}1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 5 \\ 0 & 0 & 0 & 1\end{bmatrix}
+    \]
+    <p><b>Explanation:</b> Pivot in row 1 is column 1, row 2 pivot in column 2, row 3 pivot in column 4. Each pivot is to the right of the one above. ✔</p>
+  </div>
 </section>
-
-<section>
-  <h2>2. Three Types of Elementary Operations</h2>
-
-  <h3>(i) Interchange of Two Rows or Two Columns</h3>
-  <p>Notation: \( R_i \leftrightarrow R_j \) or \( C_i \leftrightarrow C_j \).</p>
-  <div class="example">
-    Example:  
-    \[
-    A = \begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
-    \]
-    After \( R_1 \leftrightarrow R_3 \):  
-    \[
-    \begin{bmatrix}7 & 8 & 9 \\ 4 & 5 & 6 \\ 1 & 2 & 3 \end{bmatrix}
-    \]
-  </div>
-
-  <h3>(ii) Multiplication of a Row or Column by a Non-zero Number</h3>
-  <p>Notation: \( R_i \to k R_i, \; k \neq 0 \).</p>
-  <div class="example">
-    Example:  
-    \[
-    A = \begin{bmatrix}2 & 3 \\ 4 & 5 \end{bmatrix}, \quad R_1 \to 3R_1
-    \]
-    Result:  
-    \[
-    \begin{bmatrix}6 & 9 \\ 4 & 5 \end{bmatrix}
-    \]
-  </div>
-
-  <h3>(iii) Multiplication of a Row (or Column) by a Non-zero Number and Adding to Another</h3>
-  <p>Notation: \( R_j \to R_j + kR_i \).</p>
-  <div class="example">
-    Example:  
-    \[
-    A = \begin{bmatrix}1 & 2 \\ 3 & 4 \end{bmatrix}, \quad R_2 \to R_2 - 3R_1
-    \]
-    Result:  
-    \[
-    \begin{bmatrix}1 & 2 \\ 0 & -2 \end{bmatrix}
-    \]
-  </div>
-</section>
-<section>
-  <h2>1. Recap of Elementary Row Operations</h2>
-  <p>To convert a matrix into <b>Row Echelon Form (REF)</b>, we use three operations:</p>
-  <ul>
-    <li>Row Interchange: Swap two rows.</li>
-    <li>Row Scaling: Multiply a row by a non-zero scalar.</li>
-    <li>Row Replacement: Replace a row by adding a multiple of another row.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>2. Definition of Row Echelon Form</h2>
-  <p>A matrix is in <b>Row Echelon Form</b> if:</p>
-  <ul>
-    <li>All nonzero rows are above rows of all zeros.</li>
-    <li>The leading entry (pivot) of each nonzero row is strictly to the right of the leading entry of the row above it.</li>
-    <li>All entries below each pivot are zero.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>3. Examples of Row Echelon Form</h2>
-
-  <div class="example">
-    <b>Example 1:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 2 & 3 \\
-    0 & 1 & 4 \\
-    0 & 0 & 1
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 2:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 5 & 2 \\
-    0 & 1 & 7 \\
-    0 & 0 & 0
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 3:</b><br>
-    \[
-    \begin{bmatrix}
-    2 & 3 & 4 & 5 \\
-    0 & 1 & 6 & 7 \\
-    0 & 0 & 0 & 0
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 4:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & -1 & 2 \\
-    0 & 3 & 5 \\
-    0 & 0 & 7
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 5:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 4 & 6 \\
-    0 & 0 & 1 \\
-    0 & 0 & 0
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 6:</b><br>
-    \[
-    \begin{bmatrix}
-    3 & 2 & 1 \\
-    0 & 5 & 4 \\
-    0 & 0 & 6
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 7:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 7 & 3 & 2 \\
-    0 & 0 & 5 & 1 \\
-    0 & 0 & 0 & 0
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 8:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 2 \\
-    0 & 1 \\
-    0 & 0
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 9:</b><br>
-    \[
-    \begin{bmatrix}
-    2 & 4 & 6 \\
-    0 & 3 & 5 \\
-    0 & 0 & 8
-    \end{bmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <b>Example 10:</b><br>
-    \[
-    \begin{bmatrix}
-    1 & 0 & 2 & 3 \\
-    0 & 1 & 4 & 5 \\
-    0 & 0 & 0 & 1
-    \end{bmatrix}
-    \]
-  </div>
-</section>
-  
-</body>
-</html>
-
-
 
 
 
