@@ -253,6 +253,13 @@
   
 </body>
 </html>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -284,14 +291,11 @@
     background: #eef7ff;
     border: 2px solid #cce0ff;
     border-radius: 12px;
-    width: 70%;
-  }
-  .controls label {
-    margin-right: 10px;
+    width: 80%;
   }
   .controls input {
-    width: 50px;
     margin: 5px;
+    padding: 4px;
   }
   button {
     background: #007bff;
@@ -318,18 +322,38 @@
 
 <h1>Interactive Row Operations & REF Demo</h1>
 
+<!-- Preset matrix selector -->
 <div style="text-align:center;">
   <label>Choose preset matrix: </label>
   <select id="preset">
     <option value="[[1,2,3],[4,5,6],[7,8,9]]">A = [[1,2,3],[4,5,6],[7,8,9]]</option>
-    <option value="[[2,1,-1],[ -3,-1,2],[-2,1,2]]">B = [[2,1,-1],[-3,-1,2],[-2,1,2]]</option>
+    <option value="[[2,1,-1],[-3,-1,2],[-2,1,2]]">B = [[2,1,-1],[-3,-1,2],[-2,1,2]]</option>
     <option value="[[1,2,1],[2,4,-1],[-1,-2,5]]">C = [[1,2,1],[2,4,-1],[-1,-2,5]]</option>
   </select>
   <button onclick="loadPreset()">Load</button>
 </div>
 
+<hr>
+
+<!-- Custom matrix input -->
+<div style="text-align:center;">
+  <h3>Or Enter Custom Matrix</h3>
+  <label>Rows:</label> <input type="number" id="rows" value="3" min="1" max="6">
+  <label>Cols:</label> <input type="number" id="cols" value="3" min="1" max="6">
+  <button onclick="generateMatrixInputs()">Generate</button>
+</div>
+
+<div id="customMatrixInputs" style="text-align:center; margin:10px;"></div>
+<div style="text-align:center;">
+  <button onclick="loadCustomMatrix()">Load Custom Matrix</button>
+</div>
+
+<hr>
+
+<!-- Matrix Display -->
 <div id="matrixDisplay"></div>
 
+<!-- Row Operations Controls -->
 <div class="controls">
   <h3>Operations</h3>
 
@@ -371,6 +395,7 @@
 <script>
 let originalMatrix, matrix;
 
+// Display matrix as HTML table
 function displayMatrix() {
   let html = "<table>";
   matrix.forEach(row => {
@@ -384,6 +409,7 @@ function displayMatrix() {
   document.getElementById("matrixDisplay").innerHTML = html;
 }
 
+// Load preset
 function loadPreset() {
   matrix = JSON.parse(document.getElementById("preset").value);
   originalMatrix = JSON.parse(JSON.stringify(matrix));
@@ -391,12 +417,48 @@ function loadPreset() {
   document.getElementById("steps").innerHTML = "";
 }
 
+// Reset
 function resetMatrix() {
   matrix = JSON.parse(JSON.stringify(originalMatrix));
   displayMatrix();
   document.getElementById("steps").innerHTML = "";
 }
 
+// Generate custom matrix inputs
+function generateMatrixInputs() {
+  let rows = parseInt(document.getElementById("rows").value);
+  let cols = parseInt(document.getElementById("cols").value);
+  let html = "<table style='margin:auto;'>";
+  for (let i = 0; i < rows; i++) {
+    html += "<tr>";
+    for (let j = 0; j < cols; j++) {
+      html += `<td><input type="number" id="cell_${i}_${j}" style="width:60px;"></td>`;
+    }
+    html += "</tr>";
+  }
+  html += "</table>";
+  document.getElementById("customMatrixInputs").innerHTML = html;
+}
+
+// Load custom matrix
+function loadCustomMatrix() {
+  let rows = parseInt(document.getElementById("rows").value);
+  let cols = parseInt(document.getElementById("cols").value);
+  matrix = [];
+  for (let i = 0; i < rows; i++) {
+    let row = [];
+    for (let j = 0; j < cols; j++) {
+      let val = parseFloat(document.getElementById(`cell_${i}_${j}`).value) || 0;
+      row.push(val);
+    }
+    matrix.push(row);
+  }
+  originalMatrix = JSON.parse(JSON.stringify(matrix));
+  displayMatrix();
+  document.getElementById("steps").innerHTML = "";
+}
+
+// Row Operations
 function swapRows() {
   let r1 = parseInt(document.getElementById("swapR1").value) - 1;
   let r2 = parseInt(document.getElementById("swapR2").value) - 1;
@@ -405,7 +467,6 @@ function swapRows() {
     displayMatrix();
   }
 }
-
 function scaleRow() {
   let r = parseInt(document.getElementById("scaleRow").value) - 1;
   let k = parseFloat(document.getElementById("scaleFactor").value);
@@ -414,7 +475,6 @@ function scaleRow() {
     displayMatrix();
   }
 }
-
 function addMultiple() {
   let rt = parseInt(document.getElementById("targetRow").value) - 1;
   let rs = parseInt(document.getElementById("sourceRow").value) - 1;
@@ -427,6 +487,7 @@ function addMultiple() {
   }
 }
 
+// Convert to REF
 function convertToREF() {
   let A = JSON.parse(JSON.stringify(matrix));
   let m = A.length, n = A[0].length;
@@ -470,3 +531,4 @@ function convertToREF() {
 
 </body>
 </html>
+
