@@ -98,9 +98,8 @@
 
   <nav>
     <a href="#definition">Definition</a>
-    <a href="#form">Mathematical Form</a>
     <a href="#types">Types of Matrices</a>
-    <a href="#excel">Excel Operations</a>
+    <a href="#excel">Operations</a>
     <a href="#calculator">Matrix Calculator</a>
     <a href="#applications">Applications</a>
   </nav>
@@ -108,46 +107,156 @@
   <section id="definition">
     <h2>1. Definition</h2>
     <p>A <b>matrix</b> is a rectangular array of numbers arranged in rows and columns. It is denoted usually by capital letters like \(A, B, C\).</p>
+    <p>Matrices provide a compact way to organize data and perform algebraic operations systematically. They are widely used in engineering, physics, computer science, and economics.</p>
   </section>
 
   <section id="form">
     <h2>2. Mathematical Form & Order</h2>
     <p>A general matrix of order \(m \times n\):</p>
     <p>\[ A_{m \times n} = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} \]</p>
+    <p>Here, \(m\) represents the number of rows, and \(n\) represents the number of columns. Each element in the matrix is written as \(a_{ij}\), where \(i\) is the row index and \(j\) is the column index.</p>
     <div class="example">
       <b>Example:</b> A 2x3 matrix:<br>
       \[ B = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \]
     </div>
+    <p>Notice that this example has 2 rows and 3 columns, so we call it a matrix of order \(2 \times 3\).</p>
   </section>
 
   <section id="types">
-    <h2>3. Types of Matrices (with formulas & examples)</h2>
-    <ol>
-      <li><b>Square Matrix:</b> Formula: \(n \times n\). <br> Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)</li>
-      <li><b>Rectangular Matrix:</b> Rows ≠ Columns. <br> Example: \(\begin{bmatrix}1&2&3\\4&5&6\end{bmatrix}\)</li>
-      <li><b>Diagonal Matrix:</b> Non-diagonal elements = 0. <br> Example: \(\begin{bmatrix}2&0&0\\0&3&0\\0&0&4\end{bmatrix}\)</li>
-      <li><b>Scalar Matrix:</b> Diagonal matrix with equal diagonal entries. <br> Example: \(\begin{bmatrix}5&0\\0&5\end{bmatrix}\)</li>
-      <li><b>Identity Matrix:</b> Diagonal entries = 1. <br> Example: \(I = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}\)</li>
-      <li><b>Zero Matrix:</b> All elements = 0. <br> Example: \(\begin{bmatrix}0&0\\0&0\end{bmatrix}\)</li>
-      <li><b>Row Matrix:</b> One row. <br> Example: \(\begin{bmatrix}1&2&3&4\end{bmatrix}\)</li>
-      <li><b>Column Matrix:</b> One column. <br> Example: \(\begin{bmatrix}1\\2\\3\\4\end{bmatrix}\)</li>
-      <li><b>Symmetric Matrix:</b> \(A = A^T\). <br> Example: \(\begin{bmatrix}1&2\\2&3\end{bmatrix}\)</li>
-      <li><b>Skew-Symmetric Matrix:</b> \(A^T = -A\). <br> Example: \(\begin{bmatrix}0&-2\\2&0\end{bmatrix}\)</li>
-      <li><b>Upper Triangular:</b> Below diagonal = 0. <br> Example: \(\begin{bmatrix}1&2&3\\0&4&5\\0&0&6\end{bmatrix}\)</li>
-      <li><b>Lower Triangular:</b> Above diagonal = 0. <br> Example: \(\begin{bmatrix}1&0&0\\2&3&0\\4&5&6\end{bmatrix}\)</li>
-      <li><b>Transpose:</b> \((A^T)_{ij} = A_{ji}\). <br> Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}^T = \begin{bmatrix}1&3\\2&4\end{bmatrix}\)</li>
-      <li><b>Trace:</b> Sum of diagonals. <br> Example: \(Tr(A) = 1+4 = 5\) for \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)</li>
-      <li><b>Orthogonal:</b> \(A^TA = I\). <br> Example: \(\begin{bmatrix}0&1\\-1&0\end{bmatrix}\)</li>
-      <li><b>Singular:</b> \(\det(A) = 0\). <br> Example: \(\det \begin{bmatrix}2&4\\1&2\end{bmatrix} = 0\)</li>
-      <li><b>Non-Singular:</b> \(\det(A) \neq 0\). <br> Example: \(\det \begin{bmatrix}1&2\\3&4\end{bmatrix} = -2\)</li>
-      <li><b>Idempotent:</b> \(A^2 = A\). <br> Example: \(\begin{bmatrix}1&0\\0&0\end{bmatrix}\)</li>
-      <li><b>Nilpotent:</b> \(A^k = 0\). <br> Example: \(\begin{bmatrix}0&1\\0&0\end{bmatrix}^2 = 0\)</li>
-      <li><b>Involutory:</b> \(A^2 = I\). <br> Example: \(\begin{bmatrix}0&1\\1&0\end{bmatrix}\)</li>
-    </ol>
-  </section>
+  <h2>3. Types of Matrices </h2>
+  <p>
+    Matrices are classified into different types based on their structure,
+    size, and arrangement of elements. Each type has unique properties that
+    make it useful in solving mathematical and real-world problems.
+  </p>
+  <ol>
+    <li>
+      <b>Square Matrix:</b> A matrix with equal number of rows and columns.  
+      <i>Important because determinants and eigenvalues are only defined for square matrices.</i><br>
+      Formula: \(n \times n\). <br>
+      Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Rectangular Matrix:</b> A matrix where rows ≠ columns.  
+      <i>Often used to represent datasets where rows = observations and columns = variables.</i><br>
+      Example: \(\begin{bmatrix}1&2&3\\4&5&6\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Diagonal Matrix:</b> Only diagonal elements are non-zero.  
+      <i>Useful in simplifying multiplication and powers of matrices.</i><br>
+      Example: \(\begin{bmatrix}2&0&0\\0&3&0\\0&0&4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Scalar Matrix:</b> A diagonal matrix with identical diagonal elements.  
+      <i>Acts like scaling when multiplied with another matrix.</i><br>
+      Example: \(\begin{bmatrix}5&0\\0&5\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Identity Matrix:</b> Diagonal entries are all 1.  
+      <i>It plays the same role as number 1 in multiplication: \(AI = IA = A\).</i><br>
+      Example: \(I = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Zero Matrix:</b> All entries are zero.  
+      <i>Acts like zero in addition: \(A+0=A\).</i><br>
+      Example: \(\begin{bmatrix}0&0\\0&0\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Row Matrix:</b> Only one row.  
+      <i>Useful to represent a single observation or data record.</i><br>
+      Example: \(\begin{bmatrix}1&2&3&4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Column Matrix:</b> Only one column.  
+      <i>Often used to represent vectors in physics and mathematics.</i><br>
+      Example: \(\begin{bmatrix}1\\2\\3\\4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Symmetric Matrix:</b> A square matrix where \(A = A^T\).  
+      <i>Common in statistics (covariance matrices) and optimization problems.</i><br>
+      Example: \(\begin{bmatrix}1&2\\2&3\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Skew-Symmetric Matrix:</b> A square matrix where \(A^T = -A\).  
+      <i>Diagonal entries are always zero; important in linear algebra and physics.</i><br>
+      Example: \(\begin{bmatrix}0&-2\\2&0\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Upper Triangular Matrix:</b> All elements below diagonal are zero.  
+      <i>Useful in solving linear equations by back-substitution.</i><br>
+      Example: \(\begin{bmatrix}1&2&3\\0&4&5\\0&0&6\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Lower Triangular Matrix:</b> All elements above diagonal are zero.  
+      <i>Used in forward substitution methods.</i><br>
+      Example: \(\begin{bmatrix}1&0&0\\2&3&0\\4&5&6\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Transpose:</b> Formed by interchanging rows and columns.  
+      <i>Essential in defining symmetric and orthogonal matrices.</i><br>
+      Example: \(\begin{bmatrix}1&2\\3&4\end{bmatrix}^T = \begin{bmatrix}1&3\\2&4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Trace:</b> The sum of diagonal elements of a square matrix.  
+      <i>Often appears in eigenvalue problems and matrix invariants.</i><br>
+      Example: \(Tr(A) = 1+4 = 5\) for \(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Orthogonal Matrix:</b> A square matrix with \(A^TA = I\).  
+      <i>Represents rotation or reflection in geometry.</i><br>
+      Example: \(\begin{bmatrix}0&1\\-1&0\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Singular Matrix:</b> A square matrix with \(\det(A) = 0\).  
+      <i>It does not have an inverse.</i><br>
+      Example: \(\det \begin{bmatrix}2&4\\1&2\end{bmatrix} = 0\)
+    </li>
+
+    <li>
+      <b>Non-Singular Matrix:</b> A square matrix with \(\det(A) \neq 0\).  
+      <i>It has an inverse.</i><br>
+      Example: \(\det \begin{bmatrix}1&2\\3&4\end{bmatrix} = -2\)
+    </li>
+
+    <li>
+      <b>Idempotent Matrix:</b> Satisfies \(A^2 = A\).  
+      <i>Used in statistics for projection matrices.</i><br>
+      Example: \(\begin{bmatrix}1&0\\0&0\end{bmatrix}\)
+    </li>
+
+    <li>
+      <b>Nilpotent Matrix:</b> Some power of the matrix is zero (\(A^k=0\)).  
+      <i>Important in advanced linear algebra concepts.</i><br>
+      Example: \(\begin{bmatrix}0&1\\0&0\end{bmatrix}^2 = 0\)
+    </li>
+
+    <li>
+      <b>Involutory Matrix:</b> A square matrix with \(A^2=I\).  
+      <i>Acts as its own inverse.</i><br>
+      Example: \(\begin{bmatrix}0&1\\1&0\end{bmatrix}\)
+    </li>
+  </ol>
+</section>
+
 
   <section id="excel">
     <h2>4. Basic Operations in Excel</h2>
+    <p>Matrix operations such as addition, subtraction, and multiplication are fundamental. These can even be carried out in Excel or any programming language for practical applications.</p>
     <div class="example">
       <b>Addition Example:</b><br>
       \[ A = \begin{bmatrix}1&2\\3&4\end{bmatrix}, \; B = \begin{bmatrix}5&6\\7&8\end{bmatrix} \]<br>
@@ -161,10 +270,12 @@
       <b>Multiplication Example:</b><br>
       \[ A \times B = \begin{bmatrix}1&2\\3&4\end{bmatrix} \times \begin{bmatrix}5&6\\7&8\end{bmatrix} = \begin{bmatrix}19&22\\43&50\end{bmatrix} \]
     </div>
+    <p>Notice that multiplication is not element-wise but involves row-by-column operations. Matrix multiplication is not commutative, i.e., \(AB \neq BA\) in general.</p>
   </section>
 
   <section id="calculator">
     <h2 id="calc">6. Interactive Calculator</h2>
+    <p>Below is an interactive calculator where you can input two matrices and perform basic operations such as addition, subtraction, and multiplication.</p>
       <div class="calc">
         <div>
           <label>Rows: <input id="rows" type="number" value="2" min="1" max="6"></label>
@@ -188,15 +299,16 @@
       </div>
 
       <h2 id="apps">7. Applications</h2>
+      <p>Matrices have vast applications in real-world problems. Some of the most common are listed below:</p>
       <ul>
-        <li>Computer graphics</li>
-        <li>Systems of equations</li>
-        <li>Markov chains</li>
-        <li>Machine learning</li>
-        <li>Signal processing</li>
+        <li>Computer graphics (3D transformations, rotations, scaling)</li>
+        <li>Solving systems of linear equations</li>
+        <li>Markov chains in probability and statistics</li>
+        <li>Machine learning and neural networks</li>
+        <li>Signal processing and communication systems</li>
       </ul>
 
-      <footer>Designed for teaching — extended with examples for each matrix type and calculator supporting multiplication.</footer>
+      <footer>Designed by Dr. Surnam Narendra</footer>
     </section>
   </main>
 
