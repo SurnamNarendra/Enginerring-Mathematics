@@ -199,23 +199,188 @@
     \]
   </div>
 </section>
+  
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Row Operations & REF Demo</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background: #f9f9fc;
+    color: #333;
+  }
+  h1 { text-align: center; }
+  table {
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+  td {
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .controls {
+    margin: 20px auto;
+    padding: 15px;
+    background: #eef7ff;
+    border: 2px solid #cce0ff;
+    border-radius: 12px;
+    width: 70%;
+  }
+  .controls label {
+    margin-right: 10px;
+  }
+  .controls input {
+    width: 50px;
+    margin: 5px;
+  }
+  button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  button:hover {
+    background: #0056b3;
+  }
+  #steps {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
 
-<section id="calculator">
-  <h2>4. Interactive Calculator</h2>
-  <p>Enter your matrix (rows separated by new lines, numbers separated by spaces):</p>
-  <textarea id="matrixInput">1 2 1
-2 4 -1
--1 -2 5</textarea><br>
-  <button onclick="computeREF()">Compute REF</button>
-  <div id="output"></div>
-</section>
+<h1>Interactive Row Operations & REF Demo</h1>
+
+<div style="text-align:center;">
+  <label>Choose preset matrix: </label>
+  <select id="preset">
+    <option value="[[1,2,3],[4,5,6],[7,8,9]]">A = [[1,2,3],[4,5,6],[7,8,9]]</option>
+    <option value="[[2,1,-1],[ -3,-1,2],[-2,1,2]]">B = [[2,1,-1],[-3,-1,2],[-2,1,2]]</option>
+    <option value="[[1,2,1],[2,4,-1],[-1,-2,5]]">C = [[1,2,1],[2,4,-1],[-1,-2,5]]</option>
+  </select>
+  <button onclick="loadPreset()">Load</button>
+</div>
+
+<div id="matrixDisplay"></div>
+
+<div class="controls">
+  <h3>Operations</h3>
+
+  <div>
+    <label>Swap rows:</label>
+    <input type="number" id="swapR1" placeholder="r1">
+    <label>with:</label>
+    <input type="number" id="swapR2" placeholder="r2">
+    <button onclick="swapRows()">Swap</button>
+  </div>
+
+  <div>
+    <label>Scale row: r</label>
+    <input type="number" id="scaleRow" placeholder="r">
+    <label>factor:</label>
+    <input type="number" id="scaleFactor" placeholder="k">
+    <button onclick="scaleRow()">Scale</button>
+  </div>
+
+  <div>
+    <label>Add multiple: target r</label>
+    <input type="number" id="targetRow" placeholder="rt">
+    <label>plus k × source r</label>
+    <input type="number" id="sourceRow" placeholder="rs">
+    <label>k:</label>
+    <input type="number" id="multipleK" placeholder="k">
+    <button onclick="addMultiple()">Apply</button>
+  </div>
+
+  <div style="margin-top:10px;">
+    <button onclick="resetMatrix()">Reset matrix</button>
+    <button onclick="convertToREF()">Convert to REF (steps)</button>
+  </div>
+  <p><b>Tip:</b> Indexing in controls is 1-based (r1, r2, ...)</p>
+</div>
+
+<div id="steps"></div>
 
 <script>
-function computeREF() {
-  let input = document.getElementById("matrixInput").value.trim().split("\n");
-  let A = input.map(row => row.trim().split(/\s+/).map(Number));
+let originalMatrix, matrix;
+
+function displayMatrix() {
+  let html = "<table>";
+  matrix.forEach(row => {
+    html += "<tr>";
+    row.forEach(val => {
+      html += `<td>${val.toFixed(2)}</td>`;
+    });
+    html += "</tr>";
+  });
+  html += "</table>";
+  document.getElementById("matrixDisplay").innerHTML = html;
+}
+
+function loadPreset() {
+  matrix = JSON.parse(document.getElementById("preset").value);
+  originalMatrix = JSON.parse(JSON.stringify(matrix));
+  displayMatrix();
+  document.getElementById("steps").innerHTML = "";
+}
+
+function resetMatrix() {
+  matrix = JSON.parse(JSON.stringify(originalMatrix));
+  displayMatrix();
+  document.getElementById("steps").innerHTML = "";
+}
+
+function swapRows() {
+  let r1 = parseInt(document.getElementById("swapR1").value) - 1;
+  let r2 = parseInt(document.getElementById("swapR2").value) - 1;
+  if (r1 >= 0 && r2 >= 0 && r1 < matrix.length && r2 < matrix.length) {
+    [matrix[r1], matrix[r2]] = [matrix[r2], matrix[r1]];
+    displayMatrix();
+  }
+}
+
+function scaleRow() {
+  let r = parseInt(document.getElementById("scaleRow").value) - 1;
+  let k = parseFloat(document.getElementById("scaleFactor").value);
+  if (r >= 0 && r < matrix.length && k !== 0) {
+    matrix[r] = matrix[r].map(val => val * k);
+    displayMatrix();
+  }
+}
+
+function addMultiple() {
+  let rt = parseInt(document.getElementById("targetRow").value) - 1;
+  let rs = parseInt(document.getElementById("sourceRow").value) - 1;
+  let k = parseFloat(document.getElementById("multipleK").value);
+  if (rt >= 0 && rs >= 0 && rt < matrix.length && rs < matrix.length) {
+    for (let i = 0; i < matrix[0].length; i++) {
+      matrix[rt][i] += k * matrix[rs][i];
+    }
+    displayMatrix();
+  }
+}
+
+function convertToREF() {
+  let A = JSON.parse(JSON.stringify(matrix));
   let m = A.length, n = A[0].length;
   let i = 0, j = 0;
+  let stepLog = "<h3>Steps to REF:</h3><ol>";
 
   while (i < m && j < n) {
     let maxRow = i;
@@ -225,12 +390,17 @@ function computeREF() {
       }
     }
     if (A[maxRow][j] !== 0) {
-      [A[i], A[maxRow]] = [A[maxRow], A[i]];
-      let pivot = A[i][j];
+      if (maxRow !== i) {
+        [A[i], A[maxRow]] = [A[maxRow], A[i]];
+        stepLog += `<li>Swap row ${i+1} with row ${maxRow+1}</li>`;
+      }
       for (let k = i+1; k < m; k++) {
-        let factor = A[k][j] / pivot;
-        for (let l = j; l < n; l++) {
-          A[k][l] -= factor * A[i][l];
+        if (A[k][j] !== 0) {
+          let factor = A[k][j] / A[i][j];
+          for (let l = j; l < n; l++) {
+            A[k][l] -= factor * A[i][l];
+          }
+          stepLog += `<li>R${k+1} → R${k+1} - (${factor.toFixed(2)})R${i+1}</li>`;
         }
       }
       i++;
@@ -238,12 +408,12 @@ function computeREF() {
     j++;
   }
 
-  let html = "<h3>Row Echelon Form:</h3><pre>";
+  stepLog += "</ol><h3>REF Result:</h3><pre>";
   A.forEach(row => {
-    html += row.map(x => x.toFixed(2)).join("\t") + "\n";
+    stepLog += row.map(x => x.toFixed(2)).join("\t") + "\n";
   });
-  html += "</pre>";
-  document.getElementById("output").innerHTML = html;
+  stepLog += "</pre>";
+  document.getElementById("steps").innerHTML = stepLog;
 }
 </script>
 
