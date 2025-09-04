@@ -101,6 +101,8 @@
     <a href="#types">Types of Matrices</a>
     <a href="#excel">Operations</a>
     <a href="#calculator">Matrix Calculator</a>
+       <a href="#determinant">Det</a>
+           <a href="#inverse">Inverse</a>
     <a href="#applications">Applications</a>
   </nav>
 
@@ -415,99 +417,141 @@
   </div>
 
   
-  <section id="calculator">
-    <h2 id="calc">6. Interactive Calculator</h2>
-    <p>Below is an interactive calculator where you can input two matrices and perform basic operations such as addition, subtraction, and multiplication.</p>
-      <div class="calc">
-        <div>
-          <label>Rows: <input id="rows" type="number" value="2" min="1" max="6"></label>
-          <label>Cols: <input id="cols" type="number" value="2" min="1" max="6"></label>
-          <button id="build">Build Matrices</button>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <div><strong>Matrix A</strong><div id="matA" class="matrix-input"></div></div>
-          <div><strong>Matrix B</strong><div id="matB" class="matrix-input"></div></div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button id="add">Add</button>
-          <button id="sub">Subtract</button>
-          <button id="mul">Multiply</button>
-          <button id="clear">Clear</button>
-        </div>
-        <div>
-          <strong>Result</strong>
-          <div id="result" class="example"></div>
-        </div>
-      </div>
+ <section id="calculator">
+  <h2 id="calc">6. Interactive Calculator</h2>
+  <p>Below is an interactive calculator where you can input matrices and perform operations such as addition, subtraction, multiplication, determinant, and adjoint.</p>
+  <div class="calc">
+    <div>
+      <label>Rows: <input id="rows" type="number" value="2" min="1" max="6"></label>
+      <label>Cols: <input id="cols" type="number" value="2" min="1" max="6"></label>
+      <button id="build">Build Matrices</button>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <div><strong>Matrix A</strong><div id="matA" class="matrix-input"></div></div>
+      <div><strong>Matrix B</strong><div id="matB" class="matrix-input"></div></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button id="add">Add</button>
+      <button id="sub">Subtract</button>
+      <button id="mul">Multiply</button>
+      <button id="detA">Determinant(A)</button>
+      <button id="adjA">Adj(A)</button>
+      <button id="clear">Clear</button>
+    </div>
+    <div>
+      <strong>Result</strong>
+      <div id="result" class="example"></div>
+    </div>
+  </div>
 
-      <h2 id="apps">7. Applications</h2>
-      <p>Matrices have vast applications in real-world problems. Some of the most common are listed below:</p>
-      <ul>
-        <li>Computer graphics (3D transformations, rotations, scaling)</li>
-        <li>Solving systems of linear equations</li>
-        <li>Markov chains in probability and statistics</li>
-        <li>Machine learning and neural networks</li>
-        <li>Signal processing and communication systems</li>
-      </ul>
+  <h2 id="apps">7. Applications</h2>
+  <p>Matrices have vast applications in real-world problems. Some of the most common are listed below:</p>
+  <ul>
+    <li>Computer graphics (3D transformations, rotations, scaling)</li>
+    <li>Solving systems of linear equations</li>
+    <li>Markov chains in probability and statistics</li>
+    <li>Machine learning and neural networks</li>
+    <li>Signal processing and communication systems</li>
+  </ul>
 
-      <footer>Designed by Dr. Surnam Narendra</footer>
-    </section>
-  </main>
+  <footer>Designed by Dr. Surnam Narendra</footer>
+</section>
+</main>
 
-  <script>
-    function buildGrid(container, r, c, prefix){
-      container.innerHTML='';
-      for(let i=0;i<r;i++){
-        const row=document.createElement('div'); row.className='matrix-row';
-        for(let j=0;j<c;j++){
-          const cell=document.createElement('div'); cell.className='matrix-cell';
-          const inp=document.createElement('input'); inp.type='number'; inp.value='0'; inp.id=`${prefix}_${i}_${j}`;
-          cell.appendChild(inp); row.appendChild(cell);
-        }
-        container.appendChild(row);
+<script>
+  function buildGrid(container, r, c, prefix){
+    container.innerHTML='';
+    for(let i=0;i<r;i++){
+      const row=document.createElement('div'); row.className='matrix-row';
+      for(let j=0;j<c;j++){
+        const cell=document.createElement('div'); cell.className='matrix-cell';
+        const inp=document.createElement('input'); inp.type='number'; inp.value='0'; inp.id=`${prefix}_${i}_${j}`;
+        cell.appendChild(inp); row.appendChild(cell);
+      }
+      container.appendChild(row);
+    }
+  }
+  function readMatrix(prefix, r, c){
+    const M=[]; 
+    for(let i=0;i<r;i++){
+      const row=[]; 
+      for(let j=0;j<c;j++){
+        row.push(Number(document.getElementById(`${prefix}_${i}_${j}`).value)||0);
+      }
+      M.push(row);
+    } 
+    return M;
+  }
+  function renderMatrixInto(container, M){
+    container.innerHTML='';
+    if(typeof M === 'number'){container.innerHTML="<b>"+M+"</b>"; return;}
+    const pre=document.createElement('pre');
+    pre.textContent=M.map(row=>'[ '+row.join(' , ')+' ]').join('\n');
+    container.appendChild(pre);
+  }
+  function addMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v+B[i][j]));}
+  function subMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v-B[i][j]));}
+  function mulMatrices(A,B){
+    const rA=A.length, cA=A[0].length, rB=B.length, cB=B[0].length;
+    if(cA!==rB){alert('Columns of A must equal rows of B'); return null;}
+    const R=Array.from({length:rA},()=>Array(cB).fill(0));
+    for(let i=0;i<rA;i++){
+      for(let j=0;j<cB;j++){
+        for(let k=0;k<cA;k++) R[i][j]+=A[i][k]*B[k][j];
       }
     }
-    function readMatrix(prefix, r, c){
-      const M=[]; for(let i=0;i<r;i++){const row=[]; for(let j=0;j<c;j++){row.push(Number(document.getElementById(`${prefix}_${i}_${j}`).value)||0);} M.push(row);} return M;
+    return R;
+  }
+
+  // determinant (recursive)
+  function detMatrix(M){
+    const n=M.length;
+    if(n===1) return M[0][0];
+    if(n===2) return M[0][0]*M[1][1]-M[0][1]*M[1][0];
+    let det=0;
+    for(let j=0;j<n;j++){
+      const minor=M.slice(1).map(row=>row.filter((_,col)=>col!==j));
+      det+=((j%2===0?1:-1)*M[0][j]*detMatrix(minor));
     }
-    function renderMatrixInto(container, M){
-      container.innerHTML='';
-      const pre=document.createElement('pre');
-      pre.textContent=M.map(row=>'[ '+row.join(' , ')+' ]').join('\n');
-      container.appendChild(pre);
-    }
-    function addMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v+B[i][j]));}
-    function subMatrices(A,B){return A.map((row,i)=>row.map((v,j)=>v-B[i][j]));}
-    function mulMatrices(A,B){
-      const rA=A.length, cA=A[0].length, rB=B.length, cB=B[0].length;
-      if(cA!==rB){alert('Columns of A must equal rows of B'); return null;}
-      const R=Array.from({length:rA},()=>Array(cB).fill(0));
-      for(let i=0;i<rA;i++){
-        for(let j=0;j<cB;j++){
-          for(let k=0;k<cA;k++) R[i][j]+=A[i][k]*B[k][j];
-        }
+    return det;
+  }
+
+  // adjoint
+  function adjMatrix(M){
+    const n=M.length;
+    if(n!==M[0].length){alert("Adjoint only for square matrices"); return null;}
+    const cof=Array.from({length:n},()=>Array(n).fill(0));
+    for(let i=0;i<n;i++){
+      for(let j=0;j<n;j++){
+        const minor=M.filter((_,row)=>row!==i).map(row=>row.filter((_,col)=>col!==j));
+        cof[i][j]=((i+j)%2===0?1:-1)*detMatrix(minor);
       }
-      return R;
     }
+    // transpose of cofactor matrix
+    return cof[0].map((_,j)=>cof.map(row=>row[j]));
+  }
 
-    const matA=document.getElementById('matA');
-    const matB=document.getElementById('matB');
-    const rowsInput=document.getElementById('rows');
-    const colsInput=document.getElementById('cols');
-    const resultDiv=document.getElementById('result');
+  const matA=document.getElementById('matA');
+  const matB=document.getElementById('matB');
+  const rowsInput=document.getElementById('rows');
+  const colsInput=document.getElementById('cols');
+  const resultDiv=document.getElementById('result');
 
-    function build(){
-      const r=Number(rowsInput.value)||2, c=Number(colsInput.value)||2;
-      buildGrid(matA,r,c,'A'); buildGrid(matB,r,c,'B'); resultDiv.innerHTML='';
-    }
+  function build(){
+    const r=Number(rowsInput.value)||2, c=Number(colsInput.value)||2;
+    buildGrid(matA,r,c,'A'); buildGrid(matB,r,c,'B'); resultDiv.innerHTML='';
+  }
 
-    document.getElementById('build').onclick=build;
-    document.getElementById('add').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,addMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
-    document.getElementById('sub').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,subMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
-    document.getElementById('mul').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); const A=readMatrix('A',r,c),B=readMatrix('B',r,c); const R=mulMatrices(A,B); if(R) renderMatrixInto(resultDiv,R);};
-    document.getElementById('clear').onclick=build;
+  document.getElementById('build').onclick=build;
+  document.getElementById('add').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,addMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
+  document.getElementById('sub').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); renderMatrixInto(resultDiv,subMatrices(readMatrix('A',r,c),readMatrix('B',r,c)));};
+  document.getElementById('mul').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); const A=readMatrix('A',r,c),B=readMatrix('B',r,c); const R=mulMatrices(A,B); if(R) renderMatrixInto(resultDiv,R);};
+  document.getElementById('detA').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); if(r!==c){alert("Determinant only for square matrices"); return;} renderMatrixInto(resultDiv,detMatrix(readMatrix('A',r,c)));};
+  document.getElementById('adjA').onclick=()=>{const r=Number(rowsInput.value),c=Number(colsInput.value); if(r!==c){alert("Adjoint only for square matrices"); return;} renderMatrixInto(resultDiv,adjMatrix(readMatrix('A',r,c)));};
+  document.getElementById('clear').onclick=build;
 
-    build();
-  </script>
+  build();
+</script>
+
 </body>
 </html>
