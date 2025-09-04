@@ -1,280 +1,251 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lecture 2 — Elementary Operations & Row Echelon Form</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#60a5fa;--glass:rgba(255,255,255,0.03)}
-    *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}
-    body{margin:0;background:linear-gradient(180deg,#071025 0%, #071B2B 100%);color:#e6eef6;padding:32px}
-    .container{max-width:980px;margin:0 auto}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
-    h1{margin:0;font-size:26px}
-    .subtitle{color:var(--muted);font-size:14px}
-    .card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    ul{line-height:1.6}
-    .op{display:grid;grid-template-columns:1fr 320px;gap:18px}
-    .matrix-display{background:var(--glass);padding:12px;border-radius:8px;min-height:64px}
-    table.matrix{border-collapse:collapse;margin:auto}
-    table.matrix td{border:1px solid rgba(255,255,255,0.06);padding:10px 14px;text-align:center;min-width:46px}
-    .controls{display:flex;flex-direction:column;gap:8px}
-    input,select,textarea,button{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
-    button.primary{background:linear-gradient(90deg,#2563eb,#60a5fa);border:none;color:#04202f;font-weight:700}
-    .examples pre{background:#021026;padding:12px;border-radius:8px;color:#d6f0ff;overflow:auto}
-    .note{color:var(--muted);font-size:13px}
-    .flex-row{display:flex;gap:10px;align-items:center}
-    footer{color:var(--muted);font-size:13px;margin-top:12px}
-    @media (max-width:880px){.op{grid-template-columns:1fr;}.controls{flex-direction:row;flex-wrap:wrap}}
-  </style>
+  <meta charset="UTF-8">
+  <title>Lecture-3: Row Echelon Form (REF)</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 30px;
+      background: #f9f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #222;
+      text-align: center;
+    }
+    .example {
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #calculator {
+      background: #eef7ff;
+      border: 2px solid #cce0ff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Lecture‑2: Elementary Operations & Row Echelon Form</h1>
-        <div class="subtitle">Theory • Examples • Interactive demo</div>
-      </div>
-    </header>
 
-    <section class="card">
-      <h2 style="margin-top:0">1. Why elementary operations matter</h2>
-      <ul>
-        <li>They let us <strong>simplify matrices</strong> into forms (REF, RREF) that expose rank and solvability.</li>
-        <li>They are the basis of <strong>Gaussian elimination</strong>, used to solve linear systems and compute inverses.</li>
-        <li>They preserve the solution set of linear systems (row operations), so we can transform equations safely.</li>
-        <li>They make computation of determinants, rank, and null-space systematic and algorithmic.</li>
-      </ul>
-      <p class="note">Note: Column operations are similar in spirit but affect the column-space; most solving algorithms use row operations for systems of linear equations.</p>
-    </section>
+<h1>Lecture-3: Row Echelon Form (REF)</h1>
 
-    <section class="card op">
-      <div>
-        <h2>2. Three elementary operations (rows &amp; columns)</h2>
+<section>
+  <h2>1. Recap of Elementary Row Operations</h2>
+  <p>To convert a matrix into <b>Row Echelon Form (REF)</b>, we use three operations:</p>
+  <ul>
+    <li>Row Interchange: Swap two rows.</li>
+    <li>Row Scaling: Multiply a row by a non-zero scalar.</li>
+    <li>Row Replacement: Replace a row by adding a multiple of another row.</li>
+  </ul>
+</section>
 
-        <h3>(i) Interchange two rows / columns</h3>
-        <p>Notation: <code>R_i &lt;&gt; R_j</code> (or <code>C_i &lt;&gt; C_j</code>). Useful to bring a nonzero pivot into position.</p>
-        <p><strong>Example (rows):</strong></p>
-        <div class="examples">
-          <pre>\(A=\begin{bmatrix}1&2&3\\4&5&6\\7&8&9\end{bmatrix}\)</pre>
-          <pre>After <code>R_1 &lt;&gt; R_3</code> → \(\begin{bmatrix}7&8&9\\4&5&6\\1&2&3\end{bmatrix}\)</pre>
-        </div>
+<section>
+  <h2>2. Definition of Row Echelon Form</h2>
+  <p>A matrix is in <b>Row Echelon Form</b> if:</p>
+  <ul>
+    <li>All nonzero rows are above rows of all zeros.</li>
+    <li>The leading entry (pivot) of each nonzero row is strictly to the right of the leading entry of the row above it.</li>
+    <li>All entries below each pivot are zero.</li>
+  </ul>
+</section>
 
-        <h3>(ii) Multiply a row / column by a non‑zero scalar</h3>
-        <p>Notation: <code>R_i → k R_i</code>, <code>k ≠ 0</code>. Scales the row — used to normalize pivots.</p>
-        <div class="examples">
-          <pre>\(A=\begin{bmatrix}2&3\\4&5\end{bmatrix},\; R_1 → 3R_1\;→\;\begin{bmatrix}6&9\\4&5\end{bmatrix}\)</pre>
-        </div>
+<section>
+  <h2>3. Examples of Row Echelon Form</h2>
 
-        <h3>(iii) Add a multiple of one row/column to another</h3>
-        <p>Notation: <code>R_j → R_j + k R_i</code>. This eliminates entries below or above a pivot.</p>
-        <div class="examples">
-          <pre>\(A=\begin{bmatrix}1&2\\3&4\end{bmatrix},\; R_2 → R_2 - 3R_1\;→\;\begin{bmatrix}1&2\\0&-2\end{bmatrix}\)</pre>
-        </div>
-
-        <p class="note">These operations (on rows) do not change the solution set of a linear system. Be careful: interchange changes the sign of the determinant.</p>
-      </div>
-
-      <div class="card" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))">
-        <h3 style="margin-top:0">Interactive demo</h3>
-        <div class="matrix-display" id="matrixArea"></div>
-
-        <div style="margin-top:12px" class="controls">
-          <label>Choose preset matrix:
-            <select id="presetSelect">
-              <option value="A">A = [[1,2,3],[4,5,6],[7,8,9]]</option>
-              <option value="B">B = [[2,3],[4,5]]</option>
-              <option value="C">C = [[1,2],[3,4],[0,5]]</option>
-            </select>
-          </label>
-
-          <div class="flex-row">
-            <label>Swap rows: <input id="swapI" type="number" min="1" value="1" style="width:68px"></label>
-            <label>with: <input id="swapJ" type="number" min="1" value="3" style="width:68px"></label>
-            <button id="swapBtn">Swap</button>
-          </div>
-
-          <div class="flex-row">
-            <label>Scale row: r<input id="scaleR" type="number" min="1" value="2" style="width:68px"></label>
-            <label>factor: <input id="scaleK" type="number" value="-1" style="width:88px"></label>
-            <button id="scaleBtn">Scale</button>
-          </div>
-
-          <div class="flex-row">
-            <label>Add multiple: target r<input id="tR" type="number" min="1" value="2" style="width:68px"></label>
-            <label>plus k × source r<input id="sR" type="number" min="1" value="1" style="width:68px"></label>
-            <label>k: <input id="addK" type="number" value="-3" style="width:68px"></label>
-            <button id="addBtn">Apply</button>
-          </div>
-
-          <div class="flex-row" style="margin-top:8px;justify-content:space-between">
-            <button id="resetBtn" class="primary">Reset matrix</button>
-            <button id="toREF">Convert to REF (steps)</button>
-          </div>
-
-          <p class="note" style="margin:0">Tip: Indexing in controls is 1-based (r1, r2, ...).</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>3. Row Echelon Form — introduction</h2>
-      <p>A matrix is in <strong>Row Echelon Form (REF)</strong> if it satisfies these conditions:</p>
-      <ol>
-        <li>All nonzero rows are above any rows of all zeros.</li>
-        <li>Each leading nonzero entry of a row is strictly to the right of the leading nonzero entry of the row above it.</li>
-      </ol>
-      <p class="note">(Optionally, many authors also require leading entries to be 1; that stronger requirement is part of the Reduced Row Echelon Form.)</p>
-    </section>
-
-    <section class="card">
-      <h2>4. Examples (REF or not?)</h2>
-      <p>Below are ten matrix examples. Decide whether each is in REF; answers are shown below the list.</p>
-
-      <ol class="examples">
-        <li>\(\begin{bmatrix}1&2&3\\0&1&4\\0&0&1\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&4&2\\0&1&3\\0&0&0\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}0&1&2\\0&0&3\\0&0&0\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&5\\0&0\\0&0\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&2&3&4\\0&1&5&6\\0&0&0&1\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}2&3&1\\0&0&4\\0&0&0\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&2\\1&3\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&0&2\\0&1&3\\0&0&0\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}0&0&1\\0&1&2\\1&3&4\end{bmatrix}\)</li>
-        <li>\(\begin{bmatrix}1&2&0\\0&1&5\\0&0&1\end{bmatrix}\)</li>
-      </ol>
-
-      <details style="margin-top:10px;">
-        <summary style="cursor:pointer;padding:8px;background:rgba(255,255,255,0.02);border-radius:8px">Answers & comments</summary>
-        <ol style="margin-top:10px;">
-          <li>REF — yes (staircase of leading entries).</li>
-          <li>REF — yes.</li>
-          <li>REF — yes (leading entries move right each row though first row has zero at start).</li>
-          <li>REF — yes.</li>
-          <li>Not REF — because the third row has a leading 1 in column 4 which is not to the right of row 2's leading 1 (it is, but check: row2 leading is column2 → row3 col4: actually this is allowed). (This example is REF.)</li>
-          <li>REF — yes (leading entries need not be 1 to be REF).</li>
-          <li>Not REF — first and second rows both have leading entry in column1; needs elimination or row swap.</li>
-          <li>REF — yes.</li>
-          <li>Not REF — rows need reordering to move the row with leading entry in earlier column up.</li>
-          <li>REF — yes.</li>
-        </ol>
-      </details>
-    </section>
-
-    <footer>
-      <div>Want this exported as a printable HTML or converted to LaTeX? Use the browser's Print → Save as PDF or ask me to export.</div>
-    </footer>
+  <div class="example">
+    <b>Example 1:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 2 & 3 \\
+    0 & 1 & 4 \\
+    0 & 0 & 1
+    \end{bmatrix}
+    \]
   </div>
 
-  <script>
-    // Simple matrix helper for the interactive demo
-    const presets = {
-      A: [[1,2,3],[4,5,6],[7,8,9]],
-      B: [[2,3],[4,5]],
-      C: [[1,2],[3,4],[0,5]]
-    };
+  <div class="example">
+    <b>Example 2:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 5 & 2 \\
+    0 & 1 & 7 \\
+    0 & 0 & 0
+    \end{bmatrix}
+    \]
+  </div>
 
-    let M = JSON.parse(JSON.stringify(presets.A));
+  <div class="example">
+    <b>Example 3:</b><br>
+    \[
+    \begin{bmatrix}
+    2 & 3 & 4 & 5 \\
+    0 & 1 & 6 & 7 \\
+    0 & 0 & 0 & 0
+    \end{bmatrix}
+    \]
+  </div>
 
-    const matrixArea = document.getElementById('matrixArea');
-    const presetSelect = document.getElementById('presetSelect');
-    const swapBtn = document.getElementById('swapBtn');
-    const scaleBtn = document.getElementById('scaleBtn');
-    const addBtn = document.getElementById('addBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const toREF = document.getElementById('toREF');
+  <div class="example">
+    <b>Example 4:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & -1 & 2 \\
+    0 & 3 & 5 \\
+    0 & 0 & 7
+    \end{bmatrix}
+    \]
+  </div>
 
-    function renderMatrix(){
-      const rows = M.length, cols = M[0].length;
-      let html = '<table class="matrix">';
-      for(let i=0;i<rows;i++){
-        html += '<tr>';
-        for(let j=0;j<cols;j++) html += '<td>'+M[i][j]+'</td>';
-        html += '</tr>';
+  <div class="example">
+    <b>Example 5:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 4 & 6 \\
+    0 & 0 & 1 \\
+    0 & 0 & 0
+    \end{bmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <b>Example 6:</b><br>
+    \[
+    \begin{bmatrix}
+    3 & 2 & 1 \\
+    0 & 5 & 4 \\
+    0 & 0 & 6
+    \end{bmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <b>Example 7:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 7 & 3 & 2 \\
+    0 & 0 & 5 & 1 \\
+    0 & 0 & 0 & 0
+    \end{bmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <b>Example 8:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 2 \\
+    0 & 1 \\
+    0 & 0
+    \end{bmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <b>Example 9:</b><br>
+    \[
+    \begin{bmatrix}
+    2 & 4 & 6 \\
+    0 & 3 & 5 \\
+    0 & 0 & 8
+    \end{bmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <b>Example 10:</b><br>
+    \[
+    \begin{bmatrix}
+    1 & 0 & 2 & 3 \\
+    0 & 1 & 4 & 5 \\
+    0 & 0 & 0 & 1
+    \end{bmatrix}
+    \]
+  </div>
+</section>
+
+<section id="calculator">
+  <h2>4. Interactive Calculator</h2>
+  <p>Enter your matrix (rows separated by new lines, numbers separated by spaces):</p>
+  <textarea id="matrixInput">1 2 1
+2 4 -1
+-1 -2 5</textarea><br>
+  <button onclick="computeREF()">Compute REF</button>
+  <div id="output"></div>
+</section>
+
+<script>
+function computeREF() {
+  let input = document.getElementById("matrixInput").value.trim().split("\n");
+  let A = input.map(row => row.trim().split(/\s+/).map(Number));
+  let m = A.length, n = A[0].length;
+  let i = 0, j = 0;
+
+  while (i < m && j < n) {
+    let maxRow = i;
+    for (let k = i+1; k < m; k++) {
+      if (Math.abs(A[k][j]) > Math.abs(A[maxRow][j])) {
+        maxRow = k;
       }
-      html += '</table>';
-      matrixArea.innerHTML = html;
     }
-
-    function swapRows(i,j){
-      if(i<1||j<1||i> M.length|| j> M.length) return alert('Row index out of range');
-      const t = M[i-1]; M[i-1] = M[j-1]; M[j-1] = t; renderMatrix();
-    }
-
-    function scaleRow(r,k){
-      if(r<1||r> M.length) return alert('Row index out of range');
-      for(let c=0;c<M[0].length;c++) M[r-1][c] = +(M[r-1][c]*k).toFixed(6);
-      renderMatrix();
-    }
-
-    function addMultiple(target, source, k){
-      if(target<1||source<1||target> M.length|| source> M.length) return alert('Row index out of range');
-      for(let c=0;c<M[0].length;c++){
-        M[target-1][c] = +(M[target-1][c] + k*M[source-1][c]);
-      }
-      renderMatrix();
-    }
-
-    presetSelect.addEventListener('change', ()=>{
-      const key = presetSelect.value; M = JSON.parse(JSON.stringify(presets[key])); renderMatrix();
-    });
-
-    swapBtn.addEventListener('click', ()=>{
-      const i = parseInt(document.getElementById('swapI').value,10);
-      const j = parseInt(document.getElementById('swapJ').value,10);
-      swapRows(i,j);
-    });
-
-    scaleBtn.addEventListener('click', ()=>{
-      const r = parseInt(document.getElementById('scaleR').value,10);
-      const k = parseFloat(document.getElementById('scaleK').value);
-      if(k===0) return alert('Scale factor must be non-zero');
-      scaleRow(r,k);
-    });
-
-    addBtn.addEventListener('click', ()=>{
-      const t = parseInt(document.getElementById('tR').value,10);
-      const s = parseInt(document.getElementById('sR').value,10);
-      const k = parseFloat(document.getElementById('addK').value);
-      addMultiple(t,s,k);
-    });
-
-    resetBtn.addEventListener('click', ()=>{ M = JSON.parse(JSON.stringify(presets[presetSelect.value])); renderMatrix(); });
-
-    // Very simple REF steps (not full pivoting, demonstration only)
-    toREF.addEventListener('click', ()=>{
-      // We'll do a naive forward elimination with partial row swaps for non-zero pivot
-      let A = JSON.parse(JSON.stringify(M));
-      const m = A.length, n = A[0].length;
-      const steps = [];
-      let lead = 0;
-      for(let r=0;r<m && lead<n;r++){
-        // find non-zero pivot at or below r
-        let i = r;
-        while(i<m && Math.abs(A[i][lead])<1e-9) i++;
-        if(i==m){ lead++; r--; continue; }
-        if(i!==r){ steps.push('Swap R'+(r+1)+' and R'+(i+1)); const tmp=A[r];A[r]=A[i];A[i]=tmp; }
-        const pivot = A[r][lead];
-        if(Math.abs(pivot-1)>1e-9){ steps.push('Scale R'+(r+1)+' by 1/('+pivot.toFixed(3)+')'); for(let c=lead;c<n;c++) A[r][c] = +(A[r][c]/pivot).toFixed(6); }
-        for(let i2=r+1;i2<m;i2++){
-          const factor = A[i2][lead];
-          if(Math.abs(factor)>1e-9){ steps.push('R'+(i2+1)+' → R'+(i2+1)+' - ('+factor.toFixed(3)+') × R'+(r+1));
-            for(let c=lead;c<n;c++) A[i2][c] = +(A[i2][c] - factor*A[r][c]);
-          }
+    if (A[maxRow][j] !== 0) {
+      [A[i], A[maxRow]] = [A[maxRow], A[i]];
+      let pivot = A[i][j];
+      for (let k = i+1; k < m; k++) {
+        let factor = A[k][j] / pivot;
+        for (let l = j; l < n; l++) {
+          A[k][l] -= factor * A[i][l];
         }
-        lead++;
       }
+      i++;
+    }
+    j++;
+  }
 
-      // show steps in alert (keeps demo simple)
-      alert('REF steps (naive demo):\n\n' + steps.join('\n') + '\n\nFinal matrix: see console');
-      console.log('Resulting matrix after naive REF:',A);
-    });
+  let html = "<h3>Row Echelon Form:</h3><pre>";
+  A.forEach(row => {
+    html += row.map(x => x.toFixed(2)).join("\t") + "\n";
+  });
+  html += "</pre>";
+  document.getElementById("output").innerHTML = html;
+}
+</script>
 
-    // initial render
-    renderMatrix();
-  </script>
 </body>
 </html>
