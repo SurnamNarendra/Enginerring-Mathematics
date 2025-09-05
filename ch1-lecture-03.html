@@ -32,10 +32,18 @@
   <div class="container">
     <header>
       <h1>Lecture 3 — Row Reduced Echelon Form (RREF)</h1>
-      <div class="small">Definition, checks, worked examples, step-by-step reduction, and an interactive RREF calculator (with steps rendered in LaTeX).</div>
+<nav>
+    <a href="#Definition">Definition</a>
+    <a href="#Examples">Examples</a>
+    <a href="#">Definition of REF</a>
+    <a href="#calculator">REF Calculator</a>
+  </nav>
+
     </header>
 
     <main>
+        <section id="Definition">  
+
       <section class="card">
         <h2>1. Definition &amp; Four conditions (with a tiny example each)</h2>
         <p><strong>Definition.</strong> A matrix is in <em>reduced row echelon form (RREF)</em> if it satisfies the row echelon form conditions and additionally every pivot is 1 and is the only nonzero entry in its column. RREF is unique for each matrix.</p>
@@ -58,6 +66,7 @@
             <div class="example">Example: $$\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}$$ (each pivot column has zeros elsewhere). But $$\begin{bmatrix}1 & 1\\0 & 1\end{bmatrix}$$ violates for first column if there is a nonzero above/below pivot.</div>
           </li>
         </ol>
+        <section id="Examples">  
 
         <h2>2. Quick check — 10 small matrices: decide whether each is RREF or not (with short reason)</h2>
         <div class="small">(Matrix shown in LaTeX, then verdict + reason)</div>
@@ -126,6 +135,7 @@
         </div>
 
       </section>
+        <section id="calculator">  
 
       <!-- RREF Calculator Component -->
 <div class="card">
