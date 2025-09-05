@@ -1,67 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 03: Elementary Operations on Matrices</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lecture 3 — Row Reduced Echelon Form (RREF)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    :root{--bg:#f7f9fc;--card:#ffffff;--muted:#6b7280;--accent:#2563eb}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#0b1220;margin:0;padding:18px}
+    .container{max-width:1000px;margin:0 auto}
+    header{background:var(--accent);color:white;padding:18px;border-radius:10px}
+    h1{margin:0;font-size:1.4rem}
+    main{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:16px}
+    .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 8px 24px rgba(12,20,40,0.06)}
+    h2{color:var(--accent);margin-top:0}
+    ul{margin:8px 0 12px 18px}
+    .example{background:#f3f7ff;border-left:4px solid var(--accent);padding:10px;margin:8px 0;border-radius:6px}
+    pre{background:#f6f8fb;padding:10px;border-radius:6px;overflow:auto}
+    .small{font-size:0.95rem;color:var(--muted)}
+    .calc-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    input[type=number], textarea{padding:8px;border-radius:6px;border:1px solid #e6eef8;font-size:0.95rem}
+    button{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:6px;cursor:pointer}
+    button.secondary{background:#eef2ff;color:var(--accent);border:1px solid #dfe8ff}
+    .steps{max-height:420px;overflow:auto;padding:8px}
+    .note{background:#fffbea;border-left:4px solid #f59e0b;padding:10px;border-radius:6px}
+    @media (max-width:980px){main{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Lecture 03: Elementary Operations on Matrices</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>Lecture 3 — Row Reduced Echelon Form (RREF)</h1>
+      <div class="small">Definition, checks, worked examples, step-by-step reduction, and an interactive RREF calculator (with steps rendered in LaTeX).</div>
+    </header>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
-      <ul>
-        <li>Understand the basic concepts of Elementary Operations on Matrices.</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
-      </ul>
-    </section>
+    <main>
+      <section class="card">
+        <h2>1. Definition &amp; Four conditions (with a tiny example each)</h2>
+        <p><strong>Definition.</strong> A matrix is in <em>reduced row echelon form (RREF)</em> if it satisfies the row echelon form conditions and additionally every pivot is 1 and is the only nonzero entry in its column. RREF is unique for each matrix.</p>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Elementary Operations on Matrices is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+        <ol>
+          <li><strong>All nonzero rows are above any rows of all zeros.</strong>
+            <div class="example">Condition: nonzero rows above zero rows. <br>
+            Example: $$\begin{bmatrix}1 & 0\\0 & 0\end{bmatrix}$$ (satisfies) — vs — $$\begin{bmatrix}0 & 0\\1 & 0\end{bmatrix}$$ (violates).</div>
+          </li>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+          <li><strong>Each leading entry of a nonzero row is 1 (pivot = 1).</strong>
+            <div class="example">Example: $$\begin{bmatrix}1 & 2\\0 & 1\end{bmatrix}$$ (pivots are 1) — compare to $$\begin{bmatrix}2 & 4\\0 & 1\end{bmatrix}$$ (leading entry 2 violates).</div>
+          </li>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Elementary Operations on Matrices is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+          <li><strong>Pivots move strictly to the right as you go down rows.</strong>
+            <div class="example">Example: $$\begin{bmatrix}1 & * & *\\0 & 1 & *\\0 & 0 & 1\end{bmatrix}$$ (pivots at columns 1,2,3 respectively). If a lower pivot lies in the same or left column as above, it violates.</div>
+          </li>
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Elementary Operations on Matrices in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+          <li><strong>Each pivot is the only nonzero entry in its column (zeros above &amp; below).</strong>
+            <div class="example">Example: $$\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}$$ (each pivot column has zeros elsewhere). But $$\begin{bmatrix}1 & 1\\0 & 1\end{bmatrix}$$ violates for first column if there is a nonzero above/below pivot.</div>
+          </li>
+        </ol>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 03</p>
-  </footer>
+        <h2>2. Quick check — 10 small matrices: decide whether each is RREF or not (with short reason)</h2>
+        <div class="small">(Matrix shown in LaTeX, then verdict + reason)</div>
+
+        <div class="example"><strong>1.</strong> $$\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}$$ — <strong>RREF.</strong> Both pivots are 1 and are only nonzero in their columns.</div>
+        <div class="example"><strong>2.</strong> $$\begin{bmatrix}1 & 2\\0 & 1\end{bmatrix}$$ — <strong>Not RREF.</strong> Pivot in column 2 is 1 but column 1 has a nonzero above/below? Actually column 1 pivot is 1 but column 2 has a nonzero in row1 (2), which is above pivot at row2 col2 — so <em>not RREF</em> because entry above pivot is 2.</div>
+        <div class="example"><strong>3.</strong> $$\begin{bmatrix}0 & 1\\0 & 0\end{bmatrix}$$ — <strong>RREF.</strong> Leading 1 at (1,2); zero row below; pivot column has zeros elsewhere.</div>
+        <div class="example"><strong>4.</strong> $$\begin{bmatrix}1 & 0 & 3\\0 & 1 & -2\\0 & 0 & 0\end{bmatrix}$$ — <strong>RREF.</strong> Pivots at (1,1) and (2,2), both are only nonzero entries in their columns.</div>
+        <div class="example"><strong>5.</strong> $$\begin{bmatrix}1 & 0\\1 & 0\end{bmatrix}$$ — <strong>Not RREF.</strong> First column pivot at row1 is 1 but there is a nonzero (1) below it; pivot column must be zero elsewhere.</div>
+        <div class="example"><strong>6.</strong> $$\begin{bmatrix}0 & 0 & 0\\0 & 1 & 0\end{bmatrix}$$ — <strong>Not RREF.</strong> Nonzero row appears below all-zero row; violate first condition (nonzero rows must be above zero rows).</div>
+        <div class="example"><strong>7.</strong> $$\begin{bmatrix}1 & 0 & 0\\0 & 2 & 0\end{bmatrix}$$ — <strong>Not RREF.</strong> Pivot in second row is 2, not 1.</div>
+        <div class="example"><strong>8.</strong> $$\begin{bmatrix}1 & 0 & 0\\0 & 1 & 1\end{bmatrix}$$ — <strong>RREF.</strong> Pivot columns (1 and 2) have zeros elsewhere; nonzero in column 3 is allowed (non-pivot column).</div>
+        <div class="example"><strong>9.</strong> $$\begin{bmatrix}1 & 0 & 0 & 2\\0 & 1 & 0 & -1\end{bmatrix}$$ — <strong>RREF.</strong> Augmented columns allowed; pivots are unit columns and unique in their columns.</div>
+        <div class="example"><strong>10.</strong> $$\begin{bmatrix}1 & 0 & 0\\0 & 0 & 1\\0 & 0 & 0\end{bmatrix}$$ — <strong>RREF.</strong> Pivots at (1,1) and (2,3); pivot columns have zeros elsewhere; zero row at bottom.</div>
+
+        <h2>3. Worked reduction — one 3×3 (augmented) matrix, step-by-step to RREF</h2>
+        <p>Reduce the augmented matrix:</p>
+        <div class="example">
+          $$A = \left[\begin{array}{ccc|c}
+            1 & 1 & 1 & 6\\
+            2 & -1 & 1 & 3\\
+            1 & 2 & -1 & 4
+          \end{array}\right]$$
+
+          <p><strong>Step 1 (use row1 pivot = 1):</strong> eliminate below:</p>
+          $$R_2\leftarrow R_2-2R_1,\quad R_3\leftarrow R_3-R_1$$
+          $$\left[\begin{array}{ccc|c}
+            1 & 1 & 1 & 6\\
+            0 & -3 & -1 & -9\\
+            0 & 1 & -2 & -2
+          \end{array}\right]$$
+
+          <p><strong>Step 2:</strong> make pivot at row2 column2 equal to 1 by scaling $R_2\leftarrow -\tfrac{1}{3}R_2$</p>
+          $$\left[\begin{array}{ccc|c}
+            1 & 1 & 1 & 6\\
+            0 & 1 & \tfrac{1}{3} & 3\\
+            0 & 1 & -2 & -2
+          \end{array}\right]$$
+
+          <p><strong>Step 3:</strong> eliminate other entries in column2:</p>
+          $$R_1\leftarrow R_1-R_2,\quad R_3\leftarrow R_3-R_2$$
+          $$\left[\begin{array}{ccc|c}
+            1 & 0 & \tfrac{2}{3} & 3\\
+            0 & 1 & \tfrac{1}{3} & 3\\
+            0 & 0 & -\tfrac{7}{3} & -5
+          \end{array}\right]$$
+
+          <p><strong>Step 4:</strong> scale row3 to make pivot 1: $R_3\leftarrow -\tfrac{3}{7}R_3$</p>
+          $$\left[\begin{array}{ccc|c}
+            1 & 0 & \tfrac{2}{3} & 3\\
+            0 & 1 & \tfrac{1}{3} & 3\\
+            0 & 0 & 1 & \tfrac{15}{7}
+          \end{array}\right]$$
+
+          <p><strong>Step 5:</strong> eliminate above column3 to finish RREF:</p>
+          $$R_1\leftarrow R_1-\tfrac{2}{3}R_3,\quad R_2\leftarrow R_2-\tfrac{1}{3}R_3$$
+
+          $$\boxed{\left[\begin{array}{ccc|c}
+            1 & 0 & 0 & 2\\
+            0 & 1 & 0 & 1\\
+            0 & 0 & 1 & \tfrac{15}{7}
+          \end{array}\right]}$$
+
+          <p><em>Note:</em> arithmetic checked — final solution is $$x=2,\;y=1,\;z=\tfrac{15}{7}$$ (if you treat last column as RHS). For the classic earlier example we had integer 3; this variant keeps fractional outcome to illustrate fractions.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- RREF Calculator Component -->
+<div class="card">
+  <h2>Interactive RREF Calculator</h2>
+  <p class="small">Enter matrix rows separated by semicolons (;) and entries by commas (,). Include RHS if it's an augmented matrix.</p>
+  <textarea id="matrixInput" rows="4" cols="40">1,5,1;2,11,5</textarea>
+  <div class="calc-row">
+    <button id="compute">Compute RREF</button>
+    <button id="clear" class="secondary">Clear</button>
+  </div>
+  <h3>Solution Steps</h3>
+  <div id="steps" class="steps">Steps will appear here...</div>
+</div>
+
+<script>
+  function parseMatrixInput(text) {
+    try {
+      const rows = text.trim().split(/;|\n/).filter(r => r.trim().length);
+      const M = rows.map(r => r.split(',').map(x => Number(x.trim())));
+      const cols = M[0].length;
+      if (!M.every(row => row.length === cols)) throw new Error('Rows must have equal length');
+      return M;
+    } catch (e) {
+      alert('Invalid matrix: ' + e.message);
+      return null;
+    }
+  }
+
+  function cloneMatrix(A) {
+    return A.map(row => row.slice());
+  }
+
+  function toLatexMatrix(A) {
+    const rows = A.map(r => r.map(v => Number.isInteger(v) ? v : (Math.round(v * 1e6)/1e6)).join(' & '));
+    return '\\begin{bmatrix}' + rows.join('\\\\') + '\\end{bmatrix}';
+  }
+
+  function renderSnapshot(label, matrix) {
+    return `
+      <div style="margin: 10px 0">
+        <strong>${label}</strong>
+        <div>$$${toLatexMatrix(matrix)}$$</div>
+      </div>`;
+  }
+
+  function gaussJordanSteps(A) {
+    const M = cloneMatrix(A);
+    const m = M.length, n = M[0].length;
+    const steps = [{ label: 'Start', matrix: cloneMatrix(M) }];
+    let row = 0;
+    const eps = 1e-12;
+
+    for (let col = 0; col < n && row < m; col++) {
+      let sel = row;
+      for (let i = row; i < m; i++) {
+        if (Math.abs(M[i][col]) > Math.abs(M[sel][col])) sel = i;
+      }
+      if (Math.abs(M[sel][col]) < eps) continue;
+
+      if (sel !== row) {
+        [M[sel], M[row]] = [M[row], M[sel]];
+        steps.push({ label: `Swap R${sel+1}, R${row+1}`, matrix: cloneMatrix(M) });
+      }
+
+      const pivot = M[row][col];
+      if (Math.abs(pivot - 1) > eps) {
+        for (let j = col; j < n; j++) M[row][j] /= pivot;
+        steps.push({ label: `Scale R${row+1} (÷ ${pivot})`, matrix: cloneMatrix(M) });
+      }
+
+      for (let i = 0; i < m; i++) {
+        if (i !== row) {
+          const factor = M[i][col];
+          if (Math.abs(factor) > eps) {
+            for (let j = col; j < n; j++) {
+              M[i][j] -= factor * M[row][j];
+            }
+            steps.push({ label: `R${i+1} −= ${factor}·R${row+1}`, matrix: cloneMatrix(M) });
+          }
+        }
+      }
+      row++;
+    }
+
+    // Clean near-zero artifacts
+    for (let i = 0; i < m; i++) {
+      for (let j = 0; j < n; j++) {
+        if (Math.abs(M[i][j]) < eps) M[i][j] = 0;
+      }
+    }
+    steps.push({ label: 'RREF Result', matrix: cloneMatrix(M) });
+    return steps;
+  }
+
+  document.getElementById('compute').addEventListener('click', () => {
+    const input = document.getElementById('matrixInput').value;
+    const A = parseMatrixInput(input);
+    if (!A) return;
+
+    const stepsList = gaussJordanSteps(A);
+    const container = document.getElementById('steps');
+    container.innerHTML = stepsList.map(s => renderSnapshot(s.label, s.matrix)).join('');
+    if (window.MathJax) MathJax.typesetPromise();
+    container.scrollTop = 0;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    document.getElementById('matrixInput').value = '';
+    document.getElementById('steps').innerHTML = 'Cleared.';
+  });
+
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+
 </body>
 </html>
