@@ -1,67 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 05: Rank of a Matrix</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lecture 5 — System of Linear Equations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+    }
+    header {
+      background: #1e3a8a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+    h1, h2, h3 {
+      color: #1e3a8a;
+    }
+    section {
+      padding: 20px;
+      margin: 10px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 950px;
+    }
+    .flowchart {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .box {
+      background: #3b82f6;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin: 5px;
+      text-align: center;
+      min-width: 140px;
+    }
+    .arrow {
+      margin: auto 10px;
+      font-weight: bold;
+      color: #1e3a8a;
+    }
+    .example {
+      background: #f0f9ff;
+      padding: 15px;
+      border-left: 5px solid #3b82f6;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #1e3a8a;
+      color: white;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Lecture 05: Rank of a Matrix</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
-      <ul>
-        <li>Understand the basic concepts of Rank of a Matrix.</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
-      </ul>
-    </section>
+<header>
+  <h1>Lecture 5: System of Linear Equations</h1>
+</header>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Rank of a Matrix is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+<section id="introduction">
+  <h2>1. Introduction</h2>
+  <p>
+    A <b>system of linear equations</b> is a collection of two or more linear equations 
+    involving the same set of variables. The goal is to find the values of these variables 
+    that satisfy all equations simultaneously.
+  </p>
+</section>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+<section id="definition">
+  <h2>2. General Form</h2>
+  <p>The general form of a system of linear equations is:</p>
+  <p style="text-align:center; font-weight:bold;">
+    a<sub>11</sub>x<sub>1</sub> + a<sub>12</sub>x<sub>2</sub> + ... + a<sub>1n</sub>x<sub>n</sub> = b<sub>1</sub><br>
+    a<sub>21</sub>x<sub>1</sub> + a<sub>22</sub>x<sub>2</sub> + ... + a<sub>2n</sub>x<sub>n</sub> = b<sub>2</sub><br>
+    ...<br>
+    a<sub>m1</sub>x<sub>1</sub> + a<sub>m2</sub>x<sub>2</sub> + ... + a<sub>mn</sub>x<sub>n</sub> = b<sub>m</sub>
+  </p>
+</section>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Rank of a Matrix is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+<section id="flow">
+  <h2>3. Flow Diagram of Solving System</h2>
+  <div class="flowchart">
+    <div class="box">Define Equations</div>
+    <div class="arrow">→</div>
+    <div class="box">Represent in Matrix Form</div>
+    <div class="arrow">→</div>
+    <div class="box">Apply Method (Substitution / Elimination / Matrix)</div>
+    <div class="arrow">→</div>
+    <div class="box">Find Solution</div>
+  </div>
+</section>
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Rank of a Matrix in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+<section id="types">
+  <h2>4. Types of Solutions</h2>
+  <ul>
+    <li><b>Unique Solution</b>: Only one set of values satisfies the equations.</li>
+    <li><b>No Solution</b>: Equations are inconsistent.</li>
+    <li><b>Infinitely Many Solutions</b>: Equations represent the same line/plane.</li>
+  </ul>
+</section>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 05</p>
-  </footer>
+<section id="example">
+  <h2>5. Example</h2>
+  <div class="example">
+    <p>Consider the system:</p>
+    <p>
+      2x + y = 5 <br>
+      x - y = 1
+    </p>
+    <p>Solution using elimination:</p>
+    <p>
+      From 2nd equation: x = 1 + y <br>
+      Substitute into 1st: 2(1+y) + y = 5 → 2 + 2y + y = 5 → 3y = 3 → y = 1 <br>
+      Then, x = 1 + 1 = 2 <br>
+      <b>Solution: (x, y) = (2, 1)</b>
+    </p>
+  </div>
+</section>
+
+<section id="methods">
+  <h2>6. Methods of Solving</h2>
+  <ul>
+    <li>Graphical Method</li>
+    <li>Substitution Method</li>
+    <li>Elimination Method</li>
+    <li>Matrix Method (AX = B)</li>
+  </ul>
+</section>
+
+<section id="homogeneous">
+  <h2>7. Homogeneous and Non-Homogeneous Systems</h2>
+  <h3>(a) Homogeneous System</h3>
+  <p>
+    A system is called <b>homogeneous</b> if all constant terms are zero.  
+    General form:
+  </p>
+  <p style="text-align:center; font-weight:bold;">
+    AX = 0
+  </p>
+  <p>
+    - Always has at least one solution: the <b>trivial solution</b> (X = 0). <br>
+    - If <b>rank(A) = n</b> (variables), only trivial solution exists. <br>
+    - If <b>rank(A) &lt; n</b>, infinitely many non-trivial solutions exist.
+  </p>
+  <div class="example">
+    <p><b>Example:</b></p>
+    <p>
+      x + y = 0 <br>
+      2x + 2y = 0
+    </p>
+    <p>
+      Here, both equations are multiples → rank(A) = 1, variables = 2 → infinite non-trivial solutions.
+    </p>
+  </div>
+
+  <h3>(b) Non-Homogeneous System</h3>
+  <p>
+    A system is called <b>non-homogeneous</b> if the constants are not all zero.  
+    General form:
+  </p>
+  <p style="text-align:center; font-weight:bold;">
+    AX = B
+  </p>
+  <p>
+    The existence of solutions depends on <b>rank conditions</b>:
+    <ul>
+      <li>If rank(A) = rank([A|B]) = n → unique solution.</li>
+      <li>If rank(A) = rank([A|B]) &lt; n → infinite solutions.</li>
+      <li>If rank(A) ≠ rank([A|B]) → no solution (inconsistent system).</li>
+    </ul>
+  </p>
+  <div class="example">
+    <p><b>Example:</b></p>
+    <p>
+      x + y = 5 <br>
+      2x + 2y = 10
+    </p>
+    <p>
+      Here, rank(A) = rank([A|B]) = 1 &lt; 2 → infinitely many solutions.
+    </p>
+  </div>
+</section>
+
+<section id="flow-rank">
+  <h2>8. Flow Diagram: Rank and Solution Types</h2>
+  <p>The existence of solutions depends on the comparison of <b>rank(A)</b> and <b>rank([A|B])</b>:</p>
+  
+  <div class="flowchart" style="flex-direction: column; align-items: center;">
+    
+    <!-- Step 1 -->
+    <div class="box" style="background:#1e40af;">Start: System AX = B</div>
+    <div class="arrow">↓</div>
+    
+    <!-- Step 2 -->
+    <div class="box">Check rank(A) and rank([A|B])</div>
+    <div class="arrow">↓</div>
+    
+    <!-- Step 3: Consistency -->
+    <div class="box" style="background:#047857;">Case 1: rank(A) = rank([A|B]) (Consistent)</div>
+    <div class="arrow">↓</div>
+    <div style="display:flex; gap:20px; justify-content:center; align-items: flex-start; margin-bottom:20px;">
+      <div>
+        <div class="box" style="background:#3b82f6;">If rank = n (variables)</div>
+        <div class="arrow">↓</div>
+        <div class="box" style="background:#2563eb;">Unique Solution</div>
+      </div>
+      <div>
+        <div class="box" style="background:#3b82f6;">If rank &lt; n</div>
+        <div class="arrow">↓</div>
+        <div class="box" style="background:#2563eb;">Infinite Solutions</div>
+      </div>
+    </div>
+    
+    <!-- Step 4: Inconsistency -->
+    <div class="box" style="background:#dc2626;">Case 2: rank(A) ≠ rank([A|B])</div>
+    <div class="arrow">↓</div>
+    <div class="box" style="background:#ef4444;">Inconsistent System (No Solution)</div>
+  </div>
+</section>
+
+<footer>
+  <p>Lecture 5 — System of Linear Equations | Engineering Mathematics</p>
+</footer>
+
 </body>
 </html>
