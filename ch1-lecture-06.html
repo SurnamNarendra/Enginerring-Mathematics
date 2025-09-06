@@ -1,67 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 06: Consistency of Linear Systems</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lecture 6 — Examples on System of Linear Equations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+    }
+    header {
+      background: #047857;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+    h1, h2, h3 {
+      color: #047857;
+    }
+    section {
+      padding: 20px;
+      margin: 10px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 950px;
+    }
+    .example {
+      background: #f0fdf4;
+      padding: 15px;
+      border-left: 5px solid #047857;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #047857;
+      color: white;
+      margin-top: 20px;
+    }
+    input, textarea, button {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #047857;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #065f46;
+    }
+    pre {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Lecture 06: Consistency of Linear Systems</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
-      <ul>
-        <li>Understand the basic concepts of Consistency of Linear Systems.</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
-      </ul>
-    </section>
+<header>
+  <h1>Lecture 6: Examples on System of Linear Equations</h1>
+  <p>Worked Problems with Solutions + Calculator</p>
+</header>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Consistency of Linear Systems is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+<section>
+  <h2>1. Introduction</h2>
+  <p>
+    In this lecture, we will practice solving systems of linear equations with different cases: 
+    <b>unique solutions, no solutions, infinite solutions, homogeneous, non-homogeneous</b>, and 
+    using the <b>rank concept</b>.
+  </p>
+</section>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+<section>
+  <h2>2. Worked Examples (15 Cases)</h2>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Consistency of Linear Systems is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+  <!-- Example 1 -->
+  <div class="example">
+    <b>Example 1:</b> Solve the system: <br>
+    x + y = 5, x - y = 1. <br><br>
+    Solution: Add equations → 2x = 6 → x = 3, then y = 2.  
+    <b>Unique solution: (3, 2)</b>.
+  </div>
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Consistency of Linear Systems in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+  <div class="example">
+    <b>Example 2:</b> 2x + y = 10, x - y = 1.  
+    Substitution: x = y+1 → 2(y+1)+y=10 → 3y+2=10 → y=8/3, x=11/3.  
+    <b>Unique solution.</b>
+  </div>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 06</p>
-  </footer>
+  <div class="example">
+    <b>Example 3:</b> x + y = 2, 2x + 2y = 4.  
+    Both are multiples → infinite solutions.  
+    Rank(A)=1, Rank([A|B])=1, variables=2 → infinite solutions.
+  </div>
+
+  <div class="example">
+    <b>Example 4:</b> x + y = 2, x + y = 3.  
+    Contradiction → <b>No solution</b>.  
+    Rank(A)=1, Rank([A|B])=2.
+  </div>
+
+  <div class="example">
+    <b>Example 5:</b> 2x + 3y = 12, 3x + 4y = 17.  
+    Elimination: Multiply first eqn by 3, second by 2 → 6x+9y=36, 6x+8y=34 → subtract → y=2 → x=3.  
+    <b>Solution: (3,2)</b>.
+  </div>
+
+  <div class="example">
+    <b>Example 6:</b> Homogeneous system: x + y = 0, 2x + 2y = 0.  
+    Infinite solutions since both are multiples. Trivial solution (0,0) also exists.
+  </div>
+
+  <div class="example">
+    <b>Example 7:</b> Homogeneous: x - y = 0, y - z = 0.  
+    Solutions: x=y=z. Infinite solutions.
+  </div>
+
+  <div class="example">
+    <b>Example 8:</b> Non-homogeneous: x + y = 4, x - y = 0.  
+    Solve → from 2nd eqn: x=y. Substitute → 2x=4 → x=2, y=2.  
+    Unique solution.
+  </div>
+
+  <div class="example">
+    <b>Example 9:</b> 2x + y + z = 4, x - y + z = 2, x + y - z = 1.  
+    Solving gives x=1, y=1, z=1.  
+    Unique solution.
+  </div>
+
+  <div class="example">
+    <b>Example 10:</b> 2x + 3y = 6, 4x + 6y = 12.  
+    Both equations dependent → infinite solutions.
+  </div>
+
+  <div class="example">
+    <b>Example 11:</b> 2x + 3y = 6, 4x + 6y = 15.  
+    Inconsistent → no solution.
+  </div>
+
+  <div class="example">
+    <b>Example 12:</b> 3x - y = 7, 2x + y = 8.  
+    Add → 5x = 15 → x=3, y=2. Unique solution.
+  </div>
+
+  <div class="example">
+    <b>Example 13:</b> 2x - y + z = 3, x + y + z = 6, x - y + 2z = 5.  
+    Solving → x=2, y=1, z=3. Unique solution.
+  </div>
+
+  <div class="example">
+    <b>Example 14:</b> Homogeneous: x + y + z = 0, 2x + 2y + 2z = 0.  
+    Infinite solutions (plane equation).
+  </div>
+
+  <div class="example">
+    <b>Example 15:</b> Non-homogeneous: x + y = 2, 2x + 2y = 5.  
+    Contradiction → no solution.
+  </div>
+
+</section>
+
+<section id="calculator">
+  <h2>3. Interactive Calculator</h2>
+  <p>Enter coefficient matrix A and constant matrix B (in JSON format). Example: <br>
+  A = [[2,1],[1,-1]], B = [[5],[1]]</p>
+  
+  <textarea id="matrixA" rows="4" cols="40">[[2,1],[1,-1]]</textarea><br>
+  <textarea id="matrixB" rows="4" cols="40">[[5],[1]]</textarea><br>
+  <button onclick="solveSystem()">Solve System</button>
+  <h3>Result:</h3>
+  <pre id="result"></pre>
+</section>
+<section id="examples-3x3-4x4">
+  <h2>7. More Examples: 3×3 and 4×4 Systems</h2>
+
+  <!-- 3x3 Example 1 -->
+  <div class="example">
+    <h3>Example 11: 3×3 System (Unique Solution)</h3>
+    <p>
+      Solve the system: <br>
+      x + y + z = 6 <br>
+      2x – y + z = 3 <br>
+      x + 2y – z = 3
+    </p>
+    <p><b>Solution:</b></p>
+    <p>
+      Coefficient matrix A = 
+      <math><mo>[</mo>
+        <mtable>
+          <mtr><mtd>1</mtd><mtd>1</mtd><mtd>1</mtd></mtr>
+          <mtr><mtd>2</mtd><mtd>-1</mtd><mtd>1</mtd></mtr>
+          <mtr><mtd>1</mtd><mtd>2</mtd><mtd>-1</mtd></mtr>
+        </mtable>
+      <mo>]</mo></math>
+      , B = (6, 3, 3)<sup>T</sup>.
+    </p>
+    <p>
+      By elimination: <br>
+      → z = 2, y = 1, x = 3. <br>
+      <b>Solution:</b> (x, y, z) = (3, 1, 2).
+    </p>
+  </div>
+
+  <!-- 3x3 Example 2 -->
+  <div class="example">
+    <h3>Example 12: 3×3 System (Infinite Solutions)</h3>
+    <p>
+      Solve the system: <br>
+      x + y + z = 4 <br>
+      2x + 2y + 2z = 8 <br>
+      3x + 3y + 3z = 12
+    </p>
+    <p><b>Solution:</b></p>
+    <p>
+      All equations are multiples of the first → rank(A) = 1 &lt; 3.  
+      So infinite solutions exist.
+    </p>
+    <p>
+      General solution: x = t, y = s, z = 4 – t – s, where t, s ∈ ℝ.
+    </p>
+  </div>
+
+  <!-- 3x3 Example 3 -->
+  <div class="example">
+    <h3>Example 13: 3×3 System (No Solution)</h3>
+    <p>
+      Solve the system: <br>
+      x + y + z = 1 <br>
+      2x + 2y + 2z = 2 <br>
+      x + y + z = 5
+    </p>
+    <p><b>Solution:</b></p>
+    <p>
+      First and third equations contradict (same LHS, different RHS).  
+      → rank(A) ≠ rank([A|B]).  
+      <b>No solution (inconsistent system).</b>
+    </p>
+  </div>
+
+  <!-- 4x4 Example 1 -->
+  <div class="example">
+    <h3>Example 14: 4×4 System (Unique Solution)</h3>
+    <p>
+      Solve the system: <br>
+      x + y + z + w = 10 <br>
+      2x – y + z + w = 8 <br>
+      x + 2y – z + w = 6 <br>
+      x + y + z – w = 4
+    </p>
+    <p><b>Solution (sketch):</b></p>
+    <p>
+      Coefficient matrix is 4×4 and invertible → rank = 4.  
+      Solving step by step:  
+      → (x, y, z, w) = (3, 2, 1, 4).
+    </p>
+  </div>
+
+  <!-- 4x4 Example 2 -->
+  <div class="example">
+    <h3>Example 15: 4×4 System (Infinite Solutions)</h3>
+    <p>
+      Solve the system: <br>
+      x + y + z + w = 5 <br>
+      2x + 2y + 2z + 2w = 10 <br>
+      3x + 3y + 3z + 3w = 15 <br>
+      4x + 4y + 4z + 4w = 20
+    </p>
+    <p><b>Solution:</b></p>
+    <p>
+      All equations are multiples of the first → rank(A) = 1 &lt; 4.  
+      → Infinite solutions exist.  
+      General solution: x = t₁, y = t₂, z = t₃, w = 5 – t₁ – t₂ – t₃.
+    </p>
+  </div>
+</section>
+
+<!-- Calculator -->
+<section id="calculator">
+  <h2>8. Interactive Calculator</h2>
+  <p>Use the calculator below to solve your own system of equations (up to 4×4):</p>
+  <iframe src="https://www.emathhelp.net/calculators/linear-algebra/system-of-linear-equations-calculator/" 
+          width="100%" height="600" style="border:1px solid #ccc;"></iframe>
+</section>
+
+<footer>
+  <p>Lecture 6 — Examples on System of Linear Equations | Engineering Mathematics</p>
+</footer>
+
+<script>
+function solveSystem() {
+  try {
+    const A = JSON.parse(document.getElementById("matrixA").value);
+    const B = JSON.parse(document.getElementById("matrixB").value);
+
+    // Convert to numeric
+    const m = A.length;
+    const n = A[0].length;
+    // Build augmented matrix
+    let aug = A.map((row, i) => [...row, ...B[i]]);
+
+    // Gaussian elimination
+    for (let i=0; i<m; i++) {
+      // Pivot
+      let maxRow=i;
+      for (let k=i+1;k<m;k++){
+        if(Math.abs(aug[k][i])>Math.abs(aug[maxRow][i])) maxRow=k;
+      }
+      [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
+      // Normalize
+      let pivot=aug[i][i];
+      if(pivot===0) continue;
+      for(let j=i;j<n+1;j++) aug[i][j]/=pivot;
+      // Eliminate
+      for(let k=0;k<m;k++){
+        if(k!==i){
+          let factor=aug[k][i];
+          for(let j=i;j<n+1;j++){
+            aug[k][j]-=factor*aug[i][j];
+          }
+        }
+      }
+    }
+
+    let sol = aug.map(row => row[n].toFixed(4));
+    document.getElementById("result").innerText="Solution: x = "+sol.join(", ");
+  } catch (err) {
+    document.getElementById("result").innerText="Error in input format!";
+  }
+}
+</script>
+
 </body>
 </html>
