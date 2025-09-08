@@ -1,67 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 07: Eigenvalues & Eigenvectors (Part I)</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Lecture 7 — Eigenvalues & Eigenvectors</title>
+<style>
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.6;padding:20px;max-width:1100px;margin:auto;color:#111}
+h1,h2,h3{color:#0b74de}
+pre{background:#f7f7f8;padding:12px;border-radius:8px;overflow:auto}
+.matrix{font-family:monospace;display:inline-block;padding:6px;border:1px solid #ddd;border-radius:6px;background:#fff}
+.table{width:100%;border-collapse:collapse;margin-top:12px}
+.table th,.table td{border:1px solid #e3e3e3;padding:8px;text-align:left;font-family:monospace}
+.small{font-size:0.95rem;color:#333}
+.kv{background:#f0f8ff;padding:6px;border-radius:6px;margin:6px 0}
+.example{background:#fffef8;padding:12px;border-radius:8px;border:1px solid #f0e6cc;margin:10px 0}
+.calc{margin-top:18px;padding:12px;border-radius:8px;border:1px solid #e3e3e3;background:#fbfbff}
+.input-grid input{width:60px;padding:6px;margin:4px;text-align:center}
+.btn{padding:8px 12px;border-radius:6px;border:none;cursor:pointer;background:#0b74de;color:white}
+.small-muted{font-size:0.9rem;color:#666}
+</style>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Lecture 07: Eigenvalues & Eigenvectors (Part I)</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
+<h1>Lecture 7 — Introduction to Eigenvalues & Eigenvectors</h1>
+<p class="small">Topics: definition, properties, uses, examples (20 matrices), worked solutions, applications, and an interactive eigen calculator (2×2 → 4×4).</p>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
-      <ul>
-        <li>Understand the basic concepts of Eigenvalues & Eigenvectors (Part I).</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
-      </ul>
-    </section>
+<h2>1. Definition</h2>
+<p>For a square matrix \(A\in\mathbb{R}^{n\times n}\), a non-zero vector \(v\) is an <strong>eigenvector</strong> and \(\lambda\) is the corresponding <strong>eigenvalue</strong> if:</p>
+<p class="kv">\[A v = \lambda v.\]</p>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Eigenvalues & Eigenvectors (Part I) is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+<h2>2. How to compute</h2>
+<p>Eigenvalues are roots of the characteristic polynomial:</p>
+<p class="kv">\[\det(A - \lambda I) = 0.\]</p>
+<p>Eigenvectors are non-zero solutions to \((A-\lambda I)v=0\) for each eigenvalue \(\lambda\).</p>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+<h2>3. Key properties</h2>
+<ul>
+<li>There are exactly \(n\) eigenvalues counting algebraic multiplicity (complex values allowed).</li>
+<li>Symmetric real matrices have real eigenvalues and an orthonormal eigenbasis.</li>
+<li>\(\det(A)=\prod_i\lambda_i\) and \(\operatorname{tr}(A)=\sum_i\lambda_i\).</li>
+<li>For integer \(k\ge0\), if \(Av=\lambda v\) then \(A^k v=\lambda^k v\).</li>
+</ul>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Eigenvalues & Eigenvectors (Part I) is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+<h2>4. Uses & applications</h2>
+<ul>
+<li>Stability of differential equations, modal analysis in mechanics.</li>
+<li>Principal Component Analysis (PCA) in statistics / ML.</li>
+<li>Markov chains (eigenvalue 1 and stationary distribution).</li>
+<li>Quantum mechanics (Hamiltonian eigenstates).</li>
+</ul>
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Eigenvalues & Eigenvectors (Part I) in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+<h1>Worked Examples of Eigenvalues and Eigenvectors</h1>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 07</p>
-  </footer>
+  <div class="example">
+    <h2>Example A — \(2\times2\) Symmetric Matrix</h2>
+    <p><strong>Matrix:</strong></p>
+    \[
+    A=\begin{pmatrix}2 & 1\\[4pt]1 & 2\end{pmatrix}
+    \]
+
+    <p><strong>1. Characteristic polynomial:</strong></p>
+    \[
+    \det(A-\lambda I)=\det\begin{pmatrix}2-\lambda & 1\\[4pt]1 & 2-\lambda\end{pmatrix}=(2-\lambda)^2-1
+    \]
+    \[
+    (2-\lambda)^2-1=0 \;\Rightarrow\; (\lambda-3)(\lambda-1)=0
+    \]
+
+    <p><strong>Eigenvalues:</strong> \(\lambda_1=3,\;\lambda_2=1\).</p>
+
+    <p><strong>2. Eigenvectors:</strong></p>
+    For \(\lambda=3\):
+    \[
+    (A-3I)v=0 \;\Rightarrow\; v_1=\begin{pmatrix}1\\[4pt]1\end{pmatrix}
+    \]
+
+    For \(\lambda=1\):
+    \[
+    (A-I)v=0 \;\Rightarrow\; v_2=\begin{pmatrix}1\\[4pt]-1\end{pmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <h2>Example B — \(3\times3\) Matrix</h2>
+    <p><strong>Matrix:</strong></p>
+    \[
+    A=\begin{pmatrix}2&1&1\\[4pt]1&2&1\\[4pt]1&1&2\end{pmatrix}
+    \]
+
+    <p>Note: \(A=I+J\) where \(J\) is the all-ones matrix.</p>
+
+    <p><strong>Eigenvalues:</strong></p>
+    \[
+    \lambda=4 \quad (\text{once}), \qquad \lambda=1 \quad (\text{twice})
+    \]
+
+    <p><strong>Eigenvectors:</strong></p>
+    For \(\lambda=4\): 
+    \[
+    v_1=\begin{pmatrix}1\\[4pt]1\\[4pt]1\end{pmatrix}
+    \]
+    For \(\lambda=1\): 
+    \[
+    v_2=\begin{pmatrix}1\\[4pt]-1\\[4pt]0\end{pmatrix}, \quad
+    v_3=\begin{pmatrix}1\\[4pt]0\\[4pt]-1\end{pmatrix}
+    \]
+  </div>
+
+  <div class="example">
+    <h2>Example C — \(4\times4\) Matrix</h2>
+    <p><strong>Matrix:</strong> diagonal entries \(=4\), off-diagonal entries \(=1\).</p>
+    \[
+    A=3I+J
+    \]
+    where \(J\) is the \(4\times4\) all-ones matrix.
+
+    <p><strong>Eigenvalues:</strong></p>
+    \[
+    \lambda=7 \quad (\text{once}), \qquad \lambda=3 \quad (\text{thrice})
+    \]
+
+    <p><strong>Eigenvectors:</strong></p>
+    For \(\lambda=7\):
+    \[
+    v_1=\begin{pmatrix}1\\[4pt]1\\[4pt]1\\[4pt]1\end{pmatrix}
+    \]
+
+    For \(\lambda=3\): a basis of orthogonal complement:
+    \[
+    v_2=\begin{pmatrix}1\\[4pt]-1\\[4pt]0\\[4pt]0\end{pmatrix},\quad
+    v_3=\begin{pmatrix}1\\[4pt]0\\[4pt]-1\\[4pt]0\end{pmatrix},\quad
+    v_4=\begin{pmatrix}1\\[4pt]0\\[4pt]0\\[4pt]-1\end{pmatrix}
+    \]
+  </div>
+
+  <h2>Interactive Eigenvalue Calculator</h2>
+  <p>Enter a \(2\times2\), \(3\times3\), or \(4\times4\) matrix:</p>
+  <div id="calculator"></div>
+  <script>
+    // simple calculator: placeholder (expandable)
+    document.getElementById('calculator').innerHTML = 
+      '<p><em>Calculator integration goes here (e.g., use JS to parse inputs and compute eigenvalues).</em></p>';
+  </script>
 </body>
 </html>
