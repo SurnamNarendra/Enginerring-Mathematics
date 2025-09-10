@@ -330,115 +330,365 @@
 </head>
 <body>
 
-<section id="calculator">
-  <h2>Interactive Calculator (up to 6×6)</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AX = B: Detailed Linear System Analyzer (steps + rank + solution)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Inter,Segoe UI,Arial,sans-serif;margin:18px;background:#f7fafc;color:#111}
+    h1{font-size:20px;margin:6px 0 12px}
+    label{display:inline-block;margin:6px 0 10px}
+    select,input[type=number]{padding:6px;border:1px solid #cbd5e1;border-radius:6px}
+    button{padding:8px 12px;border-radius:8px;border:0;background:#0b5fff;color:#fff;cursor:pointer;margin-left:6px}
+    button.secondary{background:#4b5563}
+    table{border-collapse:collapse;margin:8px 0}
+    td,th{padding:6px}
+    input.coeff{width:72px;text-align:center}
+    #matrixContainer{margin-top:8px}
+    #result{background:#fff;border:1px solid #e2e8f0;padding:12px;border-radius:8px;white-space:pre-wrap; font-family: "Courier New", monospace; max-height:520px; overflow:auto}
+    .row-title{font-weight:600;margin-top:8px}
+    footer{margin-top:12px;font-size:13px;color:#475569}
+    .small{font-size:13px;color:#334155}
+  </style>
+</head>
+<body>
+  <h1>AX = B — Detailed Analyzer (rank, consistency, RREF steps & solutions)</h1>
 
-  <label>Select size of system: </label>
-  <select id="size" onchange="buildMatrix()">
-    <option value="2">2×2</option>
-    <option value="3">3×3</option>
-    <option value="4">4×4</option>
-    <option value="5">5×5</option>
-    <option value="6">6×6</option>
-  </select>
+  <label>Choose system size:
+    <select id="size" onchange="buildMatrix()">
+      <option value="2">2 × 2</option>
+      <option value="3" selected>3 × 3</option>
+      <option value="4">4 × 4</option>
+      <option value="5">5 × 5</option>
+      <option value="6">6 × 6</option>
+    </select>
+  </label>
 
   <div id="matrixContainer"></div>
 
-  <button onclick="solveSystem()">Solve System</button>
+  <div style="margin-top:8px">
+    <button onclick="analyze()">Analyze AX = B (rank & steps)</button>
+    <button class="secondary" onclick="fillExample()">Fill example</button>
+    <button class="secondary" onclick="clearAll()">Clear</button>
+  </div>
 
-  <h3>Steps & Result:</h3>
-  <pre id="result">Waiting for input...</pre>
-</section>
+  <h3 class="row-title">Steps & Conclusion</h3>
+  <div id="result">No analysis yet — enter coefficients and press "Analyze AX = B (rank & steps)".</div>
+
+  <footer>
+    <div class="small">This tool computes RREF with step logging, determines rank(A) and rank([A|B]), checks homogeneity, and prints solution (unique / infinite / none) with parametric form when needed.</div>
+    <div style="margin-top:6px">© 2025 | Designed by Dr. Surnam Narendra</div>
+  </footer>
 
 <script>
-function buildMatrix() {
-  const size = parseInt(document.getElementById("size").value);
-  let html = "<h3>Matrix A</h3><table>";
-  for (let i=0;i<size;i++) {
-    html+="<tr>";
-    for (let j=0;j<size;j++) {
-      html+=`<td><input type="number" id="a-${i}-${j}" value="0"></td>`;
+/* ---------- Utilities ---------- */
+const TOL = 1e-10;
+
+function approxZero(x){ return Math.abs(x) < TOL; }
+function fmt(x, d=4){ if (isNaN(x)) return "NaN"; return Number(x).toFixed(d); }
+
+/* ---------- Build / UI ---------- */
+function buildMatrix(){
+  const size = parseInt(document.getElementById('size').value);
+  const cont = document.getElementById('matrixContainer');
+  let html = '<div><strong>A (coefficients)</strong></div><table>';
+  for(let i=0;i<size;i++){
+    html += '<tr>';
+    for(let j=0;j<size;j++){
+      html += `<td><input class="coeff" type="number" id="a-${i}-${j}" value="${i===j?1:0}" step="any"></td>`;
     }
-    html+="</tr>";
+    html += '</tr>';
   }
-  html+="</table>";
+  html += '</table>';
 
-  html+="<h3>Matrix B</h3><table>";
-  for (let i=0;i<size;i++) {
-    html+=`<tr><td><input type="number" id="b-${i}-0" value="0"></td></tr>`;
+  html += '<div style="margin-top:8px"><strong>B (RHS)</strong></div><table>';
+  for(let i=0;i<size;i++){
+    html += `<tr><td><input class="coeff" type="number" id="b-${i}" value="0" step="any"></td></tr>`;
   }
-  html+="</table>";
-
-  document.getElementById("matrixContainer").innerHTML = html;
+  html += '</table>';
+  cont.innerHTML = html;
 }
 
-function matrixToString(mat) {
-  return mat.map(row => row.map(v => v.toFixed(3)).join("\t")).join("\n");
+function readSystem(){
+  const size = parseInt(document.getElementById('size').value);
+  const A = [], B = [];
+  for(let i=0;i<size;i++){
+    const row=[];
+    for(let j=0;j<size;j++){
+      const v = parseFloat(document.getElementById(`a-${i}-${j}`).value || 0);
+      row.push(Number(v));
+    }
+    A.push(row);
+    B.push(Number(parseFloat(document.getElementById(`b-${i}`).value || 0)));
+  }
+  return {A,B,size};
 }
 
-function solveSystem() {
-  try {
-    const size = parseInt(document.getElementById("size").value);
-    let A = [], B = [];
-    let steps = [];
+/* ---------- Matrix helpers ---------- */
+function deepCopy(mat){ return mat.map(r => r.slice()); }
 
-    for (let i=0;i<size;i++) {
-      let row = [];
-      for (let j=0;j<size;j++) {
-        row.push(parseFloat(document.getElementById(`a-${i}-${j}`).value));
-      }
-      A.push(row);
-      B.push([parseFloat(document.getElementById(`b-${i}-0`).value)]);
+function augmentMatrix(A,B){
+  return A.map((r,i) => r.concat([B[i]]));
+}
+
+function matrixToText(mat, decimals=4){
+  return mat.map(r => r.map(x => fmt(Number(x), decimals)).join('\t')).join('\n');
+}
+
+/* ---------- RREF with step logging ---------- */
+/*
+ Returns:
+  {
+    rref: matrix,
+    steps: [strings],
+    pivotCols: [j indices],
+    rank: integer
+  }
+*/
+function computeRREFWithSteps(inputMat){
+  const m = deepCopy(inputMat);
+  const rows = m.length;
+  const cols = m[0].length;
+  const steps = [];
+  let r = 0; // current row
+  const pivotCols = [];
+
+  steps.push("Start matrix:\n" + matrixToText(m));
+
+  for(let c=0; c<cols && r<rows; c++){
+    // find pivot in column c, row >= r
+    let maxRow = r;
+    for(let i=r+1;i<rows;i++){
+      if(Math.abs(m[i][c]) > Math.abs(m[maxRow][c])) maxRow = i;
+    }
+    if(approxZero(m[maxRow][c])) {
+      // no pivot in this column
+      continue;
     }
 
-    let aug = A.map((row, i) => [...row, ...B[i]]);
-    steps.push("Initial Augmented Matrix:\n" + matrixToString(aug));
+    // swap if needed
+    if(maxRow !== r){
+      const tmp = m[r]; m[r] = m[maxRow]; m[maxRow] = tmp;
+      steps.push(`Swap row ${r+1} and row ${maxRow+1}:\n` + matrixToText(m));
+    }
 
-    // Gaussian elimination with steps
-    for (let i=0; i<size; i++) {
-      // Find pivot row
-      let maxRow=i;
-      for (let k=i+1;k<size;k++){
-        if(Math.abs(aug[k][i])>Math.abs(aug[maxRow][i])) maxRow=k;
+    // normalize pivot row
+    const pivot = m[r][c];
+    for(let j=c;j<cols;j++) m[r][j] /= pivot;
+    steps.push(`Normalize row ${r+1} by pivot (column ${c+1} = ${fmt(pivot,6)}):\n` + matrixToText(m));
+
+    // eliminate other rows
+    for(let i=0;i<rows;i++){
+      if(i===r) continue;
+      const factor = m[i][c];
+      if(approxZero(factor)) continue;
+      for(let j=c;j<cols;j++){
+        m[i][j] -= factor * m[r][j];
       }
-      if (maxRow !== i) {
-        [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
-        steps.push(`Swapped row ${i+1} with row ${maxRow+1}:\n` + matrixToString(aug));
-      }
+      steps.push(`Eliminate column ${c+1} in row ${i+1} using row ${r+1} (factor=${fmt(factor,6)}):\n` + matrixToText(m));
+    }
 
-      let pivot=aug[i][i];
-      if(Math.abs(pivot) < 1e-12) continue;
+    pivotCols.push(c);
+    r++;
+  }
 
-      // Normalize pivot row
-      for(let j=i;j<=size;j++) aug[i][j]/=pivot;
-      steps.push(`Normalized row ${i+1} (pivot = ${pivot.toFixed(3)}):\n` + matrixToString(aug));
+  // clean tiny near-zero values
+  for(let i=0;i<rows;i++){
+    for(let j=0;j<cols;j++){
+      if(approxZero(m[i][j])) m[i][j] = 0;
+    }
+  }
 
-      // Eliminate other rows
-      for(let k=0;k<size;k++){
-        if(k!==i){
-          let factor=aug[k][i];
-          for(let j=i;j<=size;j++){
-            aug[k][j]-=factor*aug[i][j];
-          }
-          steps.push(`Eliminated row ${k+1} using row ${i+1} (factor = ${factor.toFixed(3)}):\n` + matrixToString(aug));
+  const rank = pivotCols.length;
+  steps.push("Final RREF:\n" + matrixToText(m));
+  steps.push(`Detected rank = ${rank} (number of pivot columns).`);
+
+  return { rref: m, steps, pivotCols, rank };
+}
+
+/* ---------- Rank & decision ---------- */
+function analyze(){
+  const {A,B,size} = readSystem();
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerText = "Working...\n";
+
+  // show AX=B
+  let out = "";
+  out += "System size: " + size + " × " + size + "\n\n";
+  out += "A =\n" + matrixToText(A) + "\n\n";
+  out += "B =\n" + B.map(x => fmt(x)).join('\n') + "\n\n";
+  out += "Augmented [A | B] =\n" + matrixToText(augmentMatrix(A,B)) + "\n\n";
+
+  // homogeneous?
+  const isHomogeneous = B.every(x => approxZero(x));
+  out += "Homogeneous system? " + (isHomogeneous ? "YES (all RHS = 0)\n" : "NO (non-homogeneous)\n") + "\n";
+
+  // compute RREF of A and [A|B]
+  const rrefAres = computeRREFWithSteps(A);
+  const rrefAugRes = computeRREFWithSteps(augmentMatrix(A,B));
+
+  // append steps but keep them organized
+  out += "---- RREF(A) steps ----\n";
+  out += rrefAres.steps.join("\n\n") + "\n\n";
+  out += "---- RREF([A|B]) steps ----\n";
+  out += rrefAugRes.steps.join("\n\n") + "\n\n";
+
+  const rankA = rrefAres.rank;
+  const rankAug = rrefAugRes.rank;
+  out += `rank(A) = ${rankA}\nrank([A|B]) = ${rankAug}\n\n`;
+
+  // decide consistency
+  if(rankA < rankAug){
+    out += "Conclusion: SYSTEM IS INCONSISTENT (rank(A) < rank([A|B])).\nNo solution exists.\n";
+    resultDiv.innerText = out;
+    return;
+  }
+
+  // consistent
+  out += "Conclusion: SYSTEM IS CONSISTENT (rank(A) = rank([A|B])).\n";
+
+  if(rankA === size){
+    // unique solution
+    out += "Since rank = number of unknowns, there is a UNIQUE solution.\n";
+    // extract solution from rrefAugRes (each pivot column corresponds to variable)
+    const rrefAug = rrefAugRes.rref;
+    const sol = Array(size).fill(0);
+    // find pivot columns in rrefAugRes (first nonzero in each nonzero row)
+    for(let i=0, row=0; i<rrefAug.length && row<size; i++){
+      // find pivot col in row i
+      let pivotCol = -1;
+      for(let j=0;j<size;j++){
+        if(!approxZero(rrefAug[i][j])){
+          pivotCol = j; break;
         }
       }
+      if(pivotCol === -1) continue;
+      sol[pivotCol] = rrefAug[i][size];
+      row++;
     }
-
-    let sol = aug.map(row => row[size].toFixed(4));
-    steps.push("Final Solution: x = ["+sol.join(", ")+"]");
-
-    document.getElementById("result").innerText=steps.join("\n\n");
-  } catch (err) {
-    document.getElementById("result").innerText="Error: " + err.message;
+    out += "Unique solution (rounded to 6 decimals):\n";
+    out += "x = [ " + sol.map(v => fmt(v,6)).join(", ") + " ]\n";
+    resultDiv.innerText = out;
+    return;
   }
+
+  // rankA == rankAug < size  -> infinite solutions
+  out += "Since rank < number of unknowns, there are INFINITELY MANY solutions (free variables exist).\n";
+
+  // construct parametric solution from RREF of augmented
+  const rref = rrefAugRes.rref; // rows × (n+1)
+  const m = rref.length, n = size;
+  const pivotCols = [];
+  const pivotRowOfCol = Array(n).fill(-1);
+  for(let i=0;i<m;i++){
+    for(let j=0;j<n;j++){
+      if(!approxZero(rref[i][j])){
+        pivotCols.push(j);
+        pivotRowOfCol[j] = i;
+        break;
+      }
+    }
+  }
+  const freeCols = [];
+  for(let j=0;j<n;j++){
+    if(pivotRowOfCol[j] === -1) freeCols.push(j);
+  }
+
+  out += "Pivot columns: " + pivotCols.map(c => c+1).join(", ") + "\n";
+  out += "Free variable columns: " + (freeCols.length ? freeCols.map(c => 'x' + (c+1)).join(', ') : 'None') + "\n\n";
+
+  // parameters t1...tk for free variables
+  const params = freeCols.map((c, idx) => 't' + (idx+1));
+  // build expression for each variable x_j
+  const expressions = [];
+  for(let j=0;j<n;j++){
+    if(freeCols.includes(j)){
+      // free variable => x_j = parameter
+      const idx = freeCols.indexOf(j);
+      expressions[j] = params[idx];
+    } else {
+      // pivot variable: find its row and expression
+      const row = pivotRowOfCol[j];
+      // x_j + sum_{free k} ( coeff_{k} * x_free_k ) = RHS
+      // so x_j = RHS - sum(coeff_k * param_k)
+      let expr = fmt(rref[row][n],6); // RHS
+      // subtract contributions of free vars
+      for(let f=0; f<freeCols.length; f++){
+        const colIdx = freeCols[f];
+        const coeff = rref[row][colIdx];
+        if(!approxZero(coeff)){
+          // move to RHS: subtract coeff * t_f
+          const sign = Number(coeff) > 0 ? '-' : '+';
+          const mag = Math.abs(coeff);
+          expr += ' ' + sign + ' ' + fmt(mag,6) + '*' + params[f];
+        }
+      }
+      expressions[j] = expr;
+    }
+  }
+
+  out += "Parametric solution (parameters: " + (params.length?params.join(', '):'none') + "):\n";
+  for(let j=0;j<n;j++){
+    out += `x${j+1} = ${expressions[j]}\n`;
+  }
+
+  resultDiv.innerText = out;
 }
 
-// Initialize default 2×2
+/* ---------- Helpers for demo ---------- */
+function fillExample(){
+  // Fill a sample 3x3 with infinite solutions example
+  const size = parseInt(document.getElementById('size').value);
+  if(size === 3){
+    // example: x + 2y - z = 1
+    //          2x + 4y -2z = 2  (dependent)
+    //          x - y + 3z = 0   (independent)
+    const valsA = [
+      [1,2,-1],
+      [2,4,-2],
+      [1,-1,3]
+    ];
+    const valsB = [1,2,0];
+    for(let i=0;i<size;i++){
+      for(let j=0;j<size;j++){
+        document.getElementById(`a-${i}-${j}`).value = valsA[i][j];
+      }
+      document.getElementById(`b-${i}`).value = valsB[i];
+    }
+  } else if(size === 2){
+    document.getElementById('a-0-0').value=1; document.getElementById('a-0-1').value=2;
+    document.getElementById('a-1-0').value=3; document.getElementById('a-1-1').value=4;
+    document.getElementById('b-0').value=5; document.getElementById('b-1').value=11;
+  } else {
+    // generic identity-ish
+    for(let i=0;i<size;i++){
+      for(let j=0;j<size;j++){
+        document.getElementById(`a-${i}-${j}`).value = (i===j?1:0);
+      }
+      document.getElementById(`b-${i}`).value = i+1;
+    }
+  }
+  document.getElementById('result').innerText = "Example filled — press Analyze.";
+}
+
+function clearAll(){
+  const size = parseInt(document.getElementById('size').value);
+  for(let i=0;i<size;i++){
+    for(let j=0;j<size;j++){
+      document.getElementById(`a-${i}-${j}`).value = 0;
+    }
+    document.getElementById(`b-${i}`).value = 0;
+  }
+  document.getElementById('result').innerText = "Cleared. Enter coefficients and press Analyze.";
+}
+
+/* ---------- Init ---------- */
 buildMatrix();
 </script>
 
-<footer style="
+  <footer style="
     background: #f8f9fa;
     color: #333;
     text-align: center;
@@ -449,6 +699,10 @@ buildMatrix();
 ">
     © 2025 | Designed by Dr. Surnam Narendra
 </footer>
+  
 </body>
 </html>
+
+
+
 
