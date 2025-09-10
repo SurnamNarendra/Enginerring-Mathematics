@@ -34,124 +34,130 @@ pre{background:#f7f7f8;padding:12px;border-radius:8px;overflow:auto}
 <p class="kv">\[\det(A - \lambda I) = 0.\]</p>
 <p>Eigenvectors are non-zero solutions to \((A-\lambda I)v=0\) for each eigenvalue \(\lambda\).</p>
 
-<h2>3. Key properties</h2>
-<ul>
-<li>There are exactly \(n\) eigenvalues counting algebraic multiplicity (complex values allowed).</li>
-<li>Symmetric real matrices have real eigenvalues and an orthonormal eigenbasis.</li>
-<li>\(\det(A)=\prod_i\lambda_i\) and \(\operatorname{tr}(A)=\sum_i\lambda_i\).</li>
-<li>For integer \(k\ge0\), if \(Av=\lambda v\) then \(A^k v=\lambda^k v\).</li>
-</ul>
+<h2>Worked Examples</h2>
 
-<h2>4. Uses & applications</h2>
-<ul>
-<li>Stability of differential equations, modal analysis in mechanics.</li>
-<li>Principal Component Analysis (PCA) in statistics / ML.</li>
-<li>Markov chains (eigenvalue 1 and stationary distribution).</li>
-<li>Quantum mechanics (Hamiltonian eigenstates).</li>
-</ul>
+<!-- 2x2 Examples -->
+<div class="example">
+  <h2>Example 1 — 2×2 Symmetric Matrix</h2>
+  \[
+  A=\begin{pmatrix}2 & 1\\[4pt]1 & 2\end{pmatrix}
+  \]
+  <p><strong>Step 1: Characteristic polynomial:</strong></p>
+  \[(2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-3)(\lambda-1)\]
+  <p><strong>Eigenvalues:</strong> 3, 1</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  For \(\lambda=3\):
+  \[(A-3I)v=0 \Rightarrow \begin{pmatrix}-1 & 1\\1 & -1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=0 \Rightarrow x=y\]
+  Eigenvector: \(v_1=(1,1)^T\)
+  <br>
+  For \(\lambda=1\):
+  \[(A-I)v=0 \Rightarrow \begin{pmatrix}1 & 1\\1 & 1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=0 \Rightarrow x=-y\]
+  Eigenvector: \(v_2=(1,-1)^T\)
+</div>
 
-<h1>Worked Examples of Eigenvalues and Eigenvectors</h1>
+<div class="example">
+  <h2>Example 2 — 2×2 Diagonal Matrix</h2>
+  \[
+  A=\begin{pmatrix}4 & 0\\[4pt]0 & -2\end{pmatrix}
+  \]
+  <p><strong>Step 1: Characteristic polynomial:</strong></p>
+  \[(4-\lambda)(-2-\lambda)=0\]
+  <p><strong>Eigenvalues:</strong> 4, -2</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  For \(\lambda=4\): equation is \(x\) free, \(y=0\). Eigenvector \((1,0)^T\).
+  <br>
+  For \(\lambda=-2\): equation is \(y\) free, \(x=0\). Eigenvector \((0,1)^T\).
+</div>
 
-  <div class="example">
-    <h2>Example A — \(2\times2\) Symmetric Matrix</h2>
-    <p><strong>Matrix:</strong></p>
-    \[
-    A=\begin{pmatrix}2 & 1\\[4pt]1 & 2\end{pmatrix}
-    \]
+<div class="example">
+  <h2>Example 3 — 2×2 Non-symmetric Matrix</h2>
+  \[
+  A=\begin{pmatrix}0 & 1\\[4pt]-2 & -3\end{pmatrix}
+  \]
+  <p><strong>Step 1: Characteristic polynomial:</strong></p>
+  \[\det\begin{pmatrix}-\lambda & 1\\[4pt]-2 & -3-\lambda\end{pmatrix}=\lambda^2+3\lambda+2=(\lambda+1)(\lambda+2)\]
+  <p><strong>Eigenvalues:</strong> -1, -2</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  For \(\lambda=-1\):
+  \[(A+I)v=0 \Rightarrow \begin{pmatrix}1 & 1\\-2 & -2\end{pmatrix}(x,y)^T=0 \Rightarrow x=-y\]
+  Eigenvector: \((1,-1)^T\).
+  <br>
+  For \(\lambda=-2\):
+  \[(A+2I)v=0 \Rightarrow \begin{pmatrix}2 & 1\\-2 & -1\end{pmatrix}(x,y)^T=0 \Rightarrow 2x+y=0\]
+  Eigenvector: \((1,-2)^T\).
+</div>
 
-    <p><strong>1. Characteristic polynomial:</strong></p>
-    \[
-    \det(A-\lambda I)=\det\begin{pmatrix}2-\lambda & 1\\[4pt]1 & 2-\lambda\end{pmatrix}=(2-\lambda)^2-1
-    \]
-    \[
-    (2-\lambda)^2-1=0 \;\Rightarrow\; (\lambda-3)(\lambda-1)=0
-    \]
+<!-- 3x3 Examples -->
+<div class="example">
+  <h2>Example 4 — 3×3 Symmetric Matrix</h2>
+  \[
+  A=\begin{pmatrix}2&1&1\\[4pt]1&2&1\\[4pt]1&1&2\end{pmatrix}
+  \]
+  <p><strong>Step 1: Characteristic polynomial:</strong></p>
+  \[\det(A-\lambda I)=(2-\lambda)^3+2-(2-\lambda)=(\lambda-4)(\lambda-1)^2\]
+  <p><strong>Eigenvalues:</strong> 4, 1, 1</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  For \(\lambda=4\): (A-4I)v=0 → x=y=z. Eigenvector: (1,1,1)^T.
+  <br>
+  For \(\lambda=1\): (A-I)v=0 → system: x+y+z=0. Two free solutions:
+  Eigenvectors: (1,-1,0)^T, (1,0,-1)^T.
+</div>
 
-    <p><strong>Eigenvalues:</strong> \(\lambda_1=3,\;\lambda_2=1\).</p>
+<div class="example">
+  <h2>Example 5 — 3×3 Diagonal Matrix</h2>
+  \[
+  A=\begin{pmatrix}5&0&0\\[4pt]0&3&0\\[4pt]0&0&-1\end{pmatrix}
+  \]
+  <p><strong>Step 1: Characteristic polynomial:</strong></p>
+  \[(5-\lambda)(3-\lambda)(-1-\lambda)=0\]
+  <p><strong>Eigenvalues:</strong> 5, 3, -1</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  Directly standard basis vectors:
+  (1,0,0)^T, (0,1,0)^T, (0,0,1)^T.
+</div>
 
-    <p><strong>2. Eigenvectors:</strong></p>
-    For \(\lambda=3\):
-    \[
-    (A-3I)v=0 \;\Rightarrow\; v_1=\begin{pmatrix}1\\[4pt]1\end{pmatrix}
-    \]
+<div class="example">
+  <h2>Example 6 — 3×3 Upper Triangular Matrix</h2>
+  \[
+  A=\begin{pmatrix}1&2&3\\[4pt]0&4&5\\[4pt]0&0&6\end{pmatrix}
+  \]
+  <p><strong>Step 1: Eigenvalues:</strong> diagonal entries → 1,4,6</p>
+  <p><strong>Step 2: Eigenvectors:</strong></p>
+  For \(\lambda=1\): (A-I)v=0 → equations force x free, y=z=0. Eigenvector: (1,0,0)^T.
+  <br>
+  For \(\lambda=4\): (A-4I)v=0 → system gives -3x+2y+3z=0, 0x+0y+5z=0 → z=0, -3x+2y=0 → y=1. Eigenvector: (-2,1,0)^T.
+  <br>
+  For \(\lambda=6\): (A-6I)v=0 → equations give -5x+2y+3z=0, -2y+5z=0 → y=5, z=2y=10. Eigenvector: (-3,-5,1)^T (scaled).
+</div>
 
-    For \(\lambda=1\):
-    \[
-    (A-I)v=0 \;\Rightarrow\; v_2=\begin{pmatrix}1\\[4pt]-1\end{pmatrix}
-    \]
-  </div>
+<h2>Interactive Eigenvalue Calculator</h2>
+<p>Enter a 2×2, 3×3, or 4×4 matrix (comma separated rows):</p>
+<input id="matrixInput" style="width:400px" placeholder="e.g. 2 1; 1 2">
+<button class="btn" onclick="computeEigen()">Compute</button>
+<pre id="output"></pre>
 
-  <div class="example">
-    <h2>Example B — \(3\times3\) Matrix</h2>
-    <p><strong>Matrix:</strong></p>
-    \[
-    A=\begin{pmatrix}2&1&1\\[4pt]1&2&1\\[4pt]1&1&2\end{pmatrix}
-    \]
+<script>
+function parseMatrix(str){
+  return str.split(';').map(r=>r.trim().split(/\s+/).map(Number));
+}
 
-    <p>Note: \(A=I+J\) where \(J\) is the all-ones matrix.</p>
+function computeEigen(){
+  const math = window.numeric;
+  let A = parseMatrix(document.getElementById('matrixInput').value);
+  try{
+    let eig = numeric.eig(A);
+    let vals = eig.lambda.x;
+    let vecs = eig.E.x;
+    document.getElementById('output').textContent = 'Eigenvalues: '+JSON.stringify(vals)+'\nEigenvectors (columns):\n'+JSON.stringify(vecs);
+  }catch(e){
+    document.getElementById('output').textContent = 'Error computing eigenvalues.';
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 
-    <p><strong>Eigenvalues:</strong></p>
-    \[
-    \lambda=4 \quad (\text{once}), \qquad \lambda=1 \quad (\text{twice})
-    \]
-
-    <p><strong>Eigenvectors:</strong></p>
-    For \(\lambda=4\): 
-    \[
-    v_1=\begin{pmatrix}1\\[4pt]1\\[4pt]1\end{pmatrix}
-    \]
-    For \(\lambda=1\): 
-    \[
-    v_2=\begin{pmatrix}1\\[4pt]-1\\[4pt]0\end{pmatrix}, \quad
-    v_3=\begin{pmatrix}1\\[4pt]0\\[4pt]-1\end{pmatrix}
-    \]
-  </div>
-
-  <div class="example">
-    <h2>Example C — \(4\times4\) Matrix</h2>
-    <p><strong>Matrix:</strong> diagonal entries \(=4\), off-diagonal entries \(=1\).</p>
-    \[
-    A=3I+J
-    \]
-    where \(J\) is the \(4\times4\) all-ones matrix.
-
-    <p><strong>Eigenvalues:</strong></p>
-    \[
-    \lambda=7 \quad (\text{once}), \qquad \lambda=3 \quad (\text{thrice})
-    \]
-
-    <p><strong>Eigenvectors:</strong></p>
-    For \(\lambda=7\):
-    \[
-    v_1=\begin{pmatrix}1\\[4pt]1\\[4pt]1\\[4pt]1\end{pmatrix}
-    \]
-
-    For \(\lambda=3\): a basis of orthogonal complement:
-    \[
-    v_2=\begin{pmatrix}1\\[4pt]-1\\[4pt]0\\[4pt]0\end{pmatrix},\quad
-    v_3=\begin{pmatrix}1\\[4pt]0\\[4pt]-1\\[4pt]0\end{pmatrix},\quad
-    v_4=\begin{pmatrix}1\\[4pt]0\\[4pt]0\\[4pt]-1\end{pmatrix}
-    \]
-  </div>
-
-  <h2>Interactive Eigenvalue Calculator</h2>
-  <p>Enter a \(2\times2\), \(3\times3\), or \(4\times4\) matrix:</p>
-  <div id="calculator"></div>
-  <script>
-    // simple calculator: placeholder (expandable)
-    document.getElementById('calculator').innerHTML = 
-      '<p><em>Calculator integration goes here (e.g., use JS to parse inputs and compute eigenvalues).</em></p>';
-  </script>
-   <footer style="
-    background: #f8f9fa;
-    color: #333;
-    text-align: center;
-    padding: 10px;
-    font-size: 13px;
-    font-style: italic;
-    border-top: 1px solid #ccc;
-">
-    © 2025 | Designed by Dr. Surnam Narendra
+<footer style="background:#f8f9fa;color:#333;text-align:center;padding:10px;font-size:13px;font-style:italic;border-top:1px solid #ccc;">
+© 2025 | Designed by Dr. Surnam Narendra
 </footer>
 </body>
 </html>
