@@ -276,12 +276,9 @@
     </p>
   </div>
 </section>
-
-
-
-
 </body>
 </html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -324,6 +321,10 @@
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: "Courier New", monospace;
     }
   </style>
 </head>
@@ -345,7 +346,7 @@
 
   <button onclick="solveSystem()">Solve System</button>
 
-  <h3>Result:</h3>
+  <h3>Steps & Result:</h3>
   <pre id="result">Waiting for input...</pre>
 </section>
 
@@ -371,10 +372,15 @@ function buildMatrix() {
   document.getElementById("matrixContainer").innerHTML = html;
 }
 
+function matrixToString(mat) {
+  return mat.map(row => row.map(v => v.toFixed(3)).join("\t")).join("\n");
+}
+
 function solveSystem() {
   try {
     const size = parseInt(document.getElementById("size").value);
     let A = [], B = [];
+    let steps = [];
 
     for (let i=0;i<size;i++) {
       let row = [];
@@ -386,32 +392,43 @@ function solveSystem() {
     }
 
     let aug = A.map((row, i) => [...row, ...B[i]]);
+    steps.push("Initial Augmented Matrix:\n" + matrixToString(aug));
 
-    // Gaussian elimination
+    // Gaussian elimination with steps
     for (let i=0; i<size; i++) {
+      // Find pivot row
       let maxRow=i;
       for (let k=i+1;k<size;k++){
         if(Math.abs(aug[k][i])>Math.abs(aug[maxRow][i])) maxRow=k;
       }
-      [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
+      if (maxRow !== i) {
+        [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
+        steps.push(`Swapped row ${i+1} with row ${maxRow+1}:\n` + matrixToString(aug));
+      }
 
       let pivot=aug[i][i];
       if(Math.abs(pivot) < 1e-12) continue;
 
+      // Normalize pivot row
       for(let j=i;j<=size;j++) aug[i][j]/=pivot;
+      steps.push(`Normalized row ${i+1} (pivot = ${pivot.toFixed(3)}):\n` + matrixToString(aug));
 
+      // Eliminate other rows
       for(let k=0;k<size;k++){
         if(k!==i){
           let factor=aug[k][i];
           for(let j=i;j<=size;j++){
             aug[k][j]-=factor*aug[i][j];
           }
+          steps.push(`Eliminated row ${k+1} using row ${i+1} (factor = ${factor.toFixed(3)}):\n` + matrixToString(aug));
         }
       }
     }
 
     let sol = aug.map(row => row[size].toFixed(4));
-    document.getElementById("result").innerText="Solution: x = ["+sol.join(", ")+"]";
+    steps.push("Final Solution: x = ["+sol.join(", ")+"]");
+
+    document.getElementById("result").innerText=steps.join("\n\n");
   } catch (err) {
     document.getElementById("result").innerText="Error: " + err.message;
   }
@@ -420,6 +437,7 @@ function solveSystem() {
 // Initialize default 2×2
 buildMatrix();
 </script>
+
 <footer style="
     background: #f8f9fa;
     color: #333;
@@ -433,3 +451,4 @@ buildMatrix();
 </footer>
 </body>
 </html>
+
