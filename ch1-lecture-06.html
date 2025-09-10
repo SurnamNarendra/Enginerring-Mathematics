@@ -277,24 +277,57 @@
   </div>
 </section>
 
-<!-- Calculator Section -->
-<section id="calculator">
-  <h2>3. Interactive Calculator</h2>
-  <p>Enter coefficient matrix A and constant matrix B (in JSON format). Example: <br>
-  A = [[2,1],[1,-1]], B = [[5],[1]]</p>
-  
-  <textarea id="matrixA" rows="4" cols="40">[[2,1],[1,-1]]</textarea><br>
-  <textarea id="matrixB" rows="4" cols="40">[[5],[1]]</textarea><br>
-  <button onclick="solveSystem()">Solve System</button>
-  <h3>Result:</h3>
-  <pre id="result"></pre>
-</section>
 
-<!-- Examples Section -->
-<section id="examples-3x3-4x4">
-  <h2>7. Examples (3×3 and 4×4)</h2>
-  <p>Here you can see more worked examples.</p>
-</section>
+
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System of Linear Equations Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f8f9fa;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    td {
+      padding: 5px;
+    }
+    input {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #result {
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
 
 <section id="calculator">
   <h2>Interactive Calculator (up to 6×6)</h2>
@@ -314,82 +347,79 @@
 
   <h3>Result:</h3>
   <pre id="result">Waiting for input...</pre>
+</section>
 
-  <script>
-  function buildMatrix() {
-    const size = parseInt(document.getElementById("size").value);
-    let html = "<h3>Matrix A</h3><table>";
-    for (let i=0;i<size;i++) {
-      html+="<tr>";
-      for (let j=0;j<size;j++) {
-        html+=`<td><input type="number" id="a-${i}-${j}" value="0" style="width:60px;text-align:center;"></td>`;
-      }
-      html+="</tr>";
+<script>
+function buildMatrix() {
+  const size = parseInt(document.getElementById("size").value);
+  let html = "<h3>Matrix A</h3><table>";
+  for (let i=0;i<size;i++) {
+    html+="<tr>";
+    for (let j=0;j<size;j++) {
+      html+=`<td><input type="number" id="a-${i}-${j}" value="0"></td>`;
     }
-    html+="</table>";
-
-    html+="<h3>Matrix B</h3><table>";
-    for (let i=0;i<size;i++) {
-      html+=`<tr><td><input type="number" id="b-${i}-0" value="0" style="width:60px;text-align:center;"></td></tr>`;
-    }
-    html+="</table>";
-
-    document.getElementById("matrixContainer").innerHTML = html;
+    html+="</tr>";
   }
+  html+="</table>";
 
-  function solveSystem() {
-    try {
-      const size = parseInt(document.getElementById("size").value);
-      let A = [], B = [];
+  html+="<h3>Matrix B</h3><table>";
+  for (let i=0;i<size;i++) {
+    html+=`<tr><td><input type="number" id="b-${i}-0" value="0"></td></tr>`;
+  }
+  html+="</table>";
 
-      for (let i=0;i<size;i++) {
-        let row = [];
-        for (let j=0;j<size;j++) {
-          row.push(parseFloat(document.getElementById(`a-${i}-${j}`).value));
-        }
-        A.push(row);
-        B.push([parseFloat(document.getElementById(`b-${i}-0`).value)]);
+  document.getElementById("matrixContainer").innerHTML = html;
+}
+
+function solveSystem() {
+  try {
+    const size = parseInt(document.getElementById("size").value);
+    let A = [], B = [];
+
+    for (let i=0;i<size;i++) {
+      let row = [];
+      for (let j=0;j<size;j++) {
+        row.push(parseFloat(document.getElementById(`a-${i}-${j}`).value));
       }
+      A.push(row);
+      B.push([parseFloat(document.getElementById(`b-${i}-0`).value)]);
+    }
 
-      let aug = A.map((row, i) => [...row, ...B[i]]);
+    let aug = A.map((row, i) => [...row, ...B[i]]);
 
-      // Gaussian elimination
-      for (let i=0; i<size; i++) {
-        let maxRow=i;
-        for (let k=i+1;k<size;k++){
-          if(Math.abs(aug[k][i])>Math.abs(aug[maxRow][i])) maxRow=k;
-        }
-        [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
+    // Gaussian elimination
+    for (let i=0; i<size; i++) {
+      let maxRow=i;
+      for (let k=i+1;k<size;k++){
+        if(Math.abs(aug[k][i])>Math.abs(aug[maxRow][i])) maxRow=k;
+      }
+      [aug[i], aug[maxRow]]=[aug[maxRow], aug[i]];
 
-        let pivot=aug[i][i];
-        if(Math.abs(pivot) < 1e-12) continue;
+      let pivot=aug[i][i];
+      if(Math.abs(pivot) < 1e-12) continue;
 
-        for(let j=i;j<=size;j++) aug[i][j]/=pivot;
+      for(let j=i;j<=size;j++) aug[i][j]/=pivot;
 
-        for(let k=0;k<size;k++){
-          if(k!==i){
-            let factor=aug[k][i];
-            for(let j=i;j<=size;j++){
-              aug[k][j]-=factor*aug[i][j];
-            }
+      for(let k=0;k<size;k++){
+        if(k!==i){
+          let factor=aug[k][i];
+          for(let j=i;j<=size;j++){
+            aug[k][j]-=factor*aug[i][j];
           }
         }
       }
-
-      let sol = aug.map(row => row[size].toFixed(4));
-      document.getElementById("result").innerText="Solution: x = ["+sol.join(", ")+"]";
-    } catch (err) {
-      document.getElementById("result").innerText="Error: " + err.message;
     }
+
+    let sol = aug.map(row => row[size].toFixed(4));
+    document.getElementById("result").innerText="Solution: x = ["+sol.join(", ")+"]";
+  } catch (err) {
+    document.getElementById("result").innerText="Error: " + err.message;
   }
+}
 
-  // Initialize default 2×2
-  buildMatrix();
-  </script>
-</section>
-
+// Initialize default 2×2
+buildMatrix();
 </script>
-
 <footer style="
     background: #f8f9fa;
     color: #333;
@@ -401,6 +431,5 @@
 ">
     © 2025 | Designed by Dr. Surnam Narendra
 </footer>
-
 </body>
 </html>
