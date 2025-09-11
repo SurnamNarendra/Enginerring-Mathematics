@@ -35,7 +35,74 @@ pre{background:#f7f7f8;padding:12px;border-radius:8px;overflow:auto}
 <p>Eigenvectors are non-zero solutions to \((A-\lambda I)v=0\) for each eigenvalue \(\lambda\).</p>
 
 <h2>Worked Examples</h2>
+<h3>Example 2×2 — #1 (Diagonal matrix)</h3>
+<p>Because this matrix is upper triangular, the eigenvalues are the diagonal entries: \(\lambda=4\) (algebraic multiplicity 2) and \(\lambda=2\).</p>
 
+
+<p><strong>Eigenvectors for \(\lambda=4\)</strong></p>
+<p>Compute \(A-4I=\begin{pmatrix}0&1&0\\[4pt]0&0&1\\[4pt]0&0&-2\end{pmatrix}.\)</p>
+<p>The equations are:
+\[y=0,\quad z=0,\quad -2z=0\Rightarrow z=0.\]
+So \(y=z=0\) and eigenvectors are multiples of \(\begin{pmatrix}1\\0\\0\end{pmatrix}.\) The geometric multiplicity is 1 (so the matrix is defective for \(\lambda=4\)).
+</p>
+
+
+<p><strong>Eigenvectors for \(\lambda=2\)</strong></p>
+<p>Compute \(A-2I=\begin{pmatrix}2&1&0\\[4pt]0&2&1\\[4pt]0&0&0\end{pmatrix}.\)</p>
+<p>From row 1: \(2x+y=0\Rightarrow y=-2x.\) From row 2: \(2y+z=0\Rightarrow z=-2y=4x.\) Choose \(x=1\) to get eigenvector
+\[v=\begin{pmatrix}1\\-2\\4\end{pmatrix}\] and check \(Av=2v\).</p>
+</div>
+</article>
+
+
+<hr />
+
+
+<article>
+<h3>Example 3×3 — #3 (Block-symmetric matrix with easy factorization)</h3>
+<p><strong>Matrix:</strong>
+$$A=\begin{pmatrix}2&0&0\\[4pt]0&3&4\\[4pt]0&4&3\end{pmatrix}$$
+This is the block-diagonal style matrix with a 1×1 block and a 2×2 symmetric block.
+</p>
+
+
+<div class="small">
+<p><strong>Characteristic polynomial</strong> (compute the 2×2 block determinant first):
+\[p(\lambda)=(2-\lambda)\det\begin{pmatrix}3-\lambda&4\\[4pt]4&3-\lambda\end{pmatrix}=(2-\lambda)\big((3-\lambda)^2-4\cdot4\big).\]
+Simplify the 2×2 determinant:
+\[(3-\lambda)^2-16=9-6\lambda+\lambda^2-16=\lambda^2-6\lambda-7=(\lambda-7)(\lambda+1).
+</p>
+
+
+<p>So
+\[p(\lambda)=(2-\lambda)(\lambda-7)(\lambda+1),\]
+and the eigenvalues are \(\lambda=2,\;7,\;-1.\)
+</p>
+
+
+<p><strong>Eigenvectors</strong></p>
+<p>For \(\lambda=2\):
+\[A-2I=\begin{pmatrix}0&0&0\\[4pt]0&1&4\\[4pt]0&4&1\end{pmatrix}.\]
+The 2×2 lower block gives the system \(y+4z=0,\;4y+z=0\). Adding \(16\times\)first eqn minus first eqn gives \(-15z=0\Rightarrow z=0\Rightarrow y=0\). Thus eigenvectors are \(\begin{pmatrix}1\\0\\0\end{pmatrix}.\)
+</p>
+
+
+<p>For \(\lambda=7\):
+\[A-7I=\begin{pmatrix}-5&0&0\\[4pt]0&-4&4\\[4pt]0&4&-4\end{pmatrix}.\]
+The lower block gives \(-4y+4z=0\Rightarrow z=y.\) The first coordinate must be 0 because \(-5x=0\Rightarrow x=0\). So choose \(v=\begin{pmatrix}0\\1\\1\end{pmatrix}.\)
+</p>
+
+
+<p>For \(\lambda=-1\):
+\[A+I=\begin{pmatrix}3&0&0\\[4pt]0&4&4\\[4pt]0&4&4\end{pmatrix}.\]
+The lower block gives \(4y+4z=0\Rightarrow y=-z\). First coordinate must be 0. Choose \(v=\begin{pmatrix}0\\1\\-1\end{pmatrix}.\)
+</p>
+
+
+<p><em>Remarks:</em> since this matrix is symmetric, eigenvectors for different eigenvalues are orthogonal; here \((0,1,1)\cdot(0,1,-1)=0\).</p>
+</div>
+</article>
+</section>
 <!-- 2x2 Examples -->
 <div class="example">
   <h2>Example 1 — 2×2 Symmetric Matrix</h2>
