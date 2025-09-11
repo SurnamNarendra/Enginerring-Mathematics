@@ -131,30 +131,60 @@ pre{background:#f7f7f8;padding:12px;border-radius:8px;overflow:auto}
 </div>
 
 <h2>Interactive Eigenvalue Calculator</h2>
-<p>Enter a 2×2, 3×3, or 4×4 matrix (comma separated rows):</p>
+<p>Enter a 2×2, 3×3, or 4×4 matrix (semicolon separated rows, spaces between numbers):</p>
 <input id="matrixInput" style="width:400px" placeholder="e.g. 2 1; 1 2">
 <button class="btn" onclick="computeEigen()">Compute</button>
 <pre id="output"></pre>
 
+<!-- MathJax for rendering steps in LaTeX -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async 
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 <script>
 function parseMatrix(str){
-  return str.split(';').map(r=>r.trim().split(/\s+/).map(Number));
+  return str.split(';').map(r => r.trim().split(/\s+/).map(Number));
+}
+
+function formatMatrix(A){
+  return "\\begin{bmatrix}" + 
+    A.map(r => r.join(" & ")).join(" \\\\ ") + 
+    "\\end{bmatrix}";
 }
 
 function computeEigen(){
-  const math = window.numeric;
   let A = parseMatrix(document.getElementById('matrixInput').value);
   try{
     let eig = numeric.eig(A);
     let vals = eig.lambda.x;
     let vecs = eig.E.x;
-    document.getElementById('output').textContent = 'Eigenvalues: '+JSON.stringify(vals)+'\nEigenvectors (columns):\n'+JSON.stringify(vecs);
+
+    let steps = "";
+    steps += "Given matrix A: \n\n $$A = " + formatMatrix(A) + "$$ \n\n";
+
+    steps += "Step 1: Form the characteristic equation: \n";
+    steps += "$$ \\det(A - \\lambda I) = 0 $$\n\n";
+
+    steps += "Step 2: Solve for eigenvalues: \n";
+    steps += "$$ \\lambda = " + vals.map(v => v.toFixed(3)).join(", ") + " $$\n\n";
+
+    steps += "Step 3: For each eigenvalue, solve $(A-\\lambda I)x=0$ to find eigenvectors. \n\n";
+
+    for(let i=0;i<vals.length;i++){
+      steps += "For \\( \\lambda = " + vals[i].toFixed(3) + " \\): \n";
+      let vec = vecs.map(row => row[i].toFixed(3));
+      steps += "Eigenvector: $$x = " + formatMatrix([vec]) + "^T $$ \n\n";
+    }
+
+    document.getElementById('output').innerHTML = steps;
+    MathJax.typeset(); // refresh MathJax rendering
   }catch(e){
     document.getElementById('output').textContent = 'Error computing eigenvalues.';
   }
 }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+
 
 <footer style="background:#f8f9fa;color:#333;text-align:center;padding:10px;font-size:13px;font-style:italic;border-top:1px solid #ccc;">
 © 2025 | Designed by Dr. Surnam Narendra
