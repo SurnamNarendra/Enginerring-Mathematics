@@ -1,109 +1,151 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
   <title>Lecture 8 — Cayley–Hamilton Theorem & Diagonalization</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    :root{--accent:#0b63d6;--muted:#6b7280;--card:#fff;--bg:#f4f6f8}
-    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.6;background:var(--bg);color:#0f1724;padding:24px}
-    .container{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;gap:16px}
-    h1{margin:0;font-size:1.6rem}
-    .card{background:var(--card);border-radius:12px;padding:20px;margin-top:18px;box-shadow:0 6px 18px rgba(12,14,20,0.06)}
-    .muted{color:var(--muted)}
-    .example{border-left:4px solid var(--accent);padding:12px 16px;margin:14px 0;border-radius:6px;background:#fbfdff}
-    pre{background:#0b1220;color:#e6eef8;padding:12px;border-radius:6px;overflow:auto}
-    .small{font-size:0.9rem}
-    .formula{font-family:"Latin Modern Math",serif;font-size:1.05rem}
-    footer{margin-top:26px;color:var(--muted);font-size:0.9rem}
-    table{border-collapse:collapse;width:100%}
-    td,th{padding:8px;border:1px solid #eee}
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    h2, h3 { color: darkblue; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
   </style>
-  <!-- MathJax configuration to ensure inline \( ... \) and $...$ both work -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        displayMath: [['$$','$$'], ['\\[','\\]']]
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Lecture 8 — Cayley–Hamilton Theorem &amp; Diagonalization</h1>
-        <div class="muted small">Definitions, proofs sketch, and several detailed examples.</div>
-      </div>
-    </header>
 
-    <section class="card">
-      <h2>Cayley–Hamilton Theorem</h2>
+<h1>Lecture 8 — Cayley–Hamilton Theorem & Diagonalization</h1>
 
-      <h3>Statement</h3>
-      <p class="formula">Given a square matrix \(A \in \mathbb{R}^{n \times n}\), let \(p_A(\lambda) = \det(\lambda I - A)\) be its characteristic polynomial. The theorem states that \(p_A(A) = 0\) (the zero matrix).</p>
+<!-- ================== Cayley–Hamilton ================== -->
+<h2>1. Cayley–Hamilton Theorem</h2>
 
-      <h3>Remarks</h3>
-      <ul>
-        <li>Since \(p_A(\lambda)\) is degree \(n\), the theorem gives a polynomial identity of degree \(n\) in \(A\).</li>
-        <li>It is useful to reduce high powers of \(A\) to lower powers in computations of \(A^k\) or \(A^{-1}\) when \(A\) is invertible.</li>
-      </ul>
+<h3>Definition</h3>
+<p>
+The <b>Cayley–Hamilton theorem</b> states that every square matrix satisfies its own characteristic equation.
+</p>
+<p>
+For a square matrix \(A\) of order \(n\), with characteristic polynomial
+\[
+p(\lambda) = \det(A - \lambda I) = \lambda^n + c_{1}\lambda^{n-1} + \cdots + c_{n},
+\]
+then
+\[
+p(A) = A^n + c_{1}A^{n-1} + \cdots + c_{n}I = 0.
+\]
+</p>
 
-      <h3>Worked Example — 2×2 matrix</h3>
-      <div class="example">
-        <p>Let \(A = \begin{pmatrix}2 & 1 \\ 1 & 2\end{pmatrix}\). Characteristic polynomial: \(p_A(\lambda) = (\lambda-2)^2 - 1 = \lambda^2 - 4\lambda + 3\).</p>
-        <p>Cayley–Hamilton says: \(A^2 - 4A + 3I = 0\).</p>
-        <p>Compute \(A^2 = \begin{pmatrix}5 & 4 \\ 4 & 5\end{pmatrix}\). Substitution gives \(A^2 - 4A + 3I = 0\), verified.</p>
-      </div>
+<h3>Properties</h3>
+<ul>
+  <li>It provides a relation between powers of the matrix.</li>
+  <li>Useful in computing \(A^{-1}\), \(A^k\), and simplifying polynomials of \(A\).</li>
+  <li>Holds for all square matrices (real or complex).</li>
+</ul>
 
-      <h3>Worked Example — 3×3 upper-triangular</h3>
-      <div class="example">
-        <p>Let \(A = \begin{pmatrix}1 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 3\end{pmatrix}\). Being upper triangular, eigenvalues are \(1,2,3\).</p>
-        <p>So \(p_A(\lambda) = (\lambda-1)(\lambda-2)(\lambda-3) = \lambda^3 - 6\lambda^2 + 11\lambda - 6\).</p>
-        <p>Cayley–Hamilton: \(A^3 - 6A^2 + 11A - 6I = 0\). This can be checked by computing \(A^2\) and \(A^3\) explicitly (upper-triangular products are straightforward).</p>
-      </div>
+<h3>Examples</h3>
 
-      <h3>Worked Example — 3×3 (non-triangular) with inverse formula</h3>
-      <div class="example">
-        <p>Let \(A = \begin{pmatrix}1 & 0 & 1 \\ 1 & 2 & 0 \\ 0 & 1 & 1\end{pmatrix}\). Suppose its characteristic polynomial is \(p_A(\lambda) = \lambda^3 - 4\lambda^2 + 5\lambda - 2\).</p>
-        <p>By Cayley–Hamilton we have \(A^3 - 4A^2 + 5A - 2I = 0\). Rearranging gives \(2I = A^3 - 4A^2 + 5A\).</p>
-        <p>If \(A\) is invertible (here \(\det A = 2 \neq 0\)), multiply both sides by \(A^{-1}\) to obtain
-          \[2A^{-1} = A^2 - 4A + 5I,\]
-        hence
-          \[A^{-1} = \tfrac{1}{2}(A^2 - 4A + 5I).\]
-        This provides an explicit polynomial expression for \(A^{-1}\) using Cayley–Hamilton without performing row-reduction.</p>
-      </div>
+<h4>Example 1 (2×2)</h4>
+<p>Let 
+\[
+A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}.
+\]
+Characteristic polynomial:
+\[
+\det(A-\lambda I) = (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3.
+\]
+So by Cayley–Hamilton:
+\[
+A^2 - 4A + 3I = 0.
+\]
+</p>
 
-      <h3>Tip: using CH to reduce powers</h3>
-      <p>If \(p_A(\lambda)=\lambda^n + c_{n-1}\lambda^{n-1}+\cdots+c_0\), then \(A^n = -c_{n-1}A^{n-1}-\cdots - c_0 I\), so any higher power can be reduced to a linear combination of \(I,A,\dots,A^{n-1}\).</p>
-    </section>
+<h4>Example 2 (3×3)</h4>
+<p>Let 
+\[
+A = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{bmatrix}.
+\]
+Characteristic polynomial:
+\[
+(\lambda-1)(\lambda-2)(\lambda-3) = \lambda^3 - 6\lambda^2 + 11\lambda - 6.
+\]
+So:
+\[
+A^3 - 6A^2 + 11A - 6I = 0.
+\]
+</p>
 
-    <section class="card" style="margin-top:18px">
-      <h2>Diagonalization</h2>
+<h4>Example 3 (3×3)</h4>
+<p>Let 
+\[
+A = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}.
+\]
+Characteristic polynomial:
+\[
+\det(A-\lambda I) = -\lambda^3 + 1.
+\]
+So:
+\[
+A^3 - I = 0.
+\]
+</p>
 
-      <h3>Definition</h3>
-      <p class="formula">\(A\) is diagonalizable if there exists an invertible \(P\) and diagonal \(D\) such that \(A = P D P^{-1}\).</p>
-      <p>The diagonal entries of \(D\) are eigenvalues of \(A\); columns of \(P\) are eigenvectors.</p>
+<!-- ================== Diagonalization ================== -->
+<h2>2. Diagonalization</h2>
 
-      <h3>Worked Example — Diagonalization (2×2)</h3>
-      <div class="example">
-        <p>Let \(A = \begin{pmatrix}4 & 1 \\ 2 & 3\end{pmatrix}\). Characteristic polynomial: \(\lambda^2 - 7\lambda + 10 = (\lambda-2)(\lambda-5)\).</p>
-        <p>Eigenvalues \(2,5\) with eigenvectors \((-1,2)^T\) and \((1,1)^T\). So \(P = \begin{pmatrix}-1 & 1 \\ 2 & 1\end{pmatrix}\) and \(D = \operatorname{diag}(2,5)\).</p>
-      </div>
+<h3>Definition</h3>
+<p>
+A square matrix \(A\) is said to be <b>diagonalizable</b> if there exists an invertible matrix \(P\) and a diagonal matrix \(D\) such that
+\[
+A = P D P^{-1}.
+\]
+Here, \(D\) contains eigenvalues of \(A\) on the diagonal, and \(P\) contains the corresponding eigenvectors.
+</p>
 
-      <h3>Non-diagonalizable Example</h3>
-      <div class="example">
-        <p>\(A = \begin{pmatrix}3 & 1 \\ 0 & 3\end{pmatrix}\) has characteristic polynomial \((\lambda-3)^2\) with only one independent eigenvector. Hence not diagonalizable.</p>
-      </div>
-    </section>
+<h3>Properties</h3>
+<ul>
+  <li>A matrix with \(n\) distinct eigenvalues is always diagonalizable.</li>
+  <li>Symmetric (real) matrices are always diagonalizable with orthogonal eigenvectors.</li>
+  <li>Diagonalization simplifies computing powers: \(A^k = P D^k P^{-1}\).</li>
+</ul>
 
-    <footer>
-      <div>Summary: Cayley–Hamilton helps reduce powers and find inverses via polynomial identities. Diagonalization simplifies matrix computations when enough eigenvectors exist.</div>
-      <div style="margin-top:8px;color:var(--muted)">If math still appears as raw TeX: (1) make sure you have an internet connection so MathJax can load from the CDN; (2) open the browser console (F12 &gt; Console) to check for script errors; (3) if you opened the file via file:// and scripts are blocked, serve the folder with a local server (e.g. run <code>python -m http.server</code> in the folder and open <code>http://localhost:8000/</code>).</div>
-    </footer>
-  </div>
+<h3>Examples</h3>
+
+<h4>Example 1 (2×2)</h4>
+<p>
+\[
+A = \begin{bmatrix} 4 & 1 \\ 0 & 2 \end{bmatrix}.
+\]
+Characteristic polynomial:
+\((\lambda-4)(\lambda-2)\).  
+Eigenvalues: \(\lambda_1=4, \lambda_2=2\).  
+Eigenvectors: \([1,0]^T\), \([1,-2]^T\).  
+So
+\[
+P = \begin{bmatrix} 1 & 1 \\ 0 & -2 \end{bmatrix}, \quad
+D = \begin{bmatrix} 4 & 0 \\ 0 & 2 \end{bmatrix}.
+\]
+</p>
+
+<h4>Example 2 (3×3)</h4>
+<p>
+\[
+A = \begin{bmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 4 \end{bmatrix}.
+\]
+Already diagonal: \(D = A\).  
+\(P = I\).
+</p>
+
+<h4>Example 3 (3×3)</h4>
+<p>
+\[
+A = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}.
+\]
+Eigenvalues: \(\lambda=1\) (multiplicity 2), \(\lambda=2\).  
+Eigenvectors: \([1,0,0]^T, [0,1,0]^T, [0,0,1]^T\).  
+So
+\[
+P = I, \quad D = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}.
+\]
+</p>
+
 </body>
 </html>
