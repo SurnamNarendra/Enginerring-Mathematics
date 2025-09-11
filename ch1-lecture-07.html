@@ -34,223 +34,807 @@ pre{background:#f7f7f8;padding:12px;border-radius:8px;overflow:auto}
 <p class="kv">\[\det(A - \lambda I) = 0.\]</p>
 <p>Eigenvectors are non-zero solutions to \((A-\lambda I)v=0\) for each eigenvalue \(\lambda\).</p>
 
-<h2>Worked Examples</h2>
-<h3>Example 2×2 — #1 (Diagonal matrix)</h3>
-<p>Because this matrix is upper triangular, the eigenvalues are the diagonal entries: \(\lambda=4\) (algebraic multiplicity 2) and \(\lambda=2\).</p>
+<h3>3. Worked Examples</h3>
 
+<p><b>Example:</b> Consider the matrix</p>
 
-<p><strong>Eigenvectors for \(\lambda=4\)</strong></p>
-<p>Compute \(A-4I=\begin{pmatrix}0&1&0\\[4pt]0&0&1\\[4pt]0&0&-2\end{pmatrix}.\)</p>
-<p>The equations are:
-\[y=0,\quad z=0,\quad -2z=0\Rightarrow z=0.\]
-So \(y=z=0\) and eigenvectors are multiples of \(\begin{pmatrix}1\\0\\0\end{pmatrix}.\) The geometric multiplicity is 1 (so the matrix is defective for \(\lambda=4\)).
+<p>
+\[
+A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
+\]
+</p>
+
+<h4>Step 1: Characteristic Equation</h4>
+<p>
+The eigenvalues are obtained by solving 
+\[
+\det(A - \lambda I) = 0
+\]
+</p>
+
+<p>
+\[
+\det \begin{bmatrix} 2-\lambda & 1 \\ 1 & 2-\lambda \end{bmatrix} 
+= (2-\lambda)(2-\lambda) - (1)(1)
+\]
+</p>
+
+<p>
+\[
+= (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3
+\]
+</p>
+
+<p>
+Thus, the characteristic equation is 
+\[
+\lambda^2 - 4\lambda + 3 = 0
+\]
+</p>
+
+<h4>Step 2: Solve for Eigenvalues</h4>
+<p>
+\[
+\lambda^2 - 4\lambda + 3 = 0
+\]
+</p>
+
+<p>
+Factoring:
+\[
+(\lambda - 1)(\lambda - 3) = 0
+\]
+</p>
+
+<p>
+Hence, the eigenvalues are
+\[
+\lambda_1 = 1, \quad \lambda_2 = 3
+\]
+</p>
+
+<h4>Step 3: Find Eigenvectors</h4>
+
+<p><b>(a) For \(\lambda_1 = 1\):</b></p>
+<p>
+Solve 
+\[
+(A - I)x = 0
+\]
+</p>
+
+<p>
+\[
+\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = 
+\begin{bmatrix} 0 \\ 0 \end{bmatrix}
+\]
+</p>
+
+<p>
+This gives equation \(x_1 + x_2 = 0\), so \(x_1 = -x_2\).
+</p>
+
+<p>
+Thus, the eigenvector is 
+\[
+v_1 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}
+\]
+</p>
+
+<p><b>(b) For \(\lambda_2 = 3\):</b></p>
+<p>
+Solve 
+\[
+(A - 3I)x = 0
+\]
+</p>
+
+<p>
+\[
+\begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = 
+\begin{bmatrix} 0 \\ 0 \end{bmatrix}
+\]
+</p>
+
+<p>
+This gives equation \(-x_1 + x_2 = 0\), so \(x_1 = x_2\).
+</p>
+
+<p>
+Thus, the eigenvector is 
+\[
+v_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}
+\]
+</p>
+
+<h4>Final Answer:</h4>
+<p>
+The eigenvalues are 
+\(\lambda_1 = 1, \lambda_2 = 3\).
+</p>
+<p>
+Corresponding eigenvectors are 
+\[
+v_1 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}, 
+\quad 
+v_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}
+\]
+</p>
+<h4>Example 2:</h4>
+
+<p>Consider the matrix</p>
+
+<p>
+\[
+B = \begin{bmatrix} 4 & 2 \\ 1 & 3 \end{bmatrix}
+\]
+</p>
+
+<h4>Step 1: Characteristic Equation</h4>
+<p>
+\[
+\det(B - \lambda I) = 
+\det \begin{bmatrix} 4-\lambda & 2 \\ 1 & 3-\lambda \end{bmatrix}
+\]
+</p>
+
+<p>
+\[
+= (4-\lambda)(3-\lambda) - (2)(1)
+\]
+</p>
+
+<p>
+\[
+= (12 - 7\lambda + \lambda^2) - 2 = \lambda^2 - 7\lambda + 10
+\]
+</p>
+
+<p>
+So the characteristic equation is 
+\[
+\lambda^2 - 7\lambda + 10 = 0
+\]
+</p>
+
+<h4>Step 2: Solve for Eigenvalues</h4>
+<p>
+\[
+\lambda^2 - 7\lambda + 10 = 0
+\]
+</p>
+
+<p>
+Factoring:
+\[
+(\lambda - 5)(\lambda - 2) = 0
+\]
+</p>
+
+<p>
+Thus, the eigenvalues are 
+\[
+\lambda_1 = 5, \quad \lambda_2 = 2
+\]
+</p>
+
+<h4>Step 3: Find Eigenvectors</h4>
+
+<p><b>(a) For \(\lambda_1 = 5\):</b></p>
+<p>
+Solve 
+\[
+(B - 5I)x = 0
+\]
+</p>
+
+<p>
+\[
+\begin{bmatrix} -1 & 2 \\ 1 & -2 \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} =
+\begin{bmatrix} 0 \\ 0 \end{bmatrix}
+\]
+</p>
+
+<p>
+Equation: \(-x_1 + 2x_2 = 0 \quad \Rightarrow \quad x_1 = 2x_2\).
+</p>
+
+<p>
+So eigenvector is 
+\[
+v_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+\]
+</p>
+
+<p><b>(b) For \(\lambda_2 = 2\):</b></p>
+<p>
+Solve 
+\[
+(B - 2I)x = 0
+\]
+</p>
+
+<p>
+\[
+\begin{bmatrix} 2 & 2 \\ 1 & 1 \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} =
+\begin{bmatrix} 0 \\ 0 \end{bmatrix}
+\]
+</p>
+
+<p>
+Equation: \(2x_1 + 2x_2 = 0 \quad \Rightarrow \quad x_1 = -x_2\).
+</p>
+
+<p>
+So eigenvector is 
+\[
+v_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}
+\]
+</p>
+
+<h4>Final Answer:</h4>
+<p>
+The eigenvalues are 
+\(\lambda_1 = 5, \lambda_2 = 2\).
+</p>
+<p>
+Corresponding eigenvectors are 
+\[
+v_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, 
+\quad 
+v_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}
+\]
+</p>
+<h3>3×3 Worked Examples</h3>
+
+<h4>Example 1:</h4>
+<p>Consider the symmetric matrix</p>
+
+<p>
+\[
+A = \begin{bmatrix} 2 & 0 & 0 \\ 0 & 3 & 4 \\ 0 & 4 & 9 \end{bmatrix}
+\]
+</p>
+
+<h4>Step 1: Characteristic Equation</h4>
+<p>
+We compute 
+\[
+\det(A - \lambda I) =
+\det \begin{bmatrix} 2-\lambda & 0 & 0 \\ 0 & 3-\lambda & 4 \\ 0 & 4 & 9-\lambda \end{bmatrix}
+\]
+</p>
+
+<p>
+\[
+= (2-\lambda) \cdot \det \begin{bmatrix} 3-\lambda & 4 \\ 4 & 9-\lambda \end{bmatrix}
+\]
+</p>
+
+<p>
+\[
+= (2-\lambda) \big[(3-\lambda)(9-\lambda) - 16\big]
+\]
+</p>
+
+<p>
+\[
+= (2-\lambda)(\lambda^2 - 12\lambda + 11)
+\]
+</p>
+
+<h4>Step 2: Solve for Eigenvalues</h4>
+<p>
+Characteristic polynomial:
+\[
+(2-\lambda)(\lambda^2 - 12\lambda + 11) = 0
+\]
+</p>
+
+<p>
+Eigenvalues are
+\[
+\lambda_1 = 2, \quad \lambda_{2,3} = \frac{12 \pm \sqrt{144 - 44}}{2} = \frac{12 \pm 10}{2}
+\]
+</p>
+
+<p>
+So
+\[
+\lambda_2 = 11, \quad \lambda_3 = 1
+\]
+</p>
+
+<h4>Step 3: Find Eigenvectors</h4>
+
+<p><b>(a) For \(\lambda_1 = 2\):</b></p>
+<p>
+\[
+(A - 2I)x = 0 \quad \Rightarrow \quad
+\begin{bmatrix} 0 & 0 & 0 \\ 0 & 1 & 4 \\ 0 & 4 & 7 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+Equation: \(x_2 + 4x_3 = 0\), so \(x_2 = -4x_3\). Let \(x_3=1\), then \(x_2=-4\).
+</p>
+<p>
+Eigenvector:
+\[
+v_1 = \begin{bmatrix} 1 \\ -4 \\ 1 \end{bmatrix}
+\]
+</p>
+
+<p><b>(b) For \(\lambda_2 = 11\):</b></p>
+<p>
+\[
+(A - 11I)x = 0 \quad \Rightarrow \quad
+\begin{bmatrix} -9 & 0 & 0 \\ 0 & -8 & 4 \\ 0 & 4 & -2 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+From equations: \(-8x_2 + 4x_3 = 0 \Rightarrow 2x_2 = x_3\).  
+Let \(x_2 = 1\), then \(x_3 = 2\).
+</p>
+<p>
+Eigenvector:
+\[
+v_2 = \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix}
+\]
+</p>
+
+<p><b>(c) For \(\lambda_3 = 1\):</b></p>
+<p>
+\[
+(A - I)x = 0 \quad \Rightarrow \quad
+\begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 4 \\ 0 & 4 & 8 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+Equation: \(2x_2 + 4x_3 = 0 \Rightarrow x_2 = -2x_3\).  
+Let \(x_3=1\), then \(x_2=-2\).
+</p>
+<p>
+Eigenvector:
+\[
+v_3 = \begin{bmatrix} 0 \\ -2 \\ 1 \end{bmatrix}
+\]
+</p>
+
+<h4>Final Answer:</h4>
+<p>
+Eigenvalues: \(\lambda_1=2, \lambda_2=11, \lambda_3=1\) <br>
+Eigenvectors:
+\[
+v_1=\begin{bmatrix}1\\-4\\1\end{bmatrix}, \quad
+v_2=\begin{bmatrix}0\\1\\2\end{bmatrix}, \quad
+v_3=\begin{bmatrix}0\\-2\\1\end{bmatrix}
+\]
 </p>
 
 
-<p><strong>Eigenvectors for \(\lambda=2\)</strong></p>
-<p>Compute \(A-2I=\begin{pmatrix}2&1&0\\[4pt]0&2&1\\[4pt]0&0&0\end{pmatrix}.\)</p>
-<p>From row 1: \(2x+y=0\Rightarrow y=-2x.\) From row 2: \(2y+z=0\Rightarrow z=-2y=4x.\) Choose \(x=1\) to get eigenvector
-\[v=\begin{pmatrix}1\\-2\\4\end{pmatrix}\] and check \(Av=2v\).</p>
-</div>
-</article>
+<hr>
 
+<h4>Example 2:</h4>
+<p>Consider the non-symmetric matrix</p>
 
-<hr />
-
-
-<article>
-<h3>Example 3×3 — #3 (Block-symmetric matrix with easy factorization)</h3>
-<p><strong>Matrix:</strong>
-$$A=\begin{pmatrix}2&0&0\\[4pt]0&3&4\\[4pt]0&4&3\end{pmatrix}$$
-This is the block-diagonal style matrix with a 1×1 block and a 2×2 symmetric block.
+<p>
+\[
+B = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 3 & 4 \\ 0 & 0 & 2 \end{bmatrix}
+\]
 </p>
 
-
-<div class="small">
-<p><strong>Characteristic polynomial</strong> (compute the 2×2 block determinant first):
-\[p(\lambda)=(2-\lambda)\det\begin{pmatrix}3-\lambda&4\\[4pt]4&3-\lambda\end{pmatrix}=(2-\lambda)\big((3-\lambda)^2-4\cdot4\big).\]
-Simplify the 2×2 determinant:
-\[(3-\lambda)^2-16=9-6\lambda+\lambda^2-16=\lambda^2-6\lambda-7=(\lambda-7)(\lambda+1).
+<h4>Step 1: Characteristic Equation</h4>
+<p>
+Since \(B\) is upper triangular, the eigenvalues are just the diagonal entries:
+\[
+\lambda_1 = 1, \quad \lambda_2 = 3, \quad \lambda_3 = 2
+\]
 </p>
 
+<h4>Step 2: Find Eigenvectors</h4>
 
-<p>So
-\[p(\lambda)=(2-\lambda)(\lambda-7)(\lambda+1),\]
-and the eigenvalues are \(\lambda=2,\;7,\;-1.\)
+<p><b>(a) For \(\lambda_1 = 1\):</b></p>
+<p>
+\[
+(B - I)x = 
+\begin{bmatrix} 0 & 2 & 0 \\ 0 & 2 & 4 \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+From last row: \(x_3=0\). From first row: \(2x_2=0 \Rightarrow x_2=0\).  
+So eigenvector:
+\[
+v_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+\]
 </p>
 
-
-<p><strong>Eigenvectors</strong></p>
-<p>For \(\lambda=2\):
-\[A-2I=\begin{pmatrix}0&0&0\\[4pt]0&1&4\\[4pt]0&4&1\end{pmatrix}.\]
-The 2×2 lower block gives the system \(y+4z=0,\;4y+z=0\). Adding \(16\times\)first eqn minus first eqn gives \(-15z=0\Rightarrow z=0\Rightarrow y=0\). Thus eigenvectors are \(\begin{pmatrix}1\\0\\0\end{pmatrix}.\)
+<p><b>(b) For \(\lambda_2 = 3\):</b></p>
+<p>
+\[
+(B - 3I)x = 
+\begin{bmatrix} -2 & 2 & 0 \\ 0 & 0 & 4 \\ 0 & 0 & -1 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+From last row: \(-x_3=0 \Rightarrow x_3=0\).  
+From first row: \(-2x_1 + 2x_2 = 0 \Rightarrow x_1=x_2\).  
+So eigenvector:
+\[
+v_2 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}
+\]
 </p>
 
-
-<p>For \(\lambda=7\):
-\[A-7I=\begin{pmatrix}-5&0&0\\[4pt]0&-4&4\\[4pt]0&4&-4\end{pmatrix}.\]
-The lower block gives \(-4y+4z=0\Rightarrow z=y.\) The first coordinate must be 0 because \(-5x=0\Rightarrow x=0\). So choose \(v=\begin{pmatrix}0\\1\\1\end{pmatrix}.\)
+<p><b>(c) For \(\lambda_3 = 2\):</b></p>
+<p>
+\[
+(B - 2I)x = 
+\begin{bmatrix} -1 & 2 & 0 \\ 0 & 1 & 4 \\ 0 & 0 & 0 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
+\]
+</p>
+<p>
+From first row: \(-x_1 + 2x_2 = 0 \Rightarrow x_1=2x_2\).  
+From second row: \(x_2 + 4x_3=0 \Rightarrow x_2=-4x_3\).  
+Let \(x_3=1\), then \(x_2=-4, x_1=-8\).  
+So eigenvector:
+\[
+v_3 = \begin{bmatrix} -8 \\ -4 \\ 1 \end{bmatrix}
+\]
 </p>
 
+<h4>Final Answer:</h4>
+<p>
+Eigenvalues: \(\lambda_1=1, \lambda_2=3, \lambda_3=2\) <br>
+Eigenvectors:
+\[
+v_1=\begin{bmatrix}1\\0\\0\end{bmatrix}, \quad
+v_2=\begin{bmatrix}1\\1\\0\end{bmatrix}, \quad
+v_3=\begin{bmatrix}-8\\-4\\1\end{bmatrix}
+\]
+</p>
+<h4>Example 4</h4>
 
-<p>For \(\lambda=-1\):
-\[A+I=\begin{pmatrix}3&0&0\\[4pt]0&4&4\\[4pt]0&4&4\end{pmatrix}.\]
-The lower block gives \(4y+4z=0\Rightarrow y=-z\). First coordinate must be 0. Choose \(v=\begin{pmatrix}0\\1\\-1\end{pmatrix}.\)
+<p>Consider the matrix</p>
+
+<p>
+\[
+A = \begin{bmatrix}
+1 & -1 & 1 \\
+-3 & 1 & 3 \\
+-3 & -1 & 5
+\end{bmatrix}
+\]
 </p>
 
+<h4>Step 1: Characteristic Polynomial</h4>
+<p>
+We compute the characteristic polynomial \(\det(A - \lambda I)\):
+</p>
 
-<p><em>Remarks:</em> since this matrix is symmetric, eigenvectors for different eigenvalues are orthogonal; here \((0,1,1)\cdot(0,1,-1)=0\).</p>
-</div>
-</article>
-</section>
-<!-- 2x2 Examples -->
-<div class="example">
-  <h2>Example 1 — 2×2 Symmetric Matrix</h2>
-  \[
-  A=\begin{pmatrix}2 & 1\\[4pt]1 & 2\end{pmatrix}
-  \]
-  <p><strong>Step 1: Characteristic polynomial:</strong></p>
-  \[(2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-3)(\lambda-1)\]
-  <p><strong>Eigenvalues:</strong> 3, 1</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  For \(\lambda=3\):
-  \[(A-3I)v=0 \Rightarrow \begin{pmatrix}-1 & 1\\1 & -1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=0 \Rightarrow x=y\]
-  Eigenvector: \(v_1=(1,1)^T\)
-  <br>
-  For \(\lambda=1\):
-  \[(A-I)v=0 \Rightarrow \begin{pmatrix}1 & 1\\1 & 1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=0 \Rightarrow x=-y\]
-  Eigenvector: \(v_2=(1,-1)^T\)
-</div>
+<p>
+\[
+\det\begin{bmatrix}
+1-\lambda & -1 & 1 \\
+-3 & 1-\lambda & 3 \\
+-3 & -1 & 5-\lambda
+\end{bmatrix}
+\]
+</p>
 
-<div class="example">
-  <h2>Example 2 — 2×2 Diagonal Matrix</h2>
-  \[
-  A=\begin{pmatrix}4 & 0\\[4pt]0 & -2\end{pmatrix}
-  \]
-  <p><strong>Step 1: Characteristic polynomial:</strong></p>
-  \[(4-\lambda)(-2-\lambda)=0\]
-  <p><strong>Eigenvalues:</strong> 4, -2</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  For \(\lambda=4\): equation is \(x\) free, \(y=0\). Eigenvector \((1,0)^T\).
-  <br>
-  For \(\lambda=-2\): equation is \(y\) free, \(x=0\). Eigenvector \((0,1)^T\).
-</div>
+<p>
+Expanding (you may expand along the first row) gives a cubic that factors nicely:
+\[
+\det(A-\lambda I) = -(\lambda-1)(\lambda-2)(\lambda-4)
+\]
+so the characteristic polynomial is
+\[
+(\lambda-1)(\lambda-2)(\lambda-4)=0.
+\]
+</p>
 
-<div class="example">
-  <h2>Example 3 — 2×2 Non-symmetric Matrix</h2>
-  \[
-  A=\begin{pmatrix}0 & 1\\[4pt]-2 & -3\end{pmatrix}
-  \]
-  <p><strong>Step 1: Characteristic polynomial:</strong></p>
-  \[\det\begin{pmatrix}-\lambda & 1\\[4pt]-2 & -3-\lambda\end{pmatrix}=\lambda^2+3\lambda+2=(\lambda+1)(\lambda+2)\]
-  <p><strong>Eigenvalues:</strong> -1, -2</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  For \(\lambda=-1\):
-  \[(A+I)v=0 \Rightarrow \begin{pmatrix}1 & 1\\-2 & -2\end{pmatrix}(x,y)^T=0 \Rightarrow x=-y\]
-  Eigenvector: \((1,-1)^T\).
-  <br>
-  For \(\lambda=-2\):
-  \[(A+2I)v=0 \Rightarrow \begin{pmatrix}2 & 1\\-2 & -1\end{pmatrix}(x,y)^T=0 \Rightarrow 2x+y=0\]
-  Eigenvector: \((1,-2)^T\).
-</div>
+<h4>Step 2: Eigenvalues</h4>
+<p>
+Therefore the eigenvalues are
+\[
+\lambda_1 = 1,\qquad \lambda_2 = 2,\qquad \lambda_3 = 4.
+\]
+</p>
 
-<!-- 3x3 Examples -->
-<div class="example">
-  <h2>Example 4 — 3×3 Symmetric Matrix</h2>
-  \[
-  A=\begin{pmatrix}2&1&1\\[4pt]1&2&1\\[4pt]1&1&2\end{pmatrix}
-  \]
-  <p><strong>Step 1: Characteristic polynomial:</strong></p>
-  \[\det(A-\lambda I)=(2-\lambda)^3+2-(2-\lambda)=(\lambda-4)(\lambda-1)^2\]
-  <p><strong>Eigenvalues:</strong> 4, 1, 1</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  For \(\lambda=4\): (A-4I)v=0 → x=y=z. Eigenvector: (1,1,1)^T.
-  <br>
-  For \(\lambda=1\): (A-I)v=0 → system: x+y+z=0. Two free solutions:
-  Eigenvectors: (1,-1,0)^T, (1,0,-1)^T.
-</div>
+<h4>Step 3: Eigenvectors</h4>
 
-<div class="example">
-  <h2>Example 5 — 3×3 Diagonal Matrix</h2>
-  \[
-  A=\begin{pmatrix}5&0&0\\[4pt]0&3&0\\[4pt]0&0&-1\end{pmatrix}
-  \]
-  <p><strong>Step 1: Characteristic polynomial:</strong></p>
-  \[(5-\lambda)(3-\lambda)(-1-\lambda)=0\]
-  <p><strong>Eigenvalues:</strong> 5, 3, -1</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  Directly standard basis vectors:
-  (1,0,0)^T, (0,1,0)^T, (0,0,1)^T.
-</div>
+<p><b>(a) For \(\lambda_1 = 1\):</b></p>
+<p>
+Solve \((A - I)x = 0\):
+\[
+\begin{bmatrix}
+0 & -1 & 1 \\
+-3 & 0 & 3 \\
+-3 & -1 & 4
+\end{bmatrix}
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix}
+= \begin{bmatrix}0\\0\\0\end{bmatrix}.
+\]
+From the equations we get \(x_1 = x_2 = x_3\). Choosing \(x_1=1\) gives
+\[
+v_1 = \begin{bmatrix}1\\1\\1\end{bmatrix}.
+\]
+</p>
 
-<div class="example">
-  <h2>Example 6 — 3×3 Upper Triangular Matrix</h2>
-  \[
-  A=\begin{pmatrix}1&2&3\\[4pt]0&4&5\\[4pt]0&0&6\end{pmatrix}
-  \]
-  <p><strong>Step 1: Eigenvalues:</strong> diagonal entries → 1,4,6</p>
-  <p><strong>Step 2: Eigenvectors:</strong></p>
-  For \(\lambda=1\): (A-I)v=0 → equations force x free, y=z=0. Eigenvector: (1,0,0)^T.
-  <br>
-  For \(\lambda=4\): (A-4I)v=0 → system gives -3x+2y+3z=0, 0x+0y+5z=0 → z=0, -3x+2y=0 → y=1. Eigenvector: (-2,1,0)^T.
-  <br>
-  For \(\lambda=6\): (A-6I)v=0 → equations give -5x+2y+3z=0, -2y+5z=0 → y=5, z=2y=10. Eigenvector: (-3,-5,1)^T (scaled).
-</div>
+<p><b>(b) For \(\lambda_2 = 2\):</b></p>
+<p>
+Solve \((A - 2I)x = 0\):
+\[
+\begin{bmatrix}
+-1 & -1 & 1 \\
+-3 & -1 & 3 \\
+-3 & -1 & 3
+\end{bmatrix}
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix}
+= 0.
+\]
+This system yields \(x_1 = x_3\) and \(x_2 = 0\). Choosing \(x_1=1\) gives
+\[
+v_2 = \begin{bmatrix}1\\0\\1\end{bmatrix}.
+\]
+</p>
 
-<h2>Interactive Eigenvalue Calculator</h2>
-<p>Enter a 2×2, 3×3, or 4×4 matrix (semicolon separated rows, spaces between numbers):</p>
-<input id="matrixInput" style="width:400px" placeholder="e.g. 2 1; 1 2">
-<button class="btn" onclick="computeEigen()">Compute</button>
-<pre id="output"></pre>
+<p><b>(c) For \(\lambda_3 = 4\):</b></p>
+<p>
+Solve \((A - 4I)x = 0\):
+\[
+\begin{bmatrix}
+-3 & -1 & 1 \\
+-3 & -3 & 3 \\
+-3 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix}
+= 0.
+\]
+This gives \(x_1 = 0\) and \(x_2 = x_3\). Choosing \(x_3 = 1\) yields
+\[
+v_3 = \begin{bmatrix}0\\1\\1\end{bmatrix}.
+\]
+</p>
 
-<!-- MathJax for rendering steps in LaTeX -->
+<h4>Final Answer:</h4>
+<p>
+Eigenvalues:
+\[
+\lambda_1 = 1,\quad \lambda_2 = 2,\quad \lambda_3 = 4.
+\]
+Corresponding eigenvectors (one convenient choice each):
+\[
+v_1=\begin{bmatrix}1\\1\\1\end{bmatrix},\quad
+v_2=\begin{bmatrix}1\\0\\1\end{bmatrix},\quad
+v_3=\begin{bmatrix}0\\1\\1\end{bmatrix}.
+\]
+</p>
+
+ <h3>Properties of Eigenvalues and Eigenvectors</h3>
+
+<ul>
+  <li>
+    <b>Definition:</b> For a square matrix \(A\), a scalar \(\lambda\) and nonzero vector \(x\) satisfy
+    \[
+    A x = \lambda x
+    \]
+    where \(\lambda\) is called an <b>eigenvalue</b> and \(x\) is the corresponding <b>eigenvector</b>.
+  </li>
+
+  <li>
+    <b>Number of Eigenvalues:</b> An \(n \times n\) matrix has exactly \(n\) eigenvalues (counting multiplicities).
+  </li>
+
+  <li>
+    <b>Characteristic Polynomial:</b> Eigenvalues are roots of
+    \[
+    \det(A - \lambda I) = 0.
+    \]
+  </li>
+
+  <li>
+    <b>Trace Property:</b> The sum of eigenvalues equals the trace of \(A\) (sum of diagonal elements):
+    \[
+    \text{tr}(A) = \lambda_1 + \lambda_2 + \cdots + \lambda_n.
+    \]
+  </li>
+
+  <li>
+    <b>Determinant Property:</b> The product of eigenvalues equals the determinant of \(A\):
+    \[
+    \det(A) = \lambda_1 \cdot \lambda_2 \cdots \lambda_n.
+    \]
+  </li>
+
+  <li>
+    <b>Similarity Invariance:</b> If \(B = P^{-1}AP\), then \(A\) and \(B\) have the same eigenvalues.
+  </li>
+
+  <li>
+    <b>Independence of Eigenvectors:</b> Eigenvectors corresponding to <i>distinct eigenvalues</i> are linearly independent.
+  </li>
+
+  <li>
+    <b>Diagonalization:</b> If \(A\) has \(n\) linearly independent eigenvectors, then
+    \[
+    A = P D P^{-1}
+    \]
+    where \(D\) is a diagonal matrix of eigenvalues and \(P\) is the matrix of eigenvectors.
+  </li>
+
+  <li>
+    <b>Symmetric Matrices:</b> For real symmetric matrices:
+    <ul>
+      <li>All eigenvalues are real.</li>
+      <li>Eigenvectors corresponding to different eigenvalues are orthogonal.</li>
+    </ul>
+  </li>
+
+  <li>
+    <b>Scaling Property:</b> If \(x\) is an eigenvector, any nonzero scalar multiple \(\alpha x\) is also an eigenvector (direction matters, not magnitude).
+  </li>
+
+  <li>
+    <b>Zero Eigenvalue:</b> If \(\lambda = 0\) is an eigenvalue, then \(A\) is singular (non-invertible).
+  </li>
+
+  <li>
+    <b>Complex Eigenvalues:</b> Real matrices may have complex eigenvalues (conjugate pairs).
+  </li>
+</ul>
+
+
+  
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async 
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async
+ src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  .btn { padding: 6px 12px; margin-top: 10px; cursor: pointer; }
+  #output { background: #f5f5f5; padding: 10px; margin-top: 15px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<h2>Interactive Eigenvalue & Eigenvector Calculator</h2>
+<p>Enter a 2×2 or 3×3 matrix (rows separated by semicolons, entries by spaces):</p>
+<input id="matrixInput" style="width:400px" 
+       placeholder="e.g. 2 1; 1 2 (for 2x2) or 1 2 0; 0 3 4; 0 0 2 (for 3x3)">
+<br>
+<button class="btn" onclick="computeEigen()">Compute</button>
+
+<div id="output"></div>
+
 <script>
-function parseMatrix(str){
-  return str.split(';').map(r => r.trim().split(/\s+/).map(Number));
+function parseMatrix(input) {
+  let rows = input.split(";").map(r => r.trim().split(/\s+/).map(Number));
+  return rows;
 }
 
-function formatMatrix(A){
-  return "\\begin{bmatrix}" + 
-    A.map(r => r.join(" & ")).join(" \\\\ ") + 
-    "\\end{bmatrix}";
-}
+function computeEigen() {
+  let text = document.getElementById("matrixInput").value.trim();
+  if (!text) return;
+  let A = parseMatrix(text);
+  let n = A.length;
+  let output = "";
 
-function computeEigen(){
-  let A = parseMatrix(document.getElementById('matrixInput').value);
-  try{
-    let eig = numeric.eig(A);
-    let vals = eig.lambda.x;
-    let vecs = eig.E.x;
-
-    let steps = "";
-    steps += "Given matrix A: \n\n $$A = " + formatMatrix(A) + "$$ \n\n";
-
-    steps += "Step 1: Form the characteristic equation: \n";
-    steps += "$$ \\det(A - \\lambda I) = 0 $$\n\n";
-
-    steps += "Step 2: Solve for eigenvalues: \n";
-    steps += "$$ \\lambda = " + vals.map(v => v.toFixed(3)).join(", ") + " $$\n\n";
-
-    steps += "Step 3: For each eigenvalue, solve $(A-\\lambda I)x=0$ to find eigenvectors. \n\n";
-
-    for(let i=0;i<vals.length;i++){
-      steps += "For \\( \\lambda = " + vals[i].toFixed(3) + " \\): \n";
-      let vec = vecs.map(row => row[i].toFixed(3));
-      steps += "Eigenvector: $$x = " + formatMatrix([vec]) + "^T $$ \n\n";
-    }
-
-    document.getElementById('output').innerHTML = steps;
-    MathJax.typeset(); // refresh MathJax rendering
-  }catch(e){
-    document.getElementById('output').textContent = 'Error computing eigenvalues.';
+  if (n !== 2 && n !== 3) {
+    document.getElementById("output").innerHTML =
+      "⚠️ Only 2x2 or 3x3 matrices are supported.";
+    return;
   }
+
+  if (n === 2) {
+    let a=A[0][0], b=A[0][1], c=A[1][0], d=A[1][1];
+    output += "Step 1: Form the characteristic polynomial:<br>";
+    output += `\\[ \\det(A-\\lambda I) = ( ${a}-\\lambda )( ${d}-\\lambda ) - (${b})(${c}) \\] <br>`;
+    output += `= \\[ \\lambda^2 - (${a+d})\\lambda + (${a*d - b*c}) \\] <br>`;
+
+    let trace = a+d, det = a*d - b*c;
+    let disc = trace*trace - 4*det;
+    let λ1 = (trace + Math.sqrt(disc))/2;
+    let λ2 = (trace - Math.sqrt(disc))/2;
+    output += `Eigenvalues: \\( \\lambda_1=${λ1.toFixed(3)},\\; \\lambda_2=${λ2.toFixed(3)} \\)<br><br>`;
+
+    function eigenvector(lambda){
+      let m = [[a-lambda, b],[c, d-lambda]];
+      // Solve (a-λ)x + b y = 0
+      if (Math.abs(m[0][0])>Math.abs(m[0][1])) {
+        return [ -m[0][1], m[0][0] ];
+      } else {
+        return [ m[1][1], -m[1][0] ];
+      }
+    }
+    let v1=eigenvector(λ1), v2=eigenvector(λ2);
+    output += `Eigenvector for \\(\\lambda_1\\): \\([${v1[0]}, ${v1[1]}]\\)<br>`;
+    output += `Eigenvector for \\(\\lambda_2\\): \\([${v2[0]}, ${v2[1]}]\\)<br>`;
+  }
+
+  if (n === 3) {
+    // For 3x3, use numeric library (approximate)
+    let numeric = (window.numeric);
+    if (!numeric) {
+      output = "⚠️ For 3×3 eigenvalue calculation, include numeric.js library.";
+    }
+  }
+
+  document.getElementById("output").innerHTML = output;
+  MathJax.typeset();
 }
 </script>
+
+<!-- Optional: numeric.js for 3x3 eigenvalues -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script>
+function computeEigen() {
+  let text = document.getElementById("matrixInput").value.trim();
+  if (!text) return;
+  let A = parseMatrix(text);
+  let n = A.length;
+  let output = "";
+
+  if (n !== 2 && n !== 3) {
+    document.getElementById("output").innerHTML =
+      "⚠️ Only 2x2 or 3x3 matrices are supported.";
+    return;
+  }
+
+  if (n === 2) {
+    let a=A[0][0], b=A[0][1], c=A[1][0], d=A[1][1];
+    output += "Step 1: Form the characteristic polynomial:<br>";
+    output += `\\[ \\det(A-\\lambda I) = ( ${a}-\\lambda )( ${d}-\\lambda ) - (${b})(${c}) \\] <br>`;
+    output += `= \\[ \\lambda^2 - (${a+d})\\lambda + (${a*d - b*c}) \\] <br>`;
+
+    let trace = a+d, det = a*d - b*c;
+    let disc = trace*trace - 4*det;
+    let λ1 = (trace + Math.sqrt(disc))/2;
+    let λ2 = (trace - Math.sqrt(disc))/2;
+    output += `Eigenvalues: \\( \\lambda_1=${λ1.toFixed(3)},\\; \\lambda_2=${λ2.toFixed(3)} \\)<br><br>`;
+
+    function eigenvector(lambda){
+      let m = [[a-lambda, b],[c, d-lambda]];
+      if (Math.abs(m[0][0])>Math.abs(m[0][1])) {
+        return [ -m[0][1], m[0][0] ];
+      } else {
+        return [ m[1][1], -m[1][0] ];
+      }
+    }
+    let v1=eigenvector(λ1), v2=eigenvector(λ2);
+    output += `Eigenvector for \\(\\lambda_1\\): \\([${v1[0]}, ${v1[1]}]\\)<br>`;
+    output += `Eigenvector for \\(\\lambda_2\\): \\([${v2[0]}, ${v2[1]}]\\)<br>`;
+  }
+
+  if (n === 3) {
+    let eig = numeric.eig(A);
+    output += "Step 1: Form the characteristic polynomial: too long to expand here.<br>";
+    output += "Step 2: Solve cubic (using numeric solver).<br>";
+    let vals = eig.lambda.x;
+    output += "Eigenvalues: " + vals.map(v=>v.toFixed(3)).join(", ") + "<br><br>";
+    output += "Eigenvectors (columns):<br>";
+    eig.E.x[0].forEach((_,j)=>{
+      output += "\\([";
+      output += eig.E.x.map(row=>row[j].toFixed(3)).join(", ");
+      output += "]\\)<br>";
+    });
+  }
+
+  document.getElementById("output").innerHTML = output;
+  MathJax.typeset();
+}
+</script>
+
+</body>
+</html>
+ 
 
 
 <footer style="background:#f8f9fa;color:#333;text-align:center;padding:10px;font-size:13px;font-style:italic;border-top:1px solid #ccc;">
