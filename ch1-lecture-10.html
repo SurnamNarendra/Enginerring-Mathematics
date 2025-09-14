@@ -1,67 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 10: Diagonalization & Quadratic Forms (Orthogonal Reduction)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lecture 10 — Reduction to Canonical Form by Orthogonal Transformation</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    :root{--bg:#fff;--card:#fbfbff;--accent:#0b63e5;--muted:#555}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;color:#111;background:linear-gradient(180deg,#f7fbff,#ffffff)}
+    .wrap{max-width:1000px;margin:28px auto;padding:18px}
+    header{padding:18px 0;border-bottom:1px solid #e6eefb}
+    h1{margin:0;color:#0b3e8a}
+    .card{background:var(--card);padding:18px;border-radius:12px;margin-top:18px;box-shadow:0 6px 18px rgba(7,12,40,0.04)}
+    details{margin-top:10px}
+    pre{background:#f0f6ff;padding:10px;border-radius:8px;overflow:auto}
+    .example{border-left:4px solid #0b63e5;padding:12px;background:white;border-radius:8px;margin:10px 0}
+    .calculator{background:white;border-radius:8px;padding:12px;border:1px solid #e6eefb}
+    input,textarea,button,select{font-size:1rem;padding:8px;border-radius:6px;border:1px solid #dfe8ff}
+    button{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:8px}
+    #out{white-space:pre-wrap;background:#fbfdff;padding:10px;border-radius:6px;border:1px solid #e9f3ff;margin-top:8px}
+    footer{color:var(--muted);text-align:center;margin:18px 0}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Lecture 10: Diagonalization & Quadratic Forms (Orthogonal Reduction)</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
-  </header>
+  <div class="wrap">
+    <header>
+      <h1>Lecture 10 — Reduction of a Quadratic Form to Canonical Form by Orthogonal Transformation</h1>
+      <p style="color:var(--muted)">Spectral theorem, orthogonal diagonalization, principal axes, examples, and interactive calculator (2×2 & 3×3).</p>
+    </header>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
+    <section class="card">
+      <h2>1. Canonical form & orthogonal transformation — statement</h2>
+      <p>Let \(Q(x)=x^T A x\) be a quadratic form with real symmetric matrix \(A\). Then by the spectral theorem there exists an orthogonal matrix \(P\) (i.e. \(P^T P=I\)) such that</p>
+      \[ P^T A P = D = \operatorname{diag}(\lambda_1,\dots,\lambda_n), \]
+      <p>and under the orthonormal change of variables \(x=Py\) we have the canonical form (principal axes):</p>
+      \[ Q(x)=y^T D y = \lambda_1 y_1^2 + \dots + \lambda_n y_n^2. \]
+      <p>This representation is called the <strong>canonical form</strong> of the quadratic form under orthogonal transformations. The \(\lambda_i\) are real and are the eigenvalues of \(A\).</p>
+    </section>
+
+    <section class="card">
+      <h2>2. Algorithm (step-by-step)</h2>
+      <ol>
+        <li>Given a quadratic form, write its symmetric matrix \(A\) (split cross-terms equally between symmetric off-diagonals).</li>
+        <li>Compute eigenvalues \(\lambda_i\) and an orthonormal set of eigenvectors \(u_i\) (use Gram–Schmidt if necessary).</li>
+        <li>Form the orthogonal matrix \(P=[u_1\ u_2\ \dots\ u_n]\) with eigenvectors as columns.</li>
+        <li>Compute \(D=P^T A P\) which will be diagonal with \(\lambda_i\) on the diagonal.</li>
+        <li>Make the change of variables \(x=Py\) to write \(Q(x)=\sum \lambda_i y_i^2\) — this is the canonical form by orthogonal transformation.</li>
+      </ol>
+      <p><strong>Remarks:</strong> Orthogonal transformations preserve lengths and angles, so this reduction preserves geometric features; it is numerically stable compared to arbitrary similarity transformations.</p>
+    </section>
+
+    <section class="card">
+      <h2>3. Worked examples (detailed)</h2>
+
+      <div class="example">
+        <h3>Example 1 — 2×2 (full arithmetic)</h3>
+        <p>Reduce \(Q(x,y)=5x^2-6xy+5y^2\) to canonical form by orthogonal transformation and classify.</p>
+        <details>
+          <summary>Solution</summary>
+          <p>Matrix: \(A=\begin{pmatrix}5 & -3\\-3 & 5\end{pmatrix}\) (since cross-term -6xy -> -3 above and below diagonal).</p>
+          <p>Compute eigenvalues: characteristic polynomial:</p>
+          \[\det(A-\lambda I)=(5-\lambda)^2-9=\lambda^2-10\lambda+16.\]
+          <p>Solve \(\lambda^2-10\lambda+16=0\): \(\lambda=\frac{10\pm\sqrt{100-64}}{2}=\frac{10\pm6}{2}\) so \(\lambda_1=8,\ \lambda_2=2\).</p>
+          <p>Eigenvectors: for \(\lambda=8\), solve \((A-8I)v=0\): \(\begin{pmatrix}-3&-3\\-3&-3\end{pmatrix}v=0\) so take \(v_1=(1,-1)^T\). For \(\lambda=2\), \(v_2=(1,1)^T\).</p>
+          <p>Normalize: \(u_1=\frac{1}{\sqrt{2}}(1,-1)^T,\ u_2=\frac{1}{\sqrt{2}}(1,1)^T\). Take \(P=[u_1\ u_2]\).</p>
+          <p>Then \(D=P^T A P=\operatorname{diag}(8,2)\). Change variables \(x=Py\) gives canonical form \(Q=8y_1^2+2y_2^2\); classification: positive definite (both eigenvalues positive).</p>
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Example 2 — 3×3 (distinct eigenvalues)</h3>
+        <p>Reduce \(Q(x)=2x_1^2 + 2x_2^2 + 2x_3^2 + 2x_1x_2 - 4x_1x_3\).</p>
+        <details>
+          <summary>Solution</summary>
+          <p>Matrix form (symmetric):</p>
+          \[ A=\begin{pmatrix}2 & 1 & -2\\1 & 2 & 0\\-2 & 0 & 2\end{pmatrix}. \]
+          <p>We compute eigenvalues by solving \(\det(A-\lambda I)=0\). For brevity we show steps:</p>
+          <ol>
+            <li>Compute characteristic polynomial (expand or use software) — it factors as \((\lambda-4)(\lambda-2)^2\).</li>
+            <li>Eigenvalues: \(4,2,2\) (with multiplicity two for 2).</li>
+            <li>Eigenvector for \(\lambda=4\): solve \((A-4I)v=0\) gives \(v=(1,0,1)^T\) (up to scale).</li>
+            <li>For \(\lambda=2\), find two independent eigenvectors: e.g. \((1,1,0)^T\) and \((1,-1,1)^T\) (verify by substitution). Orthogonalize if necessary and normalize.</li>
+          </ol>
+          <p>Form orthonormal \(u_i\) and set \(P=[u_1\ u_2\ u_3]\). Then \(P^TAP=\operatorname{diag}(4,2,2)\) and canonical form is \(4y_1^2+2y_2^2+2y_3^2\) &mdash; positive definite.</p>
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Example 3 — Repeated eigenvalue & geometric multiplicity</h3>
+        <p>Discuss reduction when eigenvalues repeat (choose orthonormal basis of eigenspace).</p>
+        <details>
+          <summary>Solution</summary>
+          <p>If an eigenvalue has multiplicity &gt;1, its eigenspace has dimension equal to its geometric multiplicity. Any orthonormal basis of that eigenspace may be chosen as corresponding columns of \(P\). Orthogonality between different eigenspaces is automatic for symmetric matrices.</p>
+        </details>
+      </div>
+      <div class="example">
+<h3>Example 2.1 — \(Q(x,y)=3x^2+2xy+3y^2\)</h3>
+<details>
+<summary>Solution (steps)</summary>
+<p>Matrix: \(A=\begin{pmatrix}3&1\\1&3\end{pmatrix}\).</p>
+<p>Characteristic polynomial: \((3-\lambda)^2-1=\lambda^2-6\lambda+8\). Roots: \(\lambda=2,4\).</p>
+<p>Eigenvectors: for \(\lambda=4\): \((A-4I)v=0\Rightarrow(-1,1)^T\). For \(\lambda=2\): \((1,1)^T\).</p>
+<p>Orthonormal basis: \(u_1=\frac{1}{\sqrt{2}}( -1,1)^T,\ u_2=\frac{1}{\sqrt{2}}(1,1)^T\). Canonical form: \(4y_1^2+2y_2^2\) &mdash; positive definite.</p>
+</details>
+</div>
+
+
+<div class="example">
+<h3>Example 2.2 — \(Q(x,y)=x^2-4xy+y^2\)</h3>
+<details>
+<summary>Solution</summary>
+<p>Matrix: \(A=\begin{pmatrix}1&-2\\-2&1\end{pmatrix}\). Char poly: \((1-\lambda)^2-4=\lambda^2-2\lambda-3=(\lambda-3)(\lambda+1)\). Eigenvalues: 3 and -1.</p>
+<p>Eigenvectors: for 3: (1,-1)^T; for -1: (1,1)^T. Canonical form: \(3y_1^2-1y_2^2\) &mdash; indefinite (saddle).</p>
+</details>
+</div>
+
+
+<div class="example">
+<h3>Example 2.3 — \(Q(x,y)=6x^2+5xy+6y^2\)</h3>
+<details>
+<summary>Solution</summary>
+<p>A=\(\begin{pmatrix}6&2.5\\2.5&6\end{pmatrix}\). Characteristic polynomial: compute \((6-\lambda)^2-6.25=\lambda^2-12\lambda+29.75\). Discriminant negative? \(144-119=25\) so eigenvalues real: \(\lambda=\frac{12\pm5}{2}=8.5,3.5\).</p>
+<p>Both positive &rarr; positive definite. (Eigenvectors orthogonal; canonical form \(8.5 y_1^2 + 3.5 y_2^2\).)</p>
+</details>
+</div>
+</div>
+
+
+<div class="card">
+<h2>Extra 3×3 Examples</h2>
+
+
+<div class="example">
+<h3>Example 3.1 — \(A=\begin{pmatrix}2&0&0\\0&3&1\\0&1&3\end{pmatrix}\)</h3>
+<details>
+<summary>Solution</summary>
+<p>Observe block structure: first coord decouples with eigenvalue 2 (evec e1). The 2×2 block \(\begin{pmatrix}3&1\\1&3\end{pmatrix}\) has eigenvalues 4 and 2 with eigenvectors (1,1) and (1,-1).</p>
+<p>Full eigenvalues: 2 (twice), 4. Choose orthonormal evecs: \(u_1=(1,0,0),\ u_2=\frac{1}{\sqrt{2}}(0,1,1),\ u_3=\frac{1}{\sqrt{2}}(0,1,-1)\). Canonical: \(4y_1^2+2y_2^2+2y_3^2\) &mdash; positive definite.</p>
+</details>
+</div>
+
+
+<div class="example">
+<h3>Example 3.2 — \(A=\begin{pmatrix}0&1&0\\1&0&0\\0&0&-2\end{pmatrix}\)</h3>
+<details>
+<summary>Solution</summary>
+<p>2×2 block \(\begin{pmatrix}0&1\\1&0\end{pmatrix}\) has eigenvalues 1 and -1 with evecs (1,1,0) and (1,-1,0). Third coordinate eigenvalue -2.</p>
+<p>Eigenvalues: 1,-1,-2 so canonical form: \(1y_1^2 -1 y_2^2 -2 y_3^2\) &mdash; signature (1,2,0) &mdash; indefinite.</p>
+</details>
+</div>
+
+
+<div class="example">
+<h3>Example 3.3 — \(A=\begin{pmatrix}4&1&1\\1&4&1\\1&1&4\end{pmatrix}\)</h3>
+<details>
+<summary>Solution</summary>
+<p>Symmetric matrix with constant diagonal and equal off-diagonals. Vector (1,1,1) is eigenvector with eigenvalue 6. Any vector orthogonal to (1,1,1) has eigenvalue 3 (multiplicity 2).</p>
+<p>Canonical form: \(6y_1^2+3y_2^2+3y_3^2\) &mdash; positive definite.</p>
+</details>
+</div>
+
+    </section>
+
+    <section class="card">
+      <h2>4. Important remarks and numerical tips</h2>
       <ul>
-        <li>Understand the basic concepts of Diagonalization & Quadratic Forms (Orthogonal Reduction).</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
+        <li>For exact symbolic problems (small matrices), compute characteristic polynomial and solve algebraically.</li>
+        <li>Numerically, compute eigenpairs using stable routines (e.g., <code>eigh</code> in NumPy which uses symmetric routines).</li>
+        <li>When implementing Gram–Schmidt, use modified Gram–Schmidt to improve numerical stability.</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Diagonalization & Quadratic Forms (Orthogonal Reduction) is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
+    <section class="card calculator">
+      <h2>5. Interactive calculator (orthogonal reduction)</h2>
+      <p>Paste a symmetric 2×2 or 3×3 matrix (rows separated by semicolons; entries by spaces or commas). The tool computes eigenvalues, orthonormal eigenvectors, the diagonal matrix \(D\), and the canonical form \(\sum \lambda_i y_i^2\).</p>
+
+      <textarea id="mat" rows="3" style="width:100%">5 -3; -3 5</textarea>
+      <div style="margin-top:8px">
+        <button onclick="run()">Compute</button>
+        <button onclick="examples()" style="margin-left:8px">Load examples</button>
+      </div>
+      <div id="out"></div>
     </section>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
+    <footer>
+      <p>Lecture 10 — Reduction to Canonical Form. Want this exported to PDF or appended to your lecture series file? Tell me.</p>
+    </footer>
+  </div>
 
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Diagonalization & Quadratic Forms (Orthogonal Reduction) is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
+<script>
+function parse(s){
+  return s.trim().split(/[;\n]+/).map(r=>r.trim().split(/[,\s]+/).map(Number));
+}
+function transpose(A){return A[0].map((_,i)=>A.map(r=>r[i]));}
+function matMul(A,B){const n=A.length,m=B[0].length,p=A[0].length;let C=Array.from({length:n},()=>Array(m).fill(0));for(let i=0;i<n;i++)for(let k=0;k<p;k++)for(let j=0;j<m;j++)C[i][j]+=A[i][k]*B[k][j];return C}
+function norm(v){return Math.sqrt(v.reduce((s,x)=>s+x*x,0));}
+function dot(a,b){return a.reduce((s,x,i)=>s+x*b[i],0)}
+function scalarVec(a,s){return a.map(x=>x*s)}
+function subVec(a,b){return a.map((x,i)=>x-b[i])}
 
-    <section class="homework">
-      <h2>Homework Problems</h2>
-      <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Diagonalization & Quadratic Forms (Orthogonal Reduction) in your branch of engineering.</li>
-      </ol>
-    </section>
-  </main>
+function modifiedGS(cols){ // columns are array of vectors
+  const n=cols.length, m=cols[0].length; let Q=[];
+  for(let j=0;j<n;j++){
+    let v=cols[j].slice();
+    for(let i=0;i<j;i++){ const r=dot(Q[i],v); v=subVec(v,scalarVec(Q[i],r)); }
+    const rjj=norm(v); if(rjj<1e-12) Q.push(Array(m).fill(0)); else Q.push(v.map(x=>x/rjj));
+  }
+  return Q; // returns orthonormal columns
+}
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 10</p>
-  </footer>
+function eigQR(A,iter=200){
+  const n=A.length; let Ak=A.map(r=>r.slice()); let Qacc=Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));
+  for(let k=0;k<iter;k++){
+    // classical gram-schmidt on columns of Ak
+    const cols = transpose(Ak);
+    const Q = modifiedGS(cols); // orthonormal columns
+    const R = matMul(transpose(Q),Ak);
+    Ak = matMul(R,Q);
+    Qacc = matMul(Qacc,Q);
+  }
+  const evals = Array.from({length:n},(_,i)=>Ak[i][i]);
+  const evecs = transpose(Qacc);
+  return {evals,evecs};
+}
+
+function prettyMat(A){return A.map(r=>'[ '+r.map(x=>x.toFixed(6)).join(', ')+' ]').join('\n');}
+
+function run(){
+  const out=document.getElementById('out'); out.textContent='';
+  try{
+    const A=parse(document.getElementById('mat').value);
+    const n=A.length;
+    if(!A.every(r=>r.length===n)) throw 'Matrix must be square';
+    out.textContent+='Input matrix:\n'+prettyMat(A)+'\n\n';
+    const {evals,evecs}=eigQR(A,300);
+    out.textContent+='Eigenvalues (approx):\n'; evals.forEach((v,i)=> out.textContent+=`  λ_${i+1} = ${v.toFixed(8)}\n`);
+    out.textContent+='\nOrthonormal eigenvectors (columns):\n'; evecs.forEach((v,i)=> out.textContent+=`  u_${i+1} = [${v.map(x=>x.toFixed(6)).join(', ')}]^T\n`);
+    out.textContent+='\nDiagonal D = P^T A P (approx):\n';
+    // build P from evecs columns
+    const P=transpose(evecs);
+    const Pt=transpose(P);
+    const D=matMul(Pt,matMul(A,P));
+    out.textContent+=prettyMat(D)+'\n\n';
+    out.textContent+='Canonical form: Q(y) = '+evals.map((v,i)=>`${v.toFixed(6)} y_${i+1}^2`).join(' + ')+'\n';
+    // signature
+    let pos=0,neg=0,zero=0; evals.forEach(v=>{ if(Math.abs(v)<1e-8) zero++; else if(v>0) pos++; else neg++; });
+    out.textContent+=`Signature (n_+,n_-,n_0) = (${pos}, ${neg}, ${zero})\n`;
+  }catch(err){ out.textContent='Error: '+err; }
+}
+
+function examples(){ document.getElementById('mat').value='5 -3; -3 5'; run(); }
+</script>
 </body>
 </html>
