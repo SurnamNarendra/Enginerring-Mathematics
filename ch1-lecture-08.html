@@ -87,6 +87,79 @@ So:
 A^3 - I = 0.
 \]
 </p>
+<h3>2×2 — Example 1</h3>
+    <p class="small">Matrix \(A=\begin{pmatrix}2 & 1\\[2pt]1 & 2\end{pmatrix}\).</p>
+    <ol>
+      <li>\(\operatorname{tr}A = 2+2 = 4\). \(\det A = 2\cdot2-1\cdot1=3.\)</li>
+      <li>C–H: \(A^2 - 4A + 3I = 0\). Multiply by \(1/3\): \(A^{-1} = \frac{1}{3}(4I - A)\).</li>
+      <li>Compute \(4I-A = \begin{pmatrix}2 & -1\\-1 & 2\end{pmatrix}\). So
+        \(A^{-1} = \frac{1}{3}\begin{pmatrix}2 & -1\\-1 & 2\end{pmatrix} = \begin{pmatrix}2/3 & -1/3\\ -1/3 & 2/3\end{pmatrix}.\)</li>
+    </ol>
+
+    <h3>2×2 — Example 2</h3>
+    <p class="small">Matrix \(B=\begin{pmatrix}1 & 2\\[2pt]3 & 4\end{pmatrix}\).</p>
+    <ol>
+      <li>\(\operatorname{tr}B = 5,\ \det B = 1\cdot4-2\cdot3=-2.\)</li>
+      <li>C–H: \(B^2 - 5B -2I = 0\). So \( -2 B^{-1} = 5I - B\) and
+        \[
+          B^{-1} = \frac{1}{-2}(5I - B).
+        \]</li>
+      <li>Compute \(5I - B = \begin{pmatrix}4 & -2\\ -3 & 1\end{pmatrix}\). Thus
+        \(B^{-1} = -\tfrac12\begin{pmatrix}4 & -2\\ -3 & 1\end{pmatrix} = \begin{pmatrix}-2 & 1\\ 1.5 & -0.5\end{pmatrix}.\)</li>
+    </ol>
+
+    <h3>2×2 — Example 3</h3>
+    <p class="small">Matrix \(C=\begin{pmatrix}0 & 1\\ -1 & 0\end{pmatrix}\).</p>
+    <ol>
+      <li>\(\operatorname{tr}C = 0, \det C = 1.\)</li>
+      <li>C–H: \(C^2 + I = 0\) (since \(C^2 = -I\)). Alternatively, from general formula \(C^{-1}= (1/d)(tI - C) = -C\).</li>
+      <li>Hence \(C^{-1} = -C = \begin{pmatrix}0 & -1\\ 1 & 0\end{pmatrix}.\)</li>
+    </ol>
+
+    <hr>
+
+    <h3>3×3 — Example 4 (diagonal)</h3>
+    <p class="small">Matrix \(D=\operatorname{diag}(1,2,3)=\begin{pmatrix}1&0&0\\0&2&0\\0&0&3\end{pmatrix}.\)</p>
+    <ol>
+      <li>\(t=\operatorname{tr}D = 1+2+3=6.\) \(D^2=\operatorname{diag}(1,4,9)\) so \(\operatorname{tr}(D^2)=14.\)</li>
+      <li>\(s=\tfrac12(t^2-\operatorname{tr}D^2)=\tfrac12(36-14)=11.\) \(\det D = 1\cdot2\cdot3 = 6.\)</li>
+      <li>C–H: \(D^3 - 6D^2 + 11D - 6I = 0.\) Then
+        \[
+          D^{-1} = \frac{1}{6}(D^2 - 6D + 11I).
+        \]
+      </li>
+      <li>Compute diagonal entries: \(D^{-1}=\operatorname{diag}(1,1/2,1/3)\). (Verify: the formula gives \(\operatorname{diag}(6,3,2)/6 = \operatorname{diag}(1,1/2,1/3)\)).</li>
+    </ol>
+
+    <h3>3×3 — Example 5 (non-diagonal)</h3>
+    <p class="small">Matrix
+      \(E=\begin{pmatrix}2 & 1 & 0\\[2pt]0 & 1 & 1\\[2pt]1 & 0 & 1\end{pmatrix}.\)</p>
+    <ol>
+      <li>Compute traces and determinant:
+        \(\displaystyle t=\operatorname{tr}E=2+1+1=4.\)
+        \(E^2=\begin{pmatrix}4&3&1\\[2pt]1&1&2\\[2pt]3&1&1\end{pmatrix}\) so \(\operatorname{tr}(E^2)=6.\)</li>
+      <li>\(s=\tfrac12(t^2-\operatorname{tr}E^2)=\tfrac12(16-6)=5.\) \(\det E = 3.\)</li>
+      <li>C–H: \(E^3 - 4E^2 + 5E - 3I = 0.\) Using the inverse formula:
+        \[
+          E^{-1} = \frac{1}{3}\big(E^2 - 4E + 5I\big).
+        \]
+      </li>
+      <li>Compute numerically:
+        \[
+          E^2 - 4E + 5I =
+          \begin{pmatrix}4&3&1\\1&1&2\\3&1&1\end{pmatrix}
+          -4\begin{pmatrix}2&1&0\\0&1&1\\1&0&1\end{pmatrix}
+          +5\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}
+        \]
+        which equals \(\begin{pmatrix}1 & -1 & 1\\ 1 & 2 & -2\\ -1 & 1 & 2\end{pmatrix}\).
+        Dividing by \(3\) gives
+        \[
+          E^{-1} = \begin{pmatrix}1/3 & -1/3 & 1/3\\ 1/3 & 2/3 & -2/3\\ -1/3 & 1/3 & 2/3\end{pmatrix},
+        \]
+        which matches the direct inverse.
+      </li>
+    </ol>
+  </div>
 
 <!-- ================== Diagonalization ================== -->
 <h2>2. Diagonalization</h2>
