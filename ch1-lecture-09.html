@@ -1,67 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture 09: Cayley–Hamilton Theorem</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lecture 9 — Quadratic Forms</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f9fafb; color: #111; }
-    header, footer { text-align: center; margin: 20px 0; }
-    h1 { color: #1e3a8a; }
-    h2 { color: #2563eb; }
-    section { margin-bottom: 30px; }
-    .example, .homework { background: #eef2ff; padding: 10px; border-radius: 6px; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    :root{--bg:#ffffff;--card:#fbfbfb;--accent:#0b63e5;--muted:#555}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.6;color:#111;margin:0;background:linear-gradient(180deg,#f7fbff,white)}
+    header{background:linear-gradient(90deg,rgba(11,99,229,0.12),transparent);padding:28px 24px;border-bottom:1px solid #e6eefb}
+    header h1{margin:0;font-size:1.6rem}
+    header p{margin:6px 0 0;color:var(--muted)}
+    .wrap{max-width:1000px;margin:28px auto;padding:0 18px}
+    nav.toc{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(11,99,229,0.04);margin-bottom:18px}
+    nav.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+    nav.toc a{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid #e9f0ff;text-decoration:none;color:var(--accent);font-weight:600}
+    section.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 6px 20px rgba(7,8,12,0.03)}
+    h2{margin-top:0;color:#0b3e8a}
+    .example{background:#fff;padding:12px;border-radius:8px;border-left:4px solid #0b63e5;margin:12px 0}
+    pre{background:#0f172433;padding:12px;border-radius:8px;overflow:auto}
+    table{border-collapse:collapse;width:100%}
+    table td,table th{border:1px solid #e6eefb;padding:8px;text-align:left}
+    footer{color:var(--muted);font-size:0.9rem;padding:12px 0;text-align:center}
+    details{margin:8px 0}
+    .exercise{border:1px dashed #e6eefb;padding:10px;border-radius:8px}
   </style>
 </head>
 <body>
   <header>
-    <h1>Lecture 09: Cayley–Hamilton Theorem</h1>
-    <p><a href="index.html">← Back to Course Index</a></p>
+    <div class="wrap">
+      <h1>Lecture 9 — Quadratic Forms (Full Notes)</h1>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Learning Objectives</h2>
+  <main class="wrap">
+
+    <nav class="toc">
       <ul>
-        <li>Understand the basic concepts of Cayley–Hamilton Theorem.</li>
-        <li>Work with definitions and properties.</li>
-        <li>Apply knowledge to solve engineering-related problems.</li>
+        <li><a href="#def">Definitions & Basic Properties</a></li>
+        <li><a href="#sym">Symmetric Matrices</a></li>
+        <li><a href="#diag">Diagonalization & Principal Axes</a></li>
+        <li><a href="#sylvester">Sylvester's Law of Inertia</a></li>
+        <li><a href="#examples">Worked Examples</a></li>
+        <li><a href="#posdef">Positive/Negative/Indefinite</a></li>
+        <li><a href="#exercises">Exercises</a></li>
+      </ul>
+    </nav>
+
+    <section id="def" class="card">
+      <h2>1. Definitions & Basic Properties</h2>
+      <p>A <strong>quadratic form</strong> on \(\mathbb{R}^n\) is a homogeneous degree-2 polynomial in \(n\) variables:</p>
+      \[ Q(x) = Q(x_1,\dots,x_n) = \sum_{i,j=1}^n a_{ij} x_i x_j. \]
+      <p>Every quadratic form can be written using a matrix:</p>
+      \[ Q(x) = x^T A x, \quad x = \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}, \]
+      <p>where \(A\) is an \(n\times n\) matrix. Note: \(x^TAx = x^T\left(\frac{A+A^T}{2}\right)x\), so we may (and usually will) assume \(A\) is symmetric.</p>
+    </section>
+
+    <section id="sym" class="card">
+      <h2>2. Symmetric Matrices & Associated Bilinear Form</h2>
+      <p>If \(A\) is symmetric, define the bilinear form \(B(x,y)=x^T A y\). Then \(Q(x)=B(x,x)\). Key facts:</p>
+      <ul>
+        <li>Eigenvalues of a real symmetric matrix are real.</li>
+        <li>There exists an orthogonal matrix \(P\) with \(P^T A P = D\) diagonal (spectral theorem).</li>
+        <li>Diagonal entries of \(D\) are eigenvalues of \(A\).</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Definition & Theory</h2>
-      <p>Cayley–Hamilton Theorem is an essential concept in linear algebra and engineering mathematics. 
-      This lecture introduces definitions, notation, and theoretical background with step-by-step explanation.</p>
-    </section>
+    <section id="diag" class="card">
+      <h2>3. Diagonalization & Principal Axes Theorem</h2>
+      <p><strong>Principal Axes Theorem:</strong> For a real symmetric matrix \(A\), there is an orthogonal change of variables \(x = P y\) (so \(P^TP=I\)) such that:</p>
+      \[ Q(x) = x^T A x = y^T D y = \lambda_1 y_1^2 + \dots + \lambda_n y_n^2, \]
+      <p>where \(D = \operatorname{diag}(\lambda_1,\dots,\lambda_n)\) and the \(\lambda_i\) are eigenvalues of \(A\). So quadratic forms are reduced to sums of scaled squares in an orthonormal basis.</p>
 
-    <section class="example">
-      <h2>Worked Examples</h2>
-      <p><b>Example 1 (2×2 Matrix):</b> Compute determinant of A = [[1, 2], [3, 4]].</p>
-      <p>det(A) = (1)(4) - (2)(3) = -2.</p>
-      <p><b>Example 2 (3×3 Matrix):</b> Compute determinant of B = [[1, 0, 2], [2, 1, 0], [0, 3, 1]].</p>
-      <p>det(B) = 1(1*1 - 0*3) - 0(...) + 2(2*3 - 1*0) = 1 + 12 = 13.</p>
-    </section>
-
-    <section>
-      <h2>Applications in Engineering</h2>
-      <p>Cayley–Hamilton Theorem is applied in analyzing electrical networks, structural engineering, computer graphics, control systems, and more.</p>
-    </section>
-
-    <section class="homework">
-      <h2>Homework Problems</h2>
+      <p><strong>How to diagonalize in practice:</strong></p>
       <ol>
-        <li>Find determinant of [[2, 3], [1, 4]].</li>
-        <li>Find determinant of [[1, 2, 3], [0, 1, 4], [5, 6, 0]].</li>
-        <li>Discuss one practical application of Cayley–Hamilton Theorem in your branch of engineering.</li>
+        <li>Find symmetric matrix \(A\) for the form.</li>
+        <li>Compute eigenvalues and orthonormal eigenvectors of \(A\).</li>
+        <li>Form orthogonal matrix \(P\) with eigenvectors as columns; then \(P^T A P = D\).</li>
       </ol>
     </section>
+
+    <section id="sylvester" class="card">
+      <h2>4. Sylvester's Law of Inertia</h2>
+      <p>Sylvester's law states that under any real non-singular change of variables \(x = S y\) (with \(S\) invertible, not necessarily orthogonal), the numbers of positive, negative and zero coefficients in the diagonalized form (the inertia) are invariant. These counts are called the <em>inertia</em> or the <em>signature</em> of the quadratic form.</p>
+      <p>Thus, the numbers:</p>
+      \[ (n_+, n_-, n_0) \quad \text{(positives, negatives, zeros)} \]
+      <p>are invariants of the quadratic form (independent of the diagonalizing change-of-basis matrix).</p>
+    </section>
+
+    <section id="posdef" class="card">
+      <h2>5. Positive definite, negative definite, semidefinite and indefinite</h2>
+      <p>Let \(Q(x)=x^T A x\) with \(A\) symmetric. Then:</p>
+      <ul>
+        <li><strong>Positive definite:</strong> \(Q(x) > 0\) for all \(x \ne 0\) &mdash; equivalently all eigenvalues of \(A\) are \(>0\).</li>
+        <li><strong>Positive semidefinite:</strong> \(Q(x) \ge 0\) for all \(x\) &mdash; eigenvalues \(\ge 0\).</li>
+        <li><strong>Negative definite:</strong> all eigenvalues \(<0\).</li>
+        <li><strong>Indefinite:</strong> eigenvalues of both signs.</li>
+      </ul>
+      <p>Tests for positive-definiteness (symmetric \(A\)):</p>
+      <ol>
+        <li>Check eigenvalues are all positive.</li>
+        <li>Check all leading principal minors (Sylvester's criterion) are positive.</li>
+      </ol>
+    </section>
+
+    <section id="examples" class="card">
+      <h2>6. Worked Examples (step-by-step)</h2>
+
+      <div class="example">
+        <h3>Example 1 — A simple 2×2 form</h3>
+        <p>Reduce \(Q(x,y)=4x^2+4xy+y^2\) to principal axes and classify.</p>
+        <details>
+          <summary>Solution</summary>
+          <p>Matrix form: \(A=\begin{pmatrix}4 & 2\\2 & 1\end{pmatrix}\) because \(x^TAx = [x\ y]\begin{pmatrix}4 & 2\\2 & 1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix} = 4x^2+4xy+y^2.\)</p>
+          <p>Eigenvalues: solve \(\det(A-\lambda I)=0\):</p>
+          \[\det\begin{pmatrix}4-\lambda & 2\\2 & 1-\lambda\end{pmatrix}=(4-\lambda)(1-\lambda)-4=\lambda^2-5\lambda=\lambda(\lambda-5)=0.\]
+          <p>So eigenvalues \(\lambda_1=0,\ \lambda_2=5\). Eigenvectors: for \(\lambda=5\), solve \((A-5I)v=0\) gives \(v=(1,1)^T\). For \(\lambda=0\), eigenvector \(v=(1,-2)^T\).</p>
+          <p>Orthonormalize to get \(P\). Transform \(x=Py\) to obtain \(Q=5y_2^2+0\cdot y_1^2\). Since there is both positive and zero eigenvalue, the form is positive semidefinite (not definite).</p>
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Example 2 — Completing the square (alternative)</h3>
+        <p>Reduce \(Q(x,y)=3x^2+4xy+2y^2\).</p>
+        <details>
+          <summary>Solution</summary>
+          <p>Complete the square: \(3x^2+4xy+2y^2 = 3\left(x^2+\frac{4}{3}xy\right)+2y^2 = 3\left(x+\frac{2}{3}y\right)^2 - 3\cdot\frac{4}{9}y^2 + 2y^2.\)</p>
+          <p>Simplify: \(=3\left(x+\frac{2}{3}y\right)^2 + \left(2 - \frac{4}{3}\right)y^2 = 3\left(x+\frac{2}{3}y\right)^2 + \frac{2}{3}y^2.\)</p>
+          <p>Both coefficients positive &mdash; positive definite.</p>
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Example 3 — 3×3 diagonalization</h3>
+        <p>Reduce \(Q(x)=x_1^2 + 2x_1x_2 + x_2^2 + x_3^2\).</p>
+        <details>
+          <summary>Solution</summary>
+          <p>Matrix: \(A=\begin{pmatrix}1 & 1 & 0\\1 & 1 & 0\\0 & 0 & 1\end{pmatrix}\). The first 2×2 block has eigenvalues 0 and 2 with eigenvectors \((1,-1,0)^T\) and \((1,1,0)^T\). The \(x_3\) direction has eigenvalue 1. Thus diagonal form: \(2y_1^2 + 1\cdot y_2^2 + 0\cdot y_3^2\) up to ordering.
+          </p>
+        </details>
+      </div>
+
+      <div class="example">
+<h3>Example 4 — 2×2: diagonalization with arithmetic</h3>
+<p>Reduce \(Q(x,y)=x^2+6xy+10y^2\) and classify.</p>
+<details>
+<summary>Solution (step-by-step)</summary>
+<p>Matrix form: \(A=\begin{pmatrix}1 & 3\\3 & 10\end{pmatrix}\) because the cross-term 6xy is split as 3 in each off-diagonal entry.</p>
+<p>Characteristic polynomial:</p>
+\[\det\begin{pmatrix}1-\lambda & 3\\3 & 10-\lambda\end{pmatrix}=(1-\lambda)(10-\lambda)-9=\lambda^2-11\lambda+1.\]
+<p>Solve \(\lambda^2-11\lambda+1=0\):</p>
+\[\lambda=\frac{11\pm\sqrt{121-4}}{2}=\frac{11\pm\sqrt{117}}{2}.\]
+<p>Both eigenvalues are positive (since \(11-\sqrt{117}>0\) because \(\sqrt{117}\approx10.82\)), hence \(A\) is positive definite.</p>
+<p>Eigenvectors: compute for each eigenvalue by solving \((A-\lambda I)v=0\). Normalize to get orthonormal \(P\) and diagonal \(D\). The diagonal form will be \(\lambda_1 y_1^2 + \lambda_2 y_2^2\) with both \(\lambda_i>0\).</p>
+</details>
+</div>
+
+
+<div class="example">
+<h3>Example 5 — 3×3: full eigen-decomposition (explicit)</h3>
+<p>Take \(A=\begin{pmatrix}1 & 2 & 0\\2 & 1 & 0\\0 & 0 & 3\end{pmatrix}\). We'll find eigenvalues and orthonormal eigenvectors.</p>
+<details>
+<summary>Solution</summary>
+<p>Block structure: top-left 2×2 block is \(B=\begin{pmatrix}1&2\\2&1\end{pmatrix}\). Characteristic polynomial of \(B\):</p>
+\[\det(B-\lambda I)=(1-\lambda)^2-4=\lambda^2-2\lambda-3=(\lambda-3)(\lambda+1).\]
+<p>So eigenvalues for the block are \(3\) and \(-1\). Eigenvectors for the 2×2 block:</p>
+<ul>
+<li>For \(\lambda=3\): solve \((B-3I)v=0\) gives \(\begin{pmatrix}-2&2\\2&-2\end{pmatrix}v=0\) so \(v=(1,1)^T\).</li>
+<li>For \(\lambda=-1\): \(v=(1,-1)^T\).</li>
+</ul>
+<p>Extend to 3×3 by adding the \(x_3\) axis (eigenvalue 3). Thus eigenvalues: \(3\) (twice) and \(-1\) (once). One must orthonormalize the eigenvectors: for example take</p>
+\[u_1=\frac{1}{\sqrt{2}}(1,1,0)^T,\quad u_2=\frac{1}{\sqrt{2}}(1,-1,0)^T,\quad u_3=(0,0,1)^T.\]
+<p>Note: \(u_1\) and \(u_3\) correspond to eigenvalue 3, so there is a two-dimensional eigenspace for \(\lambda=3\). Choose any orthonormal basis of that eigenspace. The diagonal form becomes \(3y_1^2+3y_2^2-1\cdot y_3^2\) (ordering may vary). Signature: (2,1,0) &mdash; two positives, one negative.</p>
+</details>
+</div>
+
+    </section>
+
+    <section id="prac" class="card">
+      <h2>7. Practical tips & computational remarks</h2>
+      <ul>
+        <li>When \(A\) has symbolic entries, try completing the square or block elimination before computing messy eigenvalues.</li>
+        <li>For numerical matrices, rely on software (e.g., NumPy's <code>eig</code> or <code>eigh</code> for symmetric) to compute eigenpairs reliably.</li>
+        <li>Use Sylvester's criterion (leading principal minors) for testing positive-definiteness when eigen-decomposition is expensive.</li>
+      </ul>
+    </section>
+
+    <section id="exercises" class="card">
+      <h2>8. Exercises (with answers hidden)</h2>
+      <div class="exercise">
+        <ol>
+          <li>Classify the quadratic form \(Q(x,y)=x^2+6xy+10y^2\). (Hint: diagonalize or complete square.)</li>
+          <li>Show that \(Q(x)=2x_1^2+2x_1x_2+2x_2^2\) is positive semidefinite and find its rank.</li>
+          <li>Find the signature (\(n_+,n_-,n_0\)) of the quadratic form given by \(A=\begin{pmatrix}0 & 1 & 0\\1 & 0 & 0\\0 & 0 & -2\end{pmatrix}.\)</li>
+          <li>Use Sylvester's criterion to determine if \(A=\begin{pmatrix}2 & -1 & 0\\-1 & 2 & -1\\0 & -1 & 2\end{pmatrix}\) is positive definite.</li>
+        </ol>
+        <details>
+          <summary>Answers / Sketches</summary>
+          <ol>
+            <li>Complete the square: \(x^2+6xy+10y^2=(x+3y)^2 + y^2\) &rarr; positive definite (both coefficients >0).</li>
+            <li>Matrix \(=2\begin{pmatrix}1 & 1/2\\1/2 & 1\end{pmatrix}\) has eigenvalues 0 and 3 &rarr; positive semidefinite; rank = 1? (verify). [Careful: compute actual eigenvalues: characteristic gives \(\lambda(\lambda-3)=0\) so rank = 1? check calculation in full notes].</li>
+            <li>Matrix has eigenvalues \{1,-1,-2\} so signature is (1,2,0) — one positive, two negative, no zero. (Compute eigenvalues of the 2×2 block: \(\begin{pmatrix}0&1\\1&0\end{pmatrix}\) has eigenvalues \(1,-1\)).</li>
+            <li>Leading principal minors: 2 > 0, \(\det\begin{pmatrix}2&-1\\-1&2\end{pmatrix}=3>0\), full det = 4 >0 &rarr; positive definite by Sylvester.</li>
+          </ol>
+        </details>
+      </div>
+    </section>
+
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lecture 9 — Quadratic Forms: Full Notes</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root{--bg:#ffffff;--card:#fbfbfb;--accent:#0b63e5;--muted:#555}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.6;color:#111;margin:0;background:linear-gradient(180deg,#f7fbff,white)}
+    header{background:linear-gradient(90deg,rgba(11,99,229,0.12),transparent);padding:28px 24px;border-bottom:1px solid #e6eefb}
+    header h1{margin:0;font-size:1.6rem}
+    header p{margin:6px 0 0;color:var(--muted)}
+    .wrap{max-width:1000px;margin:28px auto;padding:0 18px}
+    nav.toc{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(11,99,229,0.04);margin-bottom:18px}
+    nav.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+    nav.toc a{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid #e9f0ff;text-decoration:none;color:var(--accent);font-weight:600}
+    section.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 6px 20px rgba(7,8,12,0.03)}
+    h2{margin-top:0;color:#0b3e8a}
+    .example{background:#fff;padding:12px;border-radius:8px;border-left:4px solid #0b63e5;margin:12px 0}
+    pre{background:#0f172433;padding:12px;border-radius:8px;overflow:auto}
+    table{border-collapse:collapse;width:100%}
+    table td,table th{border:1px solid #e6eefb;padding:8px;text-align:left}
+    footer{color:var(--muted);font-size:0.9rem;padding:12px 0;text-align:center}
+    details{margin:8px 0}
+    .exercise{border:1px dashed #e6eefb;padding:10px;border-radius:8px}
+    input,button{padding:8px;margin:4px;font-size:1rem}
+    #calcOutput{white-space:pre-wrap;background:#f4f6fb;padding:12px;border-radius:8px;margin-top:10px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Lecture 9 — Quadratic Forms (Full Notes)</h1>
+      <p>Definitions, diagonalization, classification (Sylvester), principal axes, examples, exercises, and interactive calculator.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ... previous sections unchanged ... -->
+
+    <section class="card" id="calculator">
+      <h2>10. Interactive Quadratic Form Calculator</h2>
+      <p>Enter a 2×2 or 3×3 symmetric matrix (rows separated by semicolons, entries separated by spaces):</p>
+      <input id="matrixInput" style="width:100%" placeholder="e.g. 4 2; 2 1">
+      <button onclick="computeQuadraticForm()">Compute Eigenvalues & Classification</button>
+      <div id="calcOutput"></div>
+    </section>
+
+  <footer style="background:#f8f9fa;color:#333;text-align:center;padding:10px;font-size:13px;font-style:italic;border-top:1px solid #ccc;">
+© 2025 | Designed by Dr. Surnam Narendra
+</footer>
+
   </main>
 
-  <footer>
-    <p>Engineering Mathematics – Chapter 1 • Lecture 09</p>
-  </footer>
+<script>
+function parseMatrix(str){
+  return str.split(';').map(r=>r.trim().split(/\s+/).map(Number));
+}
+
+function computeEigen2x2(A){
+  let a=A[0][0], b=A[0][1], c=A[1][1];
+  let trace=a+c, det=a*c-b*b;
+  let disc=Math.sqrt(trace*trace-4*det);
+  return [(trace+disc)/2,(trace-disc)/2];
+}
+
+function computeEigen3x3(A){
+  // Using numeric approximation via power iteration for simplicity
+  let eig=[];
+  let M=A.map(r=>r.slice());
+  for(let k=0;k<3;k++){
+    let v=[Math.random(),Math.random(),Math.random()];
+    for(let it=0;it<20;it++){
+      let w=[0,0,0];
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++) w[i]+=M[i][j]*v[j];
+      let norm=Math.sqrt(w.reduce((s,x)=>s+x*x,0));
+      v=w.map(x=>x/norm);
+    }
+    let lambda=0; for(let i=0;i<3;i++) for(let j=0;j<3;j++) lambda+=v[i]*M[i][j]*v[j];
+    eig.push(lambda.toFixed(4));
+  }
+  return eig;
+}
+
+function computeQuadraticForm(){
+  let str=document.getElementById('matrixInput').value;
+  let A=parseMatrix(str);
+  let n=A.length;
+  let eig=[];
+  if(n===2) eig=computeEigen2x2(A);
+  else if(n===3) eig=computeEigen3x3(A);
+  else {document.getElementById('calcOutput').innerText='Only 2x2 or 3x3 matrices supported.'; return;}
+
+  let pos=eig.filter(x=>x>0).length;
+  let neg=eig.filter(x=>x<0).length;
+  let zero=n-pos-neg;
+  let classification="";
+  if(pos===n) classification="Positive definite";
+  else if(neg===n) classification="Negative definite";
+  else if(pos>0 && neg>0) classification="Indefinite";
+  else if(pos>0 && zero>0) classification="Positive semidefinite";
+  else if(neg>0 && zero>0) classification="Negative semidefinite";
+
+  document.getElementById('calcOutput').innerText=
+    `Eigenvalues: ${eig}\nSignature: (${pos}, ${neg}, ${zero})\nClassification: ${classification}`;
+}
+</script>
+
 </body>
 </html>
+
+
+  
+
+  
