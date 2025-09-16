@@ -2,11 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Unit A - RREF Practice</title>
+  <title>Practice Problems for Unit-1</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    ol {
+      margin-left: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    .sublist {
+      margin-left: 30px;
+      list-style-type: lower-alpha;
+    }
+  </style>
 </head>
 <body>
-  <h1>Unit A: Row Reduced Echelon Form (RREF)</h1>
+  <h1>Practice Problems on RREF, Rank, and Systems of Equations</h1>
+
+  <h2>A. Row Reduced Echelon Form (RREF)</h2>
   <ol>
     <li>Reduce the following matrix to row reduced echelon form:  
       \[
@@ -36,6 +61,87 @@
       2 & 4 & 6 & 8
       \end{bmatrix}
       \]
+    </li>
+  </ol>
+
+  <h2>B. Rank of a Matrix</h2>
+  <ol start="4">
+    <li>Find the rank of:  
+      \[
+      D = \begin{bmatrix}
+      1 & 0 & -1 & 2 \\
+      2 & 1 & 0 & 3 \\
+      3 & 1 & -1 & 5
+      \end{bmatrix}
+      \]
+    </li>
+
+    <li>Compute the rank of:  
+      \[
+      E = \begin{bmatrix}
+      1 & 2 & 3 \\
+      4 & 5 & 6 \\
+      7 & 8 & 9
+      \end{bmatrix}
+      \]
+    </li>
+
+    <li>Find the rank of:  
+      \[
+      F = \begin{bmatrix}
+      2 & 4 & 6 & 8 \\
+      1 & 2 & 3 & 4 \\
+      0 & 0 & 0 & 0
+      \end{bmatrix}
+      \]
+    </li>
+  </ol>
+
+  <h2>C. System of Linear Equations</h2>
+  <ol start="7">
+    <li>Solve using row-reduction:  
+      \[
+      \begin{cases}
+      x + 2y + 3z = 9 \\
+      2x + 3y + z = 8 \\
+      3x + y + 2z = 7
+      \end{cases}
+      \]
+    </li>
+
+    <li>Determine if the system has unique, infinite, or no solution:  
+      \[
+      \begin{cases}
+      x + y + z = 6 \\
+      2x + 2y + 2z = 12 \\
+      3x + 3y + 3z = 18
+      \end{cases}
+      \]
+    </li>
+
+    <li>Solve the system:  
+      \[
+      \begin{cases}
+      x + y - z = 1 \\
+      2x - y + z = 3 \\
+      3x + 2y = 4
+      \end{cases}
+      \]
+    </li>
+
+    <li>A system of equations is given by:  
+      \[
+      \begin{cases}
+      x_1 + x_2 + x_3 + x_4 = 5 \\
+      2x_1 + 3x_2 + 5x_3 + 7x_4 = 15 \\
+      x_1 - x_2 + 2x_3 + 3x_4 = 4
+      \end{cases}
+      \]
+      <ul class="sublist">
+        <li>Write the augmented matrix.</li>
+        <li>Reduce to RREF.</li>
+        <li>Find the general solution.</li>
+      </ul>
     </li>
   </ol>
 </body>
