@@ -1,73 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 9: Applications of Differentiation</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 9: Partial Derivatives and Maxima/Minima</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 9</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 9 of 10: <strong>Applications of Differentiation</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Applications of Differentiation</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 9: Partial Derivatives and Maxima/Minima of Multivariable Functions</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction to Partial Derivatives</h2>
+<p>
+A partial derivative measures how a function changes with respect to one variable while keeping other variables constant. For a function \(f(x,y)\):
+\[
+\frac{\partial f}{\partial x} = \lim_{h\to 0} \frac{f(x+h, y) - f(x, y)}{h}, \quad 
+\frac{\partial f}{\partial y} = \lim_{h\to 0} \frac{f(x, y+h) - f(x, y)}{h}
+\]
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Applications of Differentiation</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Higher-Order Partial Derivatives</h2>
+<p>
+Second-order derivatives include:
+\[
+f_{xx} = \frac{\partial^2 f}{\partial x^2}, \quad f_{yy} = \frac{\partial^2 f}{\partial y^2}, \quad f_{xy} = \frac{\partial^2 f}{\partial x \partial y}, \quad f_{yx} = \frac{\partial^2 f}{\partial y \partial x}
+\]
+If \(f\) is smooth, then \(f_{xy} = f_{yx}\) (Clairaut's theorem).
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<div class="example">
+<p><b>Example 1:</b> Find partial derivatives of \(f(x,y) = x^2y + 3xy^2\)</p>
+<ul>
+<li>\(\frac{\partial f}{\partial x} = 2xy + 3y^2\)</li>
+<li>\(\frac{\partial f}{\partial y} = x^2 + 6xy\)</li>
+</ul>
+</div>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<h2>3. Maxima and Minima of Functions of Two Variables</h2>
+<p>
+To find local maxima, minima, or saddle points:
+<ol>
+<li>Compute first-order partial derivatives \(f_x, f_y\) and set them to zero to find critical points.</li>
+<li>Compute second-order partial derivatives \(f_{xx}, f_{yy}, f_{xy}\).</li>
+<li>Use the second derivative test:
+\[
+D = f_{xx} f_{yy} - (f_{xy})^2
+\]
+<ul>
+<li>If \(D>0\) and \(f_{xx}>0\), local minimum.</li>
+<li>If \(D>0\) and \(f_{xx}<0\), local maximum.</li>
+<li>If \(D<0\), saddle point.</li>
+<li>If \(D=0\), test is inconclusive.</li>
+</ul>
+</li>
+</ol>
+</p>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-08.html">← Previous</a></div>
-        <div><a href="ch2-lecture-10.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<div class="example">
+<p><b>Example 2:</b> Find and classify critical points of \(f(x,y) = x^2 + xy + y^2\)</p>
+<ul>
+<li>\(f_x = 2x + y = 0 \Rightarrow y = -2x\)</li>
+<li>\(f_y = x + 2y = 0 \Rightarrow x = -2y\)</li>
+<li>Solving gives critical point: \(x=0, y=0\)</li>
+<li>Second derivatives: \(f_{xx}=2, f_{yy}=2, f_{xy}=1\)</li>
+<li>\(D = 2*2 - 1^2 = 3 > 0\), \(f_{xx}=2>0\) → local minimum at (0,0)</li>
+</ul>
+</div>
+
+<h2>4. Method of Lagrange Multipliers (Constrained Optimization)</h2>
+<p>
+To maximize or minimize \(f(x,y)\) subject to \(g(x,y) = 0\):
+\[
+\nabla f = \lambda \nabla g
+\]
+where \(\nabla f = (f_x, f_y)\) and \(\nabla g = (g_x, g_y)\). Solve system of equations including the constraint.
+</p>
+
+<div class="example">
+<p><b>Example 3:</b> Maximize \(f(x,y) = xy\) subject to \(x+y=10\)</p>
+<ul>
+<li>Constraint: \(g(x,y)=x+y-10=0\)</li>
+<li>\(\nabla f = (y, x), \nabla g = (1,1)\)</li>
+<li>Set \(\nabla f = \lambda \nabla g \Rightarrow y = \lambda, x = \lambda \Rightarrow x=y\)</li>
+<li>Use constraint: \(x+y=10 \Rightarrow 2x=10 \Rightarrow x=y=5\)</li>
+<li>Maximum value: \(f(5,5)=25\)</li>
+</ul>
+</div>
+
+<h2>5. Applications</h2>
+<div class="application">
+<ul>
+<li>Economics: maximize profit or minimize cost under budget constraints</li>
+<li>Engineering: stress/strain optimization, material design</li>
+<li>Physics: potential energy minima, equilibrium points</li>
+<li>Machine learning: optimize loss functions with multiple variables</li>
+</ul>
+</div>
+
+<h2>6. Practice Problems</h2>
+<ol>
+<li>Find partial derivatives of \(f(x,y)=x^3y - 4xy^2\)</li>
+<li>Find and classify critical points of \(f(x,y)=x^2 - xy + y^2\)</li>
+<li>Maximize \(f(x,y)=3x+4y\) subject to \(x^2+y^2=25\)</li>
+<li>Find all saddle points for \(f(x,y)=x^3 - 3xy^2\)</li>
+<li>Use Lagrange multipliers to minimize \(f(x,y)=x^2+y^2\) subject to \(x+y=6\)</li>
+</ol>
+
 </body>
 </html>
