@@ -1,73 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 8: Taylor & Maclaurin Series</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 8: Functions of Several Variables - Limits & Continuity</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 8</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 8 of 10: <strong>Taylor & Maclaurin Series</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Taylor & Maclaurin Series</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 8: Functions of Several Variables – Limits & Continuity</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction</h2>
+<p>
+A function of several variables maps tuples of numbers to a real number:
+\[
+f: D \subset \mathbb{R}^n \to \mathbb{R}, \quad (x_1, x_2, ..., x_n) \mapsto f(x_1, x_2, ..., x_n)
+\]
+Most common case: two variables \(f(x,y)\). Functions of several variables are essential in physics, engineering, and optimization problems.
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Taylor & Maclaurin Series</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Domain, Codomain, and Range</h2>
+<p>
+For \(f(x,y)\):
+<ul>
+<li>Domain: set of all \((x,y)\) for which \(f(x,y)\) is defined</li>
+<li>Codomain: usually \(\mathbb{R}\)</li>
+<li>Range: set of actual output values of \(f\)</li>
+</ul>
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h2>3. Limits of Functions of Two Variables</h2>
+<p>
+The limit of \(f(x,y)\) as \((x,y) \to (a,b)\) is \(L\) if:
+\[
+\lim_{(x,y)\to(a,b)} f(x,y) = L
+\]
+means that for every path approaching \((a,b)\), \(f(x,y) \to L\).
+</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<h3>Example 1:</h3>
+<div class="example">
+<p>Check if \(\lim_{(x,y)\to(0,0)} \frac{xy}{x^2+y^2}\) exists.</p>
+<ul>
+<li>Along \(y=0\): \(\frac{x*0}{x^2+0} = 0\)</li>
+<li>Along \(y=x\): \(\frac{x*x}{x^2+x^2} = \frac{x^2}{2x^2} = \frac{1}{2}\)</li>
+<li>Different paths → limit does not exist.</li>
+</ul>
+</div>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-07.html">← Previous</a></div>
-        <div><a href="ch2-lecture-09.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<h2>4. Continuity</h2>
+<p>
+A function \(f(x,y)\) is continuous at \((a,b)\) if:
+\[
+\lim_{(x,y)\to(a,b)} f(x,y) = f(a,b)
+\]
+This requires that the limit exists and equals the function value.
+</p>
+
+<h3>Example 2:</h3>
+<div class="example">
+<p>Check continuity of \(f(x,y) = x^2 + y^2\) at (1,1).</p>
+<ul>
+<li>\(\lim_{(x,y)\to(1,1)} (x^2 + y^2) = 1^2 + 1^2 = 2 = f(1,1)\)</li>
+<li>Hence, \(f\) is continuous at (1,1)</li>
+</ul>
+</div>
+
+<h2>5. Left-side and Right-side Analogy</h2>
+<p>
+In multivariable functions, “left” and “right” are replaced by “paths” of approach. Continuity requires the same limit along all possible paths approaching the point.
+</p>
+
+<h3>Example 3:</h3>
+<div class="example">
+<p>\(f(x,y) = \frac{x^2y}{x^2+y^2}\) at (0,0).</p>
+<ul>
+<li>Along y=0 → 0</li>
+<li>Along x=0 → 0</li>
+<li>Along y=x → \(\frac{x^3}{2x^2} = x/2 \to 0\)</li>
+<li>All paths → limit 0 = f(0,0), so continuous at (0,0)</li>
+</ul>
+</div>
+
+<h2>6. Graphical Representation</h2>
+<svg width="500" height="300">
+  <!-- Axes -->
+  <line x1="50" y1="250" x2="450" y2="250" stroke="black"/>
+  <line x1="50" y1="250" x2="50" y2="50" stroke="black"/>
+  <line x1="50" y1="250" x2="450" y2="50" stroke="black" stroke-dasharray="5,5"/>
+  <!-- Function curve approximation (surface in 2D) -->
+  <path d="M50,250 C100,200 200,120 300,100 400,80 450,70" stroke="blue" fill="none" stroke-width="2"/>
+  <text x="360" y="80" font-size="12" fill="blue">f(x,y) surface</text>
+</svg>
+
+<h2>7. Summary</h2>
+<ul>
+<li>Function of several variables: \(f(x_1, x_2, ..., x_n)\)</li>
+<li>Limit exists only if approaching along all paths gives the same value</li>
+<li>Continuity: limit at a point equals function value</li>
+<li>Path analysis is crucial for detecting non-existence of limits</li>
+</ul>
+
+<h2>8. Practice Problems</h2>
+<ol>
+<li>Check continuity of \(f(x,y)=\frac{x^2+y^2}{x^2+y^2+1}\) at (0,0)</li>
+<li>Check if \(\lim_{(x,y)\to(0,0)} \frac{x^2-y^2}{x^2+y^2}\) exists</li>
+<li>Find limits along paths y=0, x=0, y=x for \(f(x,y)=\frac{xy}{x^2+y^2}\)</li>
+<li>Is \(f(x,y)=\sqrt{x^2+y^2}\) continuous at (0,0)?</li>
+<li>Sketch surface \(f(x,y)=x^2+y^2\)</li>
+</ol>
+
 </body>
 </html>
