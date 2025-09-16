@@ -1,73 +1,181 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 1: Review of Functions</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lecture 1 — Functions</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body { font-family: Georgia, serif; margin: 20px; line-height: 1.6; background: #f9fbfc; color: #222; }
+    h1, h2, h3 { color: #0b63ff; }
+    .example, .note, .exercise {
+      background: #fff; border-left: 4px solid #0b63ff; padding: 12px; margin: 12px 0;
+      border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    code { background: #eef3ff; padding: 2px 6px; border-radius: 4px; }
+    footer { margin-top: 40px; font-size: 0.9em; color: #666; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 1</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 1 of 10: <strong>Review of Functions</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Review of Functions</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 1: Functions</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. What is a Function?</h2>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Review of Functions</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h3>Intuition</h3>
+<p>A <b>function</b> is a rule that takes an input and produces exactly one output. Think of it like a machine: 
+you feed an input value in, the machine applies a rule, and out comes a single output.</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h3>Formal Definition</h3>
+<p>A function \( f \) from a set \( A \) to a set \( B \) is written</p>
+<p style="text-align:center;">\( f: A \to B \)</p>
+<p>and for each \( x \in A \), the rule assigns a unique element \( f(x) \in B \).</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<ul>
+  <li><b>Domain</b> (\(A\)): the set of inputs.</li>
+  <li><b>Codomain</b> (\(B\)): the set of possible outputs we allow.</li>
+  <li><b>Range</b> (or image): the set of actual outputs, \( f(A) = \{ f(x): x \in A \} \subseteq B \).</li>
+</ul>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="index.html">← Previous</a></div>
-        <div><a href="ch2-lecture-02.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<div class="example">
+  <b>Example:</b> If \( f(x) = x^2 \) and domain is \( \mathbb{R} \), codomain is \( \mathbb{R} \), 
+  then range is \( [0,\infty) \).
+</div>
+
+<hr>
+
+<h2>2. Mapping Diagram</h2>
+<p>Let \( A = \{1,2,3\}, \; B = \{a,b,c,d\} \), define \( f \) by:</p>
+<p>\( f(1)=a, \; f(2)=b, \; f(3)=a \).</p>
+
+<pre>
+Domain A        Codomain B
+  {1}  ------>  {a}
+  {2}  ------>  {b}
+  {3}  ------>  {a}
+</pre>
+
+<p>Range is \( f(A) = \{a, b\} \). Codomain is \( B = \{a,b,c,d\} \).</p>
+
+<hr>
+
+<h2>3. Function vs Relation</h2>
+<p>A <b>relation</b> between \( A \) and \( B \) is any set of ordered pairs \( (x,y) \) with \( x \in A, y \in B \).</p>
+<p>A relation is a <b>function</b> iff every \( x \in A \) appears in exactly one pair \( (x,y) \).</p>
+
+<div class="example">
+  <b>Not a function:</b> \( R = \{(1,2), (1,3)\} \). Input 1 maps to two outputs → not a function.
+</div>
+
+<hr>
+
+<h2>4. Domain, Codomain, Range — Precise Meanings</h2>
+<ul>
+  <li><b>Domain</b> (\( \mathrm{Dom}(f) \)): all inputs where \( f \) is defined.</li>
+  <li><b>Codomain</b>: declared possible outputs.</li>
+  <li><b>Range</b>: actual outputs, always \( f(A) \subseteq B \).</li>
+</ul>
+
+<div class="example">
+  Example: \( f(x) = \frac{1}{x-2} \). Domain: \( \mathbb{R} \setminus \{2\} \). Codomain: \( \mathbb{R} \). Range: \( \mathbb{R} \setminus \{0\} \).
+</div>
+
+<hr>
+
+<h2>5. Properties of Functions</h2>
+<h3>Injective (One-to-One)</h3>
+<p>\( f \) is injective if different inputs give different outputs.</p>
+<div class="example">Example: \( f(x) = 2x \) on \( \mathbb{R} \).</div>
+
+<h3>Surjective (Onto)</h3>
+<p>\( f \) is surjective if every element of codomain is an output.</p>
+<div class="example">Example: \( f(x) = x^3 \) from \( \mathbb{R} \to \mathbb{R} \).</div>
+
+<h3>Bijective</h3>
+<p>If \( f \) is both injective and surjective, it is bijective and has an inverse.</p>
+<div class="example">Example: \( f(x) = 2x+3 \) is bijective. Inverse: \( f^{-1}(y) = \frac{y-3}{2} \).</div>
+
+<h3>Composition</h3>
+<p>If \( f: A \to B \), \( g: B \to C \), then composition \( g \circ f : A \to C \), with rule \( (g\circ f)(x) = g(f(x)) \).</p>
+
+<hr>
+
+<h2>6. Preimage</h2>
+<p>For \( S \subseteq B \), preimage is \( f^{-1}(S) = \{ x \in A : f(x) \in S \} \).</p>
+
+<div class="example">
+  Example: \( f(x) = x^2, \; S=[1,4] \). Then \( f^{-1}(S) = [-2,-1]\cup[1,2] \).
+</div>
+
+<hr>
+
+<h2>7. Functions of One Variable</h2>
+<p>A function of one variable is a function whose domain is a subset of \( \mathbb{R} \) and output is real.</p>
+<p>Graph: \( G = \{ (x,y): x\in D, y=f(x) \} \subseteq \mathbb{R}^2 \).</p>
+
+<ul>
+  <li>Polynomial: \( f(x) = x^3 - 2x + 1 \), Domain = Range = \( \mathbb{R} \).</li>
+  <li>Rational: \( f(x) = \tfrac{1}{x-2} \), Domain = \( \mathbb{R}\setminus\{2\} \).</li>
+  <li>Exponential: \( f(x)=e^x \), Range = \( (0,\infty) \).</li>
+  <li>Logarithm: \( f(x)=\ln x \), Domain = \( (0,\infty) \).</li>
+  <li>Trig: \( f(x)=\sin x \), Range = \([-1,1]\).</li>
+</ul>
+
+<hr>
+
+<h2>8. Graph Transformations</h2>
+<ul>
+  <li>Vertical shift: \( y=f(x)+k \).</li>
+  <li>Horizontal shift: \( y=f(x-h) \).</li>
+  <li>Stretch/Compress: \( y=af(x), y=f(bx) \).</li>
+  <li>Reflection: \( y=-f(x) \) (across x-axis).</li>
+</ul>
+
+<div class="example">Example: \( f(x)=x^2 \). Then \( f(x-1)=(x-1)^2 \) shifts right by 1.</div>
+
+<hr>
+
+<h2>9. Symmetry & Periodicity</h2>
+<ul>
+  <li>Even: \( f(-x)=f(x) \), symmetric about y-axis (e.g., \(x^2, \cos x\)).</li>
+  <li>Odd: \( f(-x)=-f(x) \), symmetric about origin (e.g., \(x^3, \sin x\)).</li>
+  <li>Periodic: \( f(x+T)=f(x) \), e.g. \( \sin x \) with period \(2\pi\).</li>
+</ul>
+
+<hr>
+
+<h2>10. Monotonicity</h2>
+<p>Increasing if \( x_1<x_2 \implies f(x_1)\leq f(x_2) \). Strictly increasing if strict inequality. 
+Decreasing similarly. 
+This connects to derivatives (next lecture).</p>
+
+<hr>
+
+<h2>11. Applications</h2>
+<ul>
+  <li><b>Physics:</b> Position \( s(t) \) → velocity \( v(t)=s'(t) \).</li>
+  <li><b>Economics:</b> Demand \( D(p) \) vs price \( p \).</li>
+  <li><b>Biology:</b> Population growth \( P(t) \).</li>
+  <li><b>Engineering:</b> Input-output systems.</li>
+</ul>
+
+<hr>
+
+<h2>12. Practice Problems</h2>
+<ol>
+  <li>For \( f(x)=\frac{x^2-1}{x-1}, x\neq 1 \), simplify and find limit as \( x\to 1 \).</li>
+  <li>Determine if each is a function:
+    <br>(a) \( \{(1,2),(2,3),(3,4)\} \)  
+    <br>(b) \( \{(1,2),(1,3)\} \).
+  </li>
+  <li>Is \( f(x)=e^x \) injective? Surjective onto \( \mathbb{R} \)?</li>
+  <li>Give an example of \( f:\mathbb{R}\to\mathbb{R} \) with range \([0,\infty)\).</li>
+  <li>For \( f(x)=x^2 \), compute \( f^{-1}([1,9]) \).</li>
+</ol>
+
+<footer>
+  <p><i>Next lecture → Limits and Continuity in detail.</i></p>
+</footer>
+
 </body>
 </html>
