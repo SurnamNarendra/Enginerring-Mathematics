@@ -1,73 +1,167 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 3: Differentiability</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture 3: Increasing and Decreasing Functions</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body { font-family: Georgia, serif; margin: 30px; background: #f9f9f9; color: #222; }
+    h1, h2, h3 { color: #003366; }
+    .example, .application, .optimization { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+    .example { background: #eef; border-color: #3366cc; }
+    .application { background: #efe; border-color: #33aa33; }
+    .optimization { background: #fee; border-color: #cc3333; }
+    svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 3</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 3 of 10: <strong>Differentiability</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
+  <h1>Lecture 3: Increasing and Decreasing Functions</h1>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
+  <h2>1. Introduction</h2>
+  <p>
+    One of the most important uses of derivatives is to study how a function behaves: 
+    whether it is <b>increasing</b> (rising) or <b>decreasing</b> (falling). This helps us 
+    understand growth, decay, and optimization problems in real life.
+  </p>
+
+  <h2>2. Definitions</h2>
+  <ul>
+    <li><b>Increasing Function:</b> A function \(f(x)\) is said to be increasing on an interval if for any \(x_1 < x_2\),
+      we have \(f(x_1) \leq f(x_2)\).</li>
+    <li><b>Strictly Increasing:</b> If \(f(x_1) < f(x_2)\) for all \(x_1 < x_2\).</li>
+    <li><b>Decreasing Function:</b> A function \(f(x)\) is decreasing on an interval if for any \(x_1 < x_2\),
+      we have \(f(x_1) \geq f(x_2)\).</li>
+    <li><b>Strictly Decreasing:</b> If \(f(x_1) > f(x_2)\) for all \(x_1 < x_2\).</li>
+  </ul>
+
+  <h2>3. Role of Derivatives</h2>
+  <p>
+    For a differentiable function \(f(x)\):  
+    - If \(f'(x) > 0\) on an interval → \(f(x)\) is <b>increasing</b>.  
+    - If \(f'(x) < 0\) on an interval → \(f(x)\) is <b>decreasing</b>.  
+    - If \(f'(x) = 0\) at some point → it may be a local maxima, minima, or a point of inflection.
+  </p>
+
+  <h2>4. Worked Examples</h2>
+
+  <div class="example">
+    <h3>Example 1: Polynomial Function</h3>
+    <p>Determine the intervals where \(f(x) = x^3 - 3x^2 + 2\) is increasing or decreasing.</p>
+    <p><b>Solution:</b></p>
+    <ul>
+      <li>Differentiate: \(f'(x) = 3x^2 - 6x = 3x(x-2)\).</li>
+      <li>Critical points: \(x = 0, 2\).</li>
+      <li>Test intervals:
         <ul>
-          <li>Understand the key definitions and results related to <em>Differentiability</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
+          <li>For \(x < 0\): \(f'(x) > 0\) → Increasing.</li>
+          <li>For \(0 < x < 2\): \(f'(x) < 0\) → Decreasing.</li>
+          <li>For \(x > 2\): \(f'(x) > 0\) → Increasing.</li>
         </ul>
-      </div>
-
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
-
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Differentiability</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
-
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
-
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-02.html">← Previous</a></div>
-        <div><a href="ch2-lecture-04.html">Next →</a></div>
-      </div>
-    </div>
+      </li>
+    </ul>
+    <p>So, \(f(x)\) increases on \((-\infty,0)\) and \((2,\infty)\), decreases on \((0,2)\).</p>
+            <svg width="500" height="300">
+      <!-- Axes -->
+      <line x1="50" y1="250" x2="450" y2="250" stroke="black"/>
+      <line x1="50" y1="250" x2="50" y2="50" stroke="black"/>
+      <!-- Graph (approx) -->
+      <path d="M50,250 C100,200 150,230 200,150 250,50 300,180 350,100 400,60 450,50" stroke="blue" fill="none" stroke-width="2"/>
+      <!-- Critical points -->
+      <circle cx="50" cy="250" r="4" fill="red"/>
+      <circle cx="200" cy="150" r="4" fill="red"/>
+      <circle cx="350" cy="100" r="4" fill="red"/>
+    </svg>
   </div>
+
+  <div class="example">
+    <h3>Example 2: Trigonometric Function</h3>
+    <p>Find intervals of increase and decrease of \(f(x) = \sin x\) in \([0,2\pi]\).</p>
+    <ul>
+      <li>\(f'(x) = \cos x\).</li>
+      <li>In \([0,2\pi]\):
+        <ul>
+          <li>\(f'(x) > 0\) on \((0,\pi/2)\) and \((3\pi/2,2\pi)\) → Increasing.</li>
+          <li>\(f'(x) < 0\) on \((\pi/2,3\pi/2)\) → Decreasing.</li>
+        </ul>
+      </li>
+    </ul>
+     <svg width="500" height="200">
+      <line x1="0" y1="100" x2="500" y2="100" stroke="black"/>
+      <path d="M0,100 C50,50 100,0 150,50 S250,150 300,100 S400,0 450,50" stroke="green" fill="none" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="example">
+    <h3>Example 3: Exponential Function</h3>
+    <p>For \(f(x) = e^x\), derivative is \(f'(x) = e^x > 0\) for all real \(x\).  
+    Hence, \(f(x)\) is strictly increasing everywhere.</p>
+    <svg width="500" height="200">
+      <line x1="50" y1="150" x2="450" y2="150" stroke="black"/>
+      <line x1="50" y1="150" x2="50" y2="50" stroke="black"/>
+      <path d="M50,150 C100,120 150,100 200,80 250,60 300,50 350,45 400,42 450,40" stroke="purple" fill="none" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <h2>5. Real-Life Applications</h2>
+  <div class="application">
+    <h3>Economics: Profit Maximization</h3>
+    <p>If profit function \(P(x)\) increases up to a certain production level and then decreases, the derivative test can identify the production quantity that maximizes profit.</p>
+  </div>
+
+  <div class="application">
+    <h3>Physics: Motion</h3>
+    <p>If displacement \(s(t)\) is given, then \(s'(t)\) = velocity.  
+    - If velocity > 0 → object moves forward (increasing position).  
+    - If velocity < 0 → object moves backward (decreasing position).</p>
+  </div>
+
+  <div class="application">
+    <h3>Population Growth</h3>
+    <p>If population \(P(t)\) has \(P'(t) > 0\), population is growing.  
+    If \(P'(t) < 0\), population is declining.</p>
+  </div>
+
+  <h2>6. Optimization Problems</h2>
+
+  <div class="optimization">
+    <h3>Example 4: Maximize Area of Rectangle</h3>
+    <p>A rectangle is inscribed under the curve \(y = 12 - x^2\) above the x-axis. Find dimensions of rectangle with max area.</p>
+    <ul>
+      <li>Area \(A = 2x \cdot y = 2x(12 - x^2)\).</li>
+      <li>\(A(x) = 24x - 2x^3\).</li>
+      <li>Differentiate: \(A'(x) = 24 - 6x^2\).</li>
+      <li>Set = 0 → \(x^2 = 4 \Rightarrow x = 2\).</li>
+      <li>Max area at \(x=2, y=12-4=8\).</li>
+      <li>Rectangle dimensions: width \(=4\), height \(=8\), area \(=32\).</li>
+    </ul>
+     <svg width="500" height="250">
+      <!-- Curve y=12-x^2 -->
+      <path d="M50,200 C100,100 150,50 200,20 250,50 300,100 350,200" stroke="blue" fill="none" stroke-width="2"/>
+      <!-- Rectangle at x=2 -->
+      <rect x="150" y="80" width="50" height="120" fill="rgba(255,0,0,0.3)" stroke="red"/>
+    </svg>
+  </div>
+
+  <div class="optimization">
+    <h3>Example 5: Minimize Cost</h3>
+    <p>A farmer wants to build a rectangular field with fencing on 3 sides (one side is a river). If total fencing available = 200 m, maximize area.</p>
+    <ul>
+      <li>Let width = x, length = y. Fence: \(2x + y = 200\).</li>
+      <li>Area \(A = xy\). Substitute \(y = 200 - 2x\).</li>
+      <li>\(A(x) = x(200 - 2x) = 200x - 2x^2\).</li>
+      <li>\(A'(x) = 200 - 4x = 0 \Rightarrow x = 50\).</li>
+      <li>\(y = 200 - 100 = 100\).</li>
+      <li>Max area = \(50 \times 100 = 5000\) m².</li>
+    </ul>
+  </div>
+
+  <h2>7. Summary</h2>
+  <ul>
+    <li>Derivative sign test determines increasing/decreasing behavior.</li>
+    <li>Critical points help identify turning points.</li>
+    <li>Applications in economics, physics, and optimization.</li>
+  </ul>
 </body>
 </html>
