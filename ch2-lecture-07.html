@@ -1,73 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 7: Partial Derivatives</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 7: Taylor's Theorem</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  code { background: #f5f5f5; padding: 2px 4px; border-radius: 4px; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 7</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 7 of 10: <strong>Partial Derivatives</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Partial Derivatives</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 7: Taylor's Theorem</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction</h2>
+<p>
+Taylor's Theorem provides a way to approximate smooth functions near a point using polynomials. It is widely used in calculus, physics, engineering, and numerical analysis.
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Partial Derivatives</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Statement of Taylor's Theorem</h2>
+<p>
+If \(f(x)\) is \((n+1)\)-times differentiable in an interval containing \(a\), then for \(x\) near \(a\):
+\[
+f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x-a)^n + R_n(x)
+\]
+where \(R_n(x)\) is the remainder term:
+\[
+R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x-a)^{n+1}, \quad \text{for some } \xi \text{ between } a \text{ and } x
+\]
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h2>3. Special Case: Maclaurin Series</h2>
+<p>
+When \(a = 0\), the Taylor series becomes the Maclaurin series:
+\[
+f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \dots + \frac{f^{(n)}(0)}{n!}x^n + R_n(x)
+\]
+</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<h2>4. Common Maclaurin Series Examples</h2>
+<div class="example">
+<p><b>Example 1:</b> \(e^x\)</p>
+<p>
+\[
+e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots
+\]
+</p>
+</div>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-06.html">← Previous</a></div>
-        <div><a href="ch2-lecture-08.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<div class="example">
+<p><b>Example 2:</b> \(\sin x\)</p>
+<p>
+\[
+\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots
+\]
+</p>
+</div>
+
+<div class="example">
+<p><b>Example 3:</b> \(\cos x\)</p>
+<p>
+\[
+\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots
+\]
+</p>
+</div>
+
+<h2>5. Worked Example: Approximation</h2>
+<div class="example">
+<p>Approximate \(\sin 0.1\) using first three terms of Maclaurin series.</p>
+<ul>
+<li>\(\sin x \approx x - \frac{x^3}{6}\)</li>
+<li>\(\sin 0.1 \approx 0.1 - \frac{0.1^3}{6} = 0.1 - 0.0001667 \approx 0.0998333\)</li>
+<li>Actual value: 0.0998334 → very close!</li>
+</ul>
+</div>
+
+<h2>6. Error / Remainder Term</h2>
+<p>
+The remainder term \(R_n(x)\) gives the accuracy of approximation. For \(\sin 0.1\):
+\[
+R_2(0.1) = \frac{f^{(3)}(\xi)}{3!} (0.1)^3
+\]
+\(\xi\) between 0 and 0.1. Maximum error < \(0.1^3 / 6 = 0.0001667\)
+</p>
+
+<h2>7. Real-Life Applications</h2>
+<div class="application">
+<ul>
+<li>Physics: small-angle approximations (\(\sin \theta \approx \theta\))</li>
+<li>Engineering: signal processing, control system linearization</li>
+<li>Numerical computation: approximating functions in calculators and software</li>
+<li>Economics: Taylor expansions for cost and profit functions</li>
+</ul>
+</div>
+
+<h2>8. Practice Problems</h2>
+<ol>
+<li>Find first four terms of Maclaurin series for \(e^{-x}\)</li>
+<li>Approximate \(\cos 0.2\) using first three terms</li>
+<li>Write Taylor series of \(f(x)=\ln(1+x)\) around \(a=0\)</li>
+<li>Estimate \(\tan 0.1\) using series expansion</li>
+<li>Find error bound for approximating \(e^x\) at \(x=0.1\) using first two terms</li>
+</ol>
+
 </body>
 </html>
