@@ -1,73 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 4: Derivatives of Standard Functions</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 4: Mean Value Theorem (MVT)</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 4</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 4 of 10: <strong>Derivatives of Standard Functions</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Derivatives of Standard Functions</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 4: Mean Value Theorem (MVT)</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction</h2>
+<p>
+The Mean Value Theorem is a fundamental theorem in calculus. It connects the average rate of change of a function over an interval to the instantaneous rate of change (derivative) at some point in that interval.
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Derivatives of Standard Functions</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Statement of MVT</h2>
+<p>
+Let \(f(x)\) be a function that satisfies:
+<ul>
+  <li>Continuous on the closed interval \([a, b]\)</li>
+  <li>Differentiable on the open interval \((a, b)\)</li>
+</ul>
+Then, there exists at least one \(c \in (a, b)\) such that:
+\[
+f'(c) = \frac{f(b)-f(a)}{b-a}
+\]
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h2>3. Geometric Interpretation</h2>
+<p>
+The slope of the secant line connecting points \((a, f(a))\) and \((b, f(b))\) equals the slope of the tangent line at some point \(c\) in \((a,b)\).
+</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<svg width="500" height="250">
+  <!-- Axes -->
+  <line x1="50" y1="200" x2="450" y2="200" stroke="black"/>
+  <line x1="50" y1="200" x2="50" y2="50" stroke="black"/>
+  <!-- Function curve (example f(x)=x^2-4x+3) -->
+  <path d="M50,150 C100,120 150,100 200,80 250,70 300,80 350,110 400,150 450,200" stroke="blue" fill="none" stroke-width="2"/>
+  <!-- Secant line -->
+  <line x1="100" y1="140" x2="400" y2="160" stroke="red" stroke-width="2" stroke-dasharray="5,5"/>
+  <!-- Point c -->
+  <circle cx="250" cy="90" r="4" fill="green"/>
+  <text x="260" y="85" font-size="12" fill="green">c</text>
+</svg>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-03.html">← Previous</a></div>
-        <div><a href="ch2-lecture-05.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<h2>4. Worked Example 1</h2>
+<div class="example">
+  <p>Function: \(f(x)=x^2-4x+3\), Interval: [1,4]</p>
+  <ul>
+    <li>Average rate of change: \(\frac{f(4)-f(1)}{4-1} = \frac{3-0}{3}=1\)</li>
+    <li>Derivative: \(f'(x)=2x-4\)</li>
+    <li>Set \(f'(c)=1 \Rightarrow 2c-4=1 \Rightarrow c=2.5\)</li>
+  </ul>
+  <p>Hence, \(c=2.5\) satisfies MVT.</p>
+</div>
+
+<h2>5. Worked Example 2</h2>
+<div class="example">
+  <p>Function: \(f(x)=\sin x\), Interval: [0, π]</p>
+  <ul>
+    <li>Average rate of change: \(\frac{\sin \pi - \sin 0}{\pi - 0} = 0\)</li>
+    <li>Derivative: \(f'(x)=\cos x\)</li>
+    <li>Set \(f'(c)=0 \Rightarrow \cos c=0 \Rightarrow c=\frac{\pi}{2}\)</li>
+  </ul>
+  <p>MVT holds at \(c=\pi/2\).</p>
+</div>
+
+<h2>6. Applications</h2>
+<div class="application">
+  <ul>
+    <li>Physics: Average velocity vs. instantaneous velocity</li>
+    <li>Economics: Average growth rate vs. instantaneous growth rate</li>
+    <li>Optimization: Estimate points where the derivative equals the average rate</li>
+  </ul>
+</div>
+
+<h2>7. Important Notes</h2>
+<ul>
+  <li>MVT requires continuity and differentiability.</li>
+  <li>If \(f'(x)=0\) everywhere, \(f(x)\) is constant.</li>
+  <li>Rolle's Theorem is a special case of MVT where \(f(a)=f(b)\).</li>
+</ul>
+
+<h2>8. Practice Problems</h2>
+<ol>
+  <li>Verify MVT for \(f(x)=x^3-3x\) on [0,2]</li>
+  <li>Find \(c\) satisfying MVT for \(f(x)=e^x\) on [0,1]</li>
+  <li>Determine if MVT holds for \(f(x)=|x|\) on [-1,1]</li>
+</ol>
+
 </body>
 </html>
