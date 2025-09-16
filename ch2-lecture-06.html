@@ -1,73 +1,120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 6: Functions of Several Variables</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 6: Maxima and Minima</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 6</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 6 of 10: <strong>Functions of Several Variables</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Functions of Several Variables</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 6: Maxima and Minima</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction</h2>
+<p>
+Maxima and minima (extrema) of a function are the points where it reaches its highest or lowest values, either locally or globally. These are essential in optimization problems in physics, economics, and engineering.
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Functions of Several Variables</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Critical Points</h2>
+<p>
+For a differentiable function \(f(x)\), a critical point occurs where:
+\[
+f'(x) = 0 \quad \text{or} \quad f'(x) \text{ does not exist}
+\]
+Critical points are candidates for local maxima or minima.
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h2>3. First Derivative Test</h2>
+<p>
+If \(f'(x)\) changes sign around a critical point \(x=c\):
+<ul>
+  <li>\(f'(x)\) changes from positive to negative → local maximum</li>
+  <li>\(f'(x)\) changes from negative to positive → local minimum</li>
+</ul>
+</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<h2>4. Second Derivative Test</h2>
+<p>
+If \(f''(c)\) exists:
+<ul>
+  <li>\(f''(c) > 0\) → local minimum at \(x=c\)</li>
+  <li>\(f''(c) < 0\) → local maximum at \(x=c\)</li>
+  <li>\(f''(c) = 0\) → test inconclusive</li>
+</ul>
+</p>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-05.html">← Previous</a></div>
-        <div><a href="ch2-lecture-07.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<h2>5. Worked Example 1: Polynomial</h2>
+<div class="example">
+<p>Function: \(f(x)=x^3-3x^2+2\)</p>
+<ul>
+<li>Derivative: \(f'(x)=3x^2-6x=3x(x-2)\)</li>
+<li>Critical points: \(x=0,2\)</li>
+<li>Second derivative: \(f''(x)=6x-6\)</li>
+<li>At \(x=0\), \(f''(0)=-6 <0\) → local maximum</li>
+<li>At \(x=2\), \(f''(2)=6>0\) → local minimum</li>
+<li>Local maximum: \(f(0)=2\), Local minimum: \(f(2)=-2\)</li>
+</ul>
+</div>
+
+<h2>6. Worked Example 2: Optimization Problem</h2>
+<div class="example">
+<p>Find the dimensions of a rectangle with perimeter 20 m that maximize area.</p>
+<ul>
+<li>Let length \(x\), width \(y\). Perimeter: \(2(x+y)=20 \Rightarrow y=10-x\)</li>
+<li>Area: \(A(x)=x(10-x)=10x-x^2\)</li>
+<li>Derivative: \(A'(x)=10-2x=0 \Rightarrow x=5\)</li>
+<li>Second derivative: \(A''(x)=-2<0\) → maximum</li>
+<li>Width: \(y=10-5=5\). Maximum area: \(A=25\, m^2\)</li>
+</ul>
+</div>
+
+<h2>7. Worked Example 3: Real-Life Application</h2>
+<div class="example">
+<p>A company’s profit function: \(P(x)=-5x^2+150x-1000\), where \(x\) is number of units sold. Find the units for maximum profit.</p>
+<ul>
+<li>Derivative: \(P'(x)=-10x+150=0 \Rightarrow x=15\)</li>
+<li>Second derivative: \(P''(x)=-10<0\) → maximum</li>
+<li>Maximum profit: \(P(15)=-5*225+2250-1000=1250\)</li>
+</ul>
+</div>
+
+<h2>8. Graphical Representation</h2>
+<svg width="500" height="250">
+  <!-- Axes -->
+  <line x1="50" y1="200" x2="450" y2="200" stroke="black"/>
+  <line x1="50" y1="200" x2="50" y2="50" stroke="black"/>
+  <!-- Function curve: f(x)=x^3-3x^2+2 scaled for svg-->
+  <path d="M50,150 C100,130 150,80 200,100 250,120 300,160 350,180 400,190 450,195" stroke="blue" fill="none" stroke-width="2"/>
+  <!-- Max and min points -->
+  <circle cx="100" cy="130" r="4" fill="red"/>
+  <text x="110" y="125" font-size="12" fill="red">Max</text>
+  <circle cx="300" cy="160" r="4" fill="green"/>
+  <text x="310" y="155" font-size="12" fill="green">Min</text>
+</svg>
+
+<h2>9. Summary</h2>
+<ul>
+<li>Critical points: solve \(f'(x)=0\) or where derivative undefined.</li>
+<li>Use First Derivative Test or Second Derivative Test to classify extrema.</li>
+<li>Extremum problems appear in geometry, economics, physics, and engineering.</li>
+</ul>
+
+<h2>10. Practice Problems</h2>
+<ol>
+<li>Find local maxima/minima for \(f(x)=x^4-4x^3+6x^2\)</li>
+<li>Maximize area of a rectangle with perimeter 30 m.</li>
+<li>A rectangle with area 100 m² has a cost function \(C(x)=20x+40y\). Find dimensions for minimum cost.</li>
+<li>Profit function \(P(x)=-2x^2+50x-200\). Determine max profit and units.</li>
+<li>Graph \(f(x)=x^3-6x^2+9x+1\) and identify extrema.</li>
+</ol>
+
 </body>
 </html>
