@@ -1,73 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit 2: Calculus — Lecture 10: Optimization Problems</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 10: Taylor's Theorem for Multivariable Functions</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body { font-family: Georgia, serif; margin: 30px; background: #fdfdfd; color: #222; }
+  h1, h2, h3 { color: #003366; }
+  .example, .application { padding: 12px; margin: 15px 0; border-left: 5px solid; }
+  .example { background: #eef; border-color: #3366cc; }
+  .application { background: #efe; border-color: #33aa33; }
+  svg { background: #fff; border: 1px solid #ccc; margin: 10px 0; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="breadcrumbs muted"><a href="index.html">Unit Home</a> • <span>Lecture 10</span></div>
-      <h1>Unit 2: Calculus</h1>
-      <p class="muted">Lecture 10 of 10: <strong>Optimization Problems</strong></p>
-      <div class="chips">
-        <span class="badge">Notes</span>
-        <span class="badge">Examples</span>
-        <span class="badge">Practice</span>
-      </div>
 
-      <div class="section">
-        <h2>Learning Objectives</h2>
-        <ul>
-          <li>Understand the key definitions and results related to <em>Optimization Problems</em>.</li>
-          <li>Work through guided examples and verify each step.</li>
-          <li>Practice with end-of-lecture problems and short quizzes.</li>
-        </ul>
-      </div>
+<h1>Lecture 10: Taylor's Theorem for Multivariable Functions</h1>
 
-      <div class="section">
-        <h2>Lecture Outline</h2>
-        <ol>
-          <li>Concepts & Definitions</li>
-          <li>Worked Examples</li>
-          <li>Common Pitfalls</li>
-          <li>Applications</li>
-        </ol>
-      </div>
+<h2>1. Introduction</h2>
+<p>
+Taylor's theorem generalizes the linear approximation of functions to higher-order terms. For functions of several variables, it expresses \(f(x,y)\) near a point \((a,b)\) as a sum of polynomial terms plus a remainder.
+</p>
 
-      <div class="section">
-        <h2>Quick Example (Template)</h2>
-        <div class="note">
-          Replace this with your detailed example for <span class="code">Optimization Problems</span>.<br>
-          Tip: Keep a consistent proof/derivation structure: <span class="code">Given → To Show → Strategy → Steps → Result → Check</span>.
-        </div>
-      </div>
+<h2>2. Taylor's Theorem (Statement)</h2>
+<p>
+If \(f(x,y)\) has continuous partial derivatives up to order \(n+1\) near \((a,b)\), the Taylor series expansion of \(f\) around \((a,b)\) is:
+\[
+f(x,y) = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b) + \frac{1}{2!} \Big[ f_{xx}(a,b)(x-a)^2 + 2f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2 \Big] + \cdots + R_n
+\]
+where \(R_n\) is the remainder term.
+</p>
 
-      <div class="section">
-        <h2>Practice Tasks</h2>
-        <ol>
-          <li>Warm-up: one basic problem directly using the definitions.</li>
-          <li>Core: one standard exam-style problem.</li>
-          <li>Stretch: one conceptual/edge-case problem.</li>
-        </ol>
-      </div>
+<h2>3. First and Second Order Approximations</h2>
+<p>
+- <b>First-order (linear approximation)</b>:
+\[
+f(x,y) \approx f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b)
+\]
+- <b>Second-order (quadratic approximation)</b>:
+\[
+f(x,y) \approx f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b) + \frac{1}{2}\Big(f_{xx}(a,b)(x-a)^2 + 2 f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2 \Big)
+\]
+</p>
 
-      <div class="section">
-        <h2>References & Further Reading</h2>
-        <ul>
-          <li>Your course notes and slides for Unit 2: Calculus.</li>
-          <li>Any standard text recommended by the instructor.</li>
-        </ul>
-      </div>
+<div class="example">
+<h3>Example 1: Second-Order Approximation</h3>
+<p>Approximate \(f(x,y) = e^{x+y}\) near (0,0)</p>
+<ul>
+<li>First derivatives: \(f_x = e^{x+y}, f_y = e^{x+y}\), at (0,0) → 1</li>
+<li>Second derivatives: \(f_{xx} = f_{xy} = f_{yy} = e^{x+y}\), at (0,0) → 1</li>
+<li>Second-order Taylor expansion:</li>
+<li>
+\[
+f(x,y) \approx 1 + x + y + \frac{1}{2} (x^2 + 2xy + y^2) = 1 + x + y + \frac{1}{2}(x+y)^2
+\]
+</li>
+</ul>
+</div>
 
-      <hr>
-      <div class="footer-nav">
-        <div><a href="ch2-lecture-09.html">← Previous</a></div>
-        <div><a href="index.html">Next →</a></div>
-      </div>
-    </div>
-  </div>
+<h2>4. Applications of Taylor's Theorem</h2>
+<div class="application">
+<ul>
+<li><b>Optimization:</b> Quadratic approximations help classify critical points using the second derivative test.</li>
+<li><b>Numerical methods:</b> Approximate function values and gradients for computational solutions.</li>
+<li><b>Physics:</b> Small perturbation analysis, e.g., potential energy near equilibrium.</li>
+<li><b>Engineering:</b> Linearization of nonlinear systems for control and stability analysis.</li>
+<li><b>Machine Learning:</b> Gradient descent approximates function behavior using first-order Taylor expansion.</li>
+</ul>
+</div>
+
+<h2>5. Worked Example: Approximating a Function</h2>
+<div class="example">
+<p>Approximate \(f(x,y) = \ln(1+x+y)\) near (0,0) using second-order Taylor series</p>
+<ul>
+<li>\(f(0,0) = \ln(1) = 0\)</li>
+<li>\(f_x = \frac{1}{1+x+y} \Rightarrow f_x(0,0) = 1\)</li>
+<li>\(f_y = \frac{1}{1+x+y} \Rightarrow f_y(0,0) = 1\)</li>
+<li>\(f_{xx} = -\frac{1}{(1+x+y)^2} \Rightarrow f_{xx}(0,0) = -1\)</li>
+<li>\(f_{yy} = -\frac{1}{(1+x+y)^2} \Rightarrow f_{yy}(0,0) = -1\)</li>
+<li>\(f_{xy} = -\frac{1}{(1+x+y)^2} \Rightarrow f_{xy}(0,0) = -1\)</li>
+<li>Second-order approximation:
+\[
+f(x,y) \approx 0 + (x+y) + \frac{1}{2}[-x^2 - 2xy - y^2] = x + y - \frac{1}{2}(x+y)^2
+\]
+</li>
+</ul>
+</div>
+
+<h2>6. Summary</h2>
+<ul>
+<li>Taylor’s theorem generalizes linear approximation to higher-order derivatives.</li>
+<li>First-order = linearization, second-order = quadratic approximation.</li>
+<li>Used in optimization, numerical methods, physics, engineering, and ML.</li>
+<li>Important for understanding local behavior of multivariable functions.</li>
+</ul>
+
+<h2>7. Practice Problems</h2>
+<ol>
+<li>Find first-order Taylor approximation of \(f(x,y) = x^2y + y^3\) at (1,1)</li>
+<li>Find second-order Taylor approximation of \(f(x,y) = \sin(x+y)\) near (0,0)</li>
+<li>Use Taylor approximation to estimate \(\ln(1.02 + 0.01)\)</li>
+<li>Approximate \(f(x,y)=e^{xy}\) at (0,0) using second-order expansion</li>
+<li>Discuss the error term \(R_2\) for the function \(f(x,y) = \cos(x+y)\) near (0,0)</li>
+</ol>
+
 </body>
 </html>
