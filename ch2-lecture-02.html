@@ -3,124 +3,285 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lecture 2 — Limits and Continuity</title>
+  <title>Lecture — Limits (Detailed) & Continuity</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Georgia, serif; margin: 20px; line-height: 1.6; background: #f9fbfc; color: #222; }
-    h1, h2, h3 { color: #0b63ff; }
-    .example, .note, .exercise {
-      background: #fff; border-left: 4px solid #0b63ff; padding: 12px; margin: 12px 0;
-      border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    :root{
+      --bg:#fbfdff; --card:#ffffff; --accent:#0b63ff; --muted:#556;
     }
-    code { background: #eef3ff; padding: 2px 6px; border-radius: 4px; }
-    footer { margin-top: 40px; font-size: 0.9em; color: #666; }
+    body{
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin:20px; background:var(--bg); color:#111; line-height:1.55;
+    }
+    header{margin-bottom:18px}
+    h1{color:var(--accent); margin:0 0 6px}
+    h2{color:#0a4ad6; margin-top:18px}
+    .lead{color:var(--muted); margin-bottom:12px}
+    .card{background:var(--card); padding:14px 16px; border-radius:10px; box-shadow:0 6px 18px rgba(11,99,255,0.06); margin-bottom:14px}
+    .example, .solution, .note, .exercise{border-left:4px solid var(--accent); background:#fff; padding:12px; margin:10px 0; border-radius:6px}
+    pre{background:#f4f7ff;padding:8px;border-radius:6px;overflow:auto}
+    code{background:#eef5ff;padding:2px 6px;border-radius:4px}
+    ul{margin-left:20px}
+    .side-by-side{display:flex; gap:12px; flex-wrap:wrap}
+    .box{flex:1; min-width:260px}
+    footer{color:var(--muted); margin-top:20px; font-size:0.95rem}
+    @media (max-width:700px){ .side-by-side{flex-direction:column} }
   </style>
 </head>
 <body>
 
-<h1>Lecture 2: Functions of One Variable — Limits and Continuity</h1>
+<header>
+  <h1>Lecture — Limits (Detailed) & Continuity</h1>
+  <p class="lead">In this lecture we deepen the idea of limits (including left and right limits), learn the formal epsilon–delta definition, work several step-by-step examples, and classify types of continuity and discontinuity.</p>
+</header>
 
-<hr>
+<main>
 
-<h2>1. Concept of a Limit</h2>
-<p>Limits describe the behavior of a function as the input approaches some value. Symbolically,</p>
-<p style="text-align:center;">\( \lim_{x \to a} f(x) = L \)</p>
-<p>means that as \( x \) gets arbitrarily close to \( a \), the function values get arbitrarily close to \( L \).</p>
+  <section class="card">
+    <h2>1. Intuitive idea of a limit</h2>
+    <p>When we write \(\displaystyle \lim_{x\to a} f(x)=L\) we mean: as \(x\) gets arbitrarily close to the number \(a\) (but not necessarily equal to \(a\)), the outputs \(f(x)\) get arbitrarily close to \(L\).</p>
+    <p><strong>Important:</strong> The value \(f(a)\) (if defined) is <em>not</em> part of the definition of the limit — the limit cares only about values near \(a\).</p>
+  </section>
 
-<div class="example">
-  Example: \( \lim_{x \to 2} (3x+1) = 7 \).
-</div>
+  <section class="card">
+    <h2>2. One-sided limits (Left-hand and Right-hand)</h2>
+    <p>
+      For a point \(a\):
+    </p>
+    <ul>
+      <li><strong>Left-hand limit</strong>: \(\displaystyle \lim_{x\to a^-} f(x)\) means \(x\) approaches \(a\) from values < \(a\).</li>
+      <li><strong>Right-hand limit</strong>: \(\displaystyle \lim_{x\to a^+} f(x)\) means \(x\) approaches \(a\) from values > \(a\).</li>
+    </ul>
+    <p>The two-sided limit \(\lim_{x\to a} f(x)\) exists iff both one-sided limits exist and are equal:</p>
+    <p style="text-align:center;"><strong>\(\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = L \Longrightarrow \lim_{x\to a} f(x)=L.\)</strong></p>
 
-<hr>
+    <div class="example">
+      <strong>Example — step function</strong><br>
+      Let
+      \[
+        f(x)=\begin{cases} 1 & x<0,\\ 2 & x\ge 0. \end{cases}
+      \]
+      Then \(\lim_{x\to 0^-} f(x)=1\) but \(\lim_{x\to 0^+} f(x)=2\). Since they differ, \(\lim_{x\to 0} f(x)\) does not exist.
+    </div>
+  </section>
 
-<h2>2. Left-hand and Right-hand Limits</h2>
-<ul>
-  <li><b>Left-hand limit:</b> \( \lim_{x \to a^-} f(x) \) → approach from left.</li>
-  <li><b>Right-hand limit:</b> \( \lim_{x \to a^+} f(x) \) → approach from right.</li>
-</ul>
-<p>The limit exists only if both one-sided limits exist and are equal.</p>
+  <section class="card">
+    <h2>3. Formal (ε–δ) definition of limit — explained</h2>
+    <p>We say \(\displaystyle \lim_{x\to a} f(x)=L\) if:</p>
+    <blockquote>
+      For every \(\varepsilon>0\) there exists \(\delta>0\) such that whenever \(0<|x-a|<\delta\) we have \(|f(x)-L|<\varepsilon\).
+    </blockquote>
+    <p><strong>Informal unpacking:</strong> choose how close you want \(f(x)\) to be to \(L\) (that's \(\varepsilon\)). The definition guarantees an interval \((a-\delta,a+\delta)\) around \(a\) (except possibly \(a\) itself) where all function values are within that desired closeness.</p>
 
-<div class="example">
-  Example: For \( f(x)=\frac{|x|}{x} \),
-  <ul>
-    <li>\( \lim_{x \to 0^-} f(x) = -1 \)</li>
-    <li>\( \lim_{x \to 0^+} f(x) = 1 \)</li>
-  </ul>
-  Since left ≠ right, \( \lim_{x \to 0} f(x) \) does not exist.
-</div>
+    <div class="note">
+      <strong>Remark:</strong> We require \(0<|x-a|<\delta\) (exclude \(x=a\)) because the value at \(a\) doesn't matter for the limit.
+    </div>
 
-<hr>
+    <div class="example">
+      <strong>Illustrative ε–δ example (linear function)</strong><br>
+      Show \(\displaystyle \lim_{x\to 2} (3x+1)=7\) via ε–δ idea.
+      <div class="solution">
+        For given \(\varepsilon>0\) we want \(|(3x+1)-7|<\varepsilon\). Compute:
+        \[
+          |3x+1-7|=|3x-6|=3|x-2|.
+        \]
+        If we ensure \(3|x-2|<\varepsilon\) then the requirement holds. So choose \(\delta=\varepsilon/3\). Then whenever \(0<|x-2|<\delta\) we have \(|3x+1-7|<\varepsilon\). Thus limit holds.
+      </div>
+    </div>
+  </section>
 
-<h2>3. Properties of Limits</h2>
-<ul>
-  <li>\( \lim (f+g) = \lim f + \lim g \)</li>
-  <li>\( \lim (f \cdot g) = (\lim f)(\lim g) \)</li>
-  <li>\( \lim \frac{f}{g} = \frac{\lim f}{\lim g}, \; \lim g \neq 0 \)</li>
-</ul>
+  <section class="card">
+    <h2>4. Basic limit techniques (with worked examples)</h2>
 
-<div class="example">
-  Example: \( \lim_{x \to 1} \frac{x^2-1}{x-1} = \lim_{x \to 1} \frac{(x-1)(x+1)}{x-1} = \lim_{x \to 1} (x+1) = 2 \).
-</div>
+    <div class="example">
+      <strong>(A) Direct substitution</strong><br>
+      If \(f\) is a polynomial or rational expression with no zero denominator at \(a\), you can substitute \(x=a\).
+      <div class="solution">Example: \(\lim_{x\to 3} (2x^2-1)=2(3)^2-1=17.\)</div>
+    </div>
 
-<hr>
+    <div class="example">
+      <strong>(B) Factor & cancel (removable form)</strong><br>
+      Example: \(\displaystyle \lim_{x\to 2} \frac{x^2-4}{x-2}\).
+      <div class="solution">
+        Factor numerator: \(x^2-4=(x-2)(x+2)\). For \(x\neq2\) the fraction equals \(x+2\). Thus
+        \[
+          \lim_{x\to 2} \frac{x^2-4}{x-2} = \lim_{x\to 2} (x+2)=4.
+        \]
+        This was a removable discontinuity if considered as a function with domain excluding \(2\).
+      </div>
+    </div>
 
-<h2>4. Infinite Limits & Limits at Infinity</h2>
-<p>\( \lim_{x \to a} f(x) = \infty \) means values grow without bound.</p>
-<p>\( \lim_{x \to \infty} f(x) \) means behavior for very large \( x \).</p>
+    <div class="example">
+      <strong>(C) Rationalize (root expressions)</strong><br>
+      Example: \(\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x}-1}{x}\).
+      <div class="solution">
+        Multiply numerator and denominator by the conjugate \(\sqrt{1+x}+1\):
+        \[
+          \frac{\sqrt{1+x}-1}{x}\cdot\frac{\sqrt{1+x}+1}{\sqrt{1+x}+1}
+          =\frac{(1+x)-1}{x(\sqrt{1+x}+1)}=\frac{x}{x(\sqrt{1+x}+1)}=\frac{1}{\sqrt{1+x}+1}.
+        \]
+        Now substitute \(x\to0\): limit = \(1/(1+1)=1/2\).
+      </div>
+    </div>
 
-<div class="example">
-  Example: \( \lim_{x \to \infty} \frac{1}{x} = 0 \).
-</div>
+    <div class="example">
+      <strong>(D) Trigonometric limit</strong><br>
+      A very useful limit:
+      \[
+        \lim_{x\to 0}\frac{\sin x}{x}=1.
+      \]
+      (Often proved with geometry or squeeze theorem. Accept as a standard limit.)
+    </div>
 
-<hr>
+    <div class="example">
+      <strong>(E) Limits at infinity — leading terms</strong><br>
+      Example: \(\displaystyle \lim_{x\to\infty} \frac{3x^2+2x-1}{5x^2-7}=\frac{3}{5}\) because highest-degree terms dominate.
+    </div>
 
-<h2>5. Continuity</h2>
-<p>A function \( f \) is <b>continuous</b> at \( x=a \) if:</p>
-<ol>
-  <li>\( f(a) \) is defined,</li>
-  <li>\( \lim_{x \to a} f(x) \) exists,</li>
-  <li>\( \lim_{x \to a} f(x) = f(a) \).</li>
-</ol>
+  </section>
 
-<div class="example">
-  Example: \( f(x)=x^2 \) is continuous for all \( x \in \mathbb{R} \).
-</div>
+  <section class="card">
+    <h2>5. One-sided limits — practical computations</h2>
 
-<hr>
+    <div class="example">
+      <strong>Example 1 (one-sided rational limit)</strong><br>
+      Compute \(\lim_{x\to 1^-}\frac{x^2-1}{x-1}\) and \(\lim_{x\to 1^+}\frac{x^2-1}{x-1}\).
+      <div class="solution">
+        For \(x\ne1\), \(\frac{x^2-1}{x-1}=x+1\). So both one-sided limits equal \(2\). Therefore two-sided limit = 2.
+      </div>
+    </div>
 
-<h2>6. Types of Discontinuity</h2>
-<ul>
-  <li><b>Removable:</b> limit exists but function value is different/undefined.</li>
-  <li><b>Jump:</b> left-hand and right-hand limits exist but are unequal.</li>
-  <li><b>Infinite:</b> function tends to \( \pm \infty \) near a point.</li>
-</ul>
+    <div class="example">
+      <strong>Example 2 (piecewise function)</strong><br>
+      Let
+      \[
+        f(x)=\begin{cases} 2x+1 & x<0\\ x^2 & x\ge 0. \end{cases}
+      \]
+      Find one-sided limits at \(0\).
+      <div class="solution">
+        Left-hand: \(\lim_{x\to 0^-} f(x)=\lim_{x\to0^-} (2x+1) = 1\).
+        Right-hand: \(\lim_{x\to 0^+} f(x)=\lim_{x\to0^+} x^2 = 0\).
+        They differ → two-sided limit does not exist at \(0\).
+      </div>
+    </div>
 
-<div class="example">
-  Example: \( f(x)=\frac{x^2-1}{x-1} \) has removable discontinuity at \( x=1 \).
-</div>
+  </section>
 
-<hr>
+  <section class="card">
+    <h2>6. Continuity — definition & intuitive checks</h2>
+    <p>Function \(f\) is <strong>continuous at \(a\)</strong> if</p>
+    <ol>
+      <li>\(f(a)\) is defined;</li>
+      <li>\(\lim_{x\to a} f(x)\) exists;</li>
+      <li>\(\lim_{x\to a} f(x)=f(a)\).</li>
+    </ol>
+    <p>If \(f\) is continuous at every point of its domain we say \(f\) is continuous on that domain (or continuous everywhere if domain is \(\mathbb{R}\)).</p>
 
-<h2>7. Applications of Limits and Continuity</h2>
-<ul>
-  <li><b>Physics:</b> Instantaneous velocity as a limit of average velocity.</li>
-  <li><b>Economics:</b> Marginal cost as a limit of change in cost per unit.</li>
-  <li><b>Engineering:</b> Stress-strain curves are continuous functions.</li>
-</ul>
+    <div class="note">
+      <strong>Common continuous functions:</strong> polynomials, rational functions (on domain where denominator ≠ 0), exponential, logarithms (on their domain), trig functions (on their domain). These are building blocks — combinations using algebraic rules remain continuous where defined.
+    </div>
 
-<hr>
+    <div class="example">
+      <strong>Example — removable discontinuity</strong><br>
+      \(f(x)=\dfrac{x^2-1}{x-1}\) (as a function with domain \(x\ne1\)) has \(\lim_{x\to1}f(x)=2\) but \(f(1)\) is not defined. If we define \(g(x)=f(x)\) for \(x\ne1\) and \(g(1)=2\), then \(g\) is continuous at \(1\).
+    </div>
 
-<h2>8. Practice Problems</h2>
-<ol>
-  <li>Find \( \lim_{x \to 3} \frac{x^2-9}{x-3} \).</li>
-  <li>Does \( \lim_{x \to 0} \frac{|x|}{x} \) exist?</li>
-  <li>Classify the type of discontinuity of \( f(x)=\tan x \) at \( x=\pi/2 \).</li>
-  <li>Check if \( f(x)=\begin{cases} x^2 & x\neq 2 \\ 5 & x=2 \end{cases} \) is continuous at \( x=2 \).</li>
-  <li>Evaluate \( \lim_{x \to \infty} \frac{3x^2+2}{5x^2+7} \).</li>
-</ol>
+    <div class="example">
+      <strong>Example — infinite discontinuity</strong><br>
+      \(f(x)=\dfrac{1}{x}\) has no finite limit as \(x\to0\); instead \(\lim_{x\to0^+} f(x)=+\infty\) and \(\lim_{x\to0^-} f(x)=-\infty\).
+    </div>
+
+  </section>
+
+  <section class="card">
+    <h2>7. Classification of discontinuities (summary)</h2>
+    <ul>
+      <li><strong>Removable:</strong> limit exists but function undefined or defined to a different value (a hole that can be 'filled').</li>
+      <li><strong>Jump:</strong> left and right limits exist but are unequal (a finite jump in value).</li>
+      <li><strong>Infinite:</strong> one or both one-sided limits are infinite (vertical asymptote).</li>
+      <li><strong>Essential / oscillatory:</strong> values oscillate and no limit exists (e.g., \(f(x)=\sin(1/x)\) at \(0\)).</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>8. Worked longer examples (step-by-step)</h2>
+
+    <div class="example">
+      <strong>Example A — limit using conjugate</strong><br>
+      Compute \(\displaystyle \lim_{x\to 0} \frac{\sqrt{1+2x}-1}{x}\).
+      <div class="solution">
+        Multiply top & bottom by conjugate:
+        \[
+          \frac{\sqrt{1+2x}-1}{x}\cdot\frac{\sqrt{1+2x}+1}{\sqrt{1+2x}+1}
+          =\frac{(1+2x)-1}{x(\sqrt{1+2x}+1)}=\frac{2x}{x(\sqrt{1+2x}+1)}
+          =\frac{2}{\sqrt{1+2x}+1}.
+        \]
+        Substitute \(x\to 0\): result \(=2/(1+1)=1\).
+      </div>
+    </div>
+
+    <div class="example">
+      <strong>Example B — one-sided infinite limit</strong><br>
+      Compute \(\lim_{x\to 2^-}\frac{1}{x-2}\) and \(\lim_{x\to 2^+}\frac{1}{x-2}\).
+      <div class="solution">
+        For \(x\to2^-\) denominator \(x-2\) is small negative → fraction → \(-\infty\).
+        For \(x\to2^+\) denominator small positive → fraction → \(+\infty\).
+        So vertical asymptote at \(x=2\).
+      </div>
+    </div>
+
+    <div class="example">
+      <strong>Example C — oscillatory (no limit)</strong><br>
+      Consider \(f(x)=\sin\!\left(\tfrac{1}{x}\right)\) for \(x\ne0\). As \(x\to 0\) the argument \(1/x\) runs through arbitrarily large values → the sine oscillates between \(-1\) and \(1\) infinitely often. Thus \(\lim_{x\to 0}\sin(1/x)\) does not exist.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>9. Practice problems (with answers)</h2>
+
+    <ol>
+      <li>
+        <strong>Problem:</strong> Compute \(\displaystyle \lim_{x\to 1}\frac{x^3-1}{x-1}\).
+        <div class="solution">Factor \(x^3-1=(x-1)(x^2+x+1)\). For \(x\neq1\) the fraction = \(x^2+x+1\). Substitute → \(1+1+1=3\).</div>
+      </li>
+
+      <li>
+        <strong>Problem:</strong> Evaluate one-sided limits of \(f(x)=\dfrac{|x|}{x}\) at \(0\).
+        <div class="solution">For \(x>0\), \(|x|/x=1\). For \(x<0\), result = -1. So \(\lim_{x\to 0^+} =1,\ \lim_{x\to 0^-}=-1\). Two-sided limit does not exist.</div>
+      </li>
+
+      <li>
+        <strong>Problem:</strong> Is \(g(x)=\begin{cases}\dfrac{x^2-4}{x-2}&x\ne2\\5&x=2\end{cases}\) continuous at \(2\)?
+        <div class="solution">For \(x\ne2\), expression simplifies to \(x+2\). Limit as \(x\to2\) is 4. But \(g(2)=5\ne4\). So not continuous (removable discontinuity that wasn't filled correctly).</div>
+      </li>
+
+      <li>
+        <strong>Problem:</strong> Compute \(\displaystyle \lim_{x\to 0} \frac{\sin 3x}{x}\).
+        <div class="solution">Write \(\frac{\sin 3x}{x} = 3\cdot \frac{\sin 3x}{3x}\). As \(x\to0\), inner limit = 1, so overall limit = 3.</div>
+      </li>
+
+      <li>
+        <strong>Problem:</strong> Determine whether \(f(x)=\tan x\) is continuous at \(x=\pi/2\).
+        <div class="solution">At \(x=\pi/2\) tangent has vertical asymptote → one-sided limits are infinite → not continuous.</div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>10. Quick summary & tips</h2>
+    <ul>
+      <li>To check a two-sided limit, check both one-sided limits.</li>
+      <li>If you get \(0/0\) try algebra (factor, rationalize) — it often indicates a removable form.</li>
+      <li>\(\sin x / x \to 1\) as \(x\to0\) is a very useful trig limit to memorize.</li>
+      <li>Continuity: check the three conditions (existence of value, existence of limit, equality).</li>
+      <li>Graphing helps: draw or imagine the graph near the point to see holes, jumps, or asymptotes.</li>
+    </ul>
+  </section>
+
+</main>
 
 <footer>
-  <p><i>Next lecture → Differentiation of Functions of One Variable.</i></p>
+  <p>Next step: we will use limits to define the derivative and then practice differentiation rules (power, product, quotient, chain). If you want, I can merge the derivative section into this file next — with step-by-step derivative proofs and many worked examples.</p>
 </footer>
 
 </body>
