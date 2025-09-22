@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Practice Problems for Unit-1</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    ol {
+      margin-left: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    .sublist {
+      margin-left: 30px;
+      list-style-type: lower-alpha;
+    }
+  </style>
+</head>
+<body>
+ <header style="display: flex; justify-content: space-between; align-items: center;">
+  <h1>Practice Set-2</h1>
+  <img src="images/wos ppt.png" alt="Woxsen Logo" style="height: 60px;">
+</header>
+
+  <h2>Section A — Eigenvalues & Eigenvectors</h2>
+  <h3>2×2 Matrices</h3>
+  <ol start="1">
+    <li>
+      Find the eigenvalues and eigenvectors of  
+      \[
+      A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Compute eigenvalues and eigenvectors of  
+      \[
+      B = \begin{bmatrix} 4 & -2 \\ 1 & 1 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Find the characteristic polynomial and eigenvectors of  
+      \[
+      C = \begin{bmatrix} 0 & 1 \\ -4 & -5 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      For  
+      \[
+      D = \begin{bmatrix} 3 & 2 \\ 0 & 3 \end{bmatrix},
+      \]  
+      determine eigenvalues and check if there are enough linearly independent eigenvectors.
+    </li>
+
+    <li>
+      Find eigenvalues and eigenvectors of  
+      \[
+      E = \begin{bmatrix} 1 & 2 \\ 2 & 1 \end{bmatrix}.
+      \]
+    </li>
+  </ol>
+
+  <h3>3×3 Matrices</h3>
+  <ol start="6">
+    <li>
+      Find eigenvalues and eigenvectors of  
+      \[
+      F = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Compute the eigenvalues and eigenvectors of  
+      \[
+      G = \begin{bmatrix} 2 & 0 & 0 \\ 0 & 3 & 4 \\ 0 & 0 & 3 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Find the eigenvalues of  
+      \[
+      H = \begin{bmatrix} 4 & 0 & 0 \\ 0 & 2 & 1 \\ 0 & 1 & 2 \end{bmatrix},
+      \]  
+      and determine corresponding eigenvectors.
+    </li>
+
+    <li>
+      Find eigenvalues and eigenvectors of  
+      \[
+      I = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Compute eigenvalues and eigenvectors of  
+      \[
+      J = \begin{bmatrix} 2 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 2 \end{bmatrix}.
+      \]
+    </li>
+  </ol>
+
+  <h2>Section B — Cayley–Hamilton Theorem</h2>
+  <ol start="11">
+    <li>
+      Verify Cayley–Hamilton theorem for  
+      \[
+      A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Use Cayley–Hamilton theorem to compute \(A^3\) for  
+      \[
+      A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Use Cayley–Hamilton theorem to find \(A^{-1}\) for  
+      \[
+      A = \begin{bmatrix} 3 & 2 \\ 1 & 1 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Verify Cayley–Hamilton theorem for  
+      \[
+      A = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ -6 & 11 & -6 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Use Cayley–Hamilton theorem to compute \(A^4\) for  
+      \[
+      A = \begin{bmatrix} 4 & 3 \\ 3 & 2 \end{bmatrix}.
+      \]
+    </li>
+  </ol>
+
+  <h2>Section C — Diagonalization</h2>
+  <ol start="16">
+    <li>
+      Diagonalize  
+      \[
+      A = \begin{bmatrix} 5 & 4 \\ 1 & 2 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Find an invertible matrix \(P\) such that \(P^{-1}AP\) is diagonal for  
+      \[
+      B = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Determine whether the matrix  
+      \[
+      C = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}
+      \]  
+      is diagonalizable. If yes, diagonalize it.
+    </li>
+
+    <li>
+      Diagonalize  
+      \[
+      D = \begin{bmatrix} 6 & -2 \\ 2 & 3 \end{bmatrix}.
+      \]
+    </li>
+
+    <li>
+      Find the diagonal form of  
+      \[
+      E = \begin{bmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{bmatrix}.
+      \]
+    </li>
+  </ol>
+
+  <footer>
+    © 2025 | Designed by Dr. S. Narendra
+  </footer>
+</body>
+</html>
