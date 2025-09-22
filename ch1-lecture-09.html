@@ -220,15 +220,12 @@
         <li>Check eigenvalues are all positive.</li>
         <li>Check all leading principal minors (Sylvester's criterion) are positive.</li>
       </ol>
-      <h3> Positive definite </h3>
+      <h3> 1. Positive definite </h3>
         <p>For a <strong>symmetric</strong> real matrix \(A\in\mathbb{R}^{n\times n}\), the following tests are equivalent and can be used to check positive definiteness.</p>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">1</div>
-      <div>
-        <h2>Quadratic Form Test</h2>
+ 
+        <h4>a. Quadratic Form Test</h4>
         <p>
           \(A\) is <em>positive definite</em> iff for every nonzero vector \(x\in\mathbb{R}^n\):
           \[ x^T A x > 0. \]
@@ -242,11 +239,7 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">2</div>
-      <div>
-        <h2>Eigenvalue Test</h2>
+        <h4>b.Eigenvalue Test</h4>
         <p>
           \(A\) is positive definite iff all eigenvalues of \(A\) are strictly positive.
         </p>
@@ -259,11 +252,7 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">3</div>
-      <div>
-        <h2>Sylvester's Criterion (Leading Principal Minors)</h2>
+        <h4>c. Sylvester's Criterion (Leading Principal Minors)</h4>
         <p>
           A symmetric matrix is positive definite iff all its leading principal minors are positive. That is, the determinants of the top-left \(k\times k\) submatrices must all be &gt; 0 for \(k=1,\dots,n\).
         </p>
@@ -279,12 +268,7 @@
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="rule">
-      <div class="num">4</div>
-      <div>
-        <h2>Cholesky Decomposition Test</h2>
+        <h4>d.Cholesky Decomposition Test</h4>
         <p>
           A symmetric matrix \(A\) is positive definite iff there exists a lower-triangular matrix \(L\) with positive diagonal entries such that
           \[ A = L L^T. \]
@@ -300,22 +284,11 @@
     </div>
   </div>
 
-  <div class="card">
-    <h2>Quick counterexamples / notes</h2>
-    <p>
-      <strong>Positive semidefinite</strong> allows \(x^T A x \ge 0\) (zeros allowed). Example: \(A=\begin{bmatrix}1 & -1 \\ -1 & 1\end{bmatrix}\) is positive semidefinite but not positive definite because \(x=[1,1]^T\) gives zero.
-    </p>
-    <div class="note">Note: All the rules above require <em>symmetry</em> (or being Hermitian for complex matrices). For non-symmetric matrices these tests are not valid.</div>
-  </div>
-<h3>Postove SemiDefinite</h3>
+  
+<h3>2.Positive SemiDefinite</h3>
        <p>A real symmetric matrix \(A\in\mathbb{R}^{n\times n}\) is <strong>positive semidefinite (PSD)</strong> if it satisfies any of the equivalent conditions below (adapted for semidefinite case):</p>
   </div>
-
-  <div class="card">
-    <div class="rule">
-      <div class="num">1</div>
-      <div>
-        <h2>Quadratic Form Test</h2>
+        <h4>a.Quadratic Form Test</h4>
         <p>
           \(A\) is PSD iff for every vector \(x\in\mathbb{R}^n\):
           \[ x^T A x \ge 0. \]
@@ -328,12 +301,7 @@
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="rule">
-      <div class="num">2</div>
-      <div>
-        <h2>Eigenvalue Test</h2>
+        <h4>b.Eigenvalue Test</h4>
         <p>
           \(A\) is PSD iff all eigenvalues of \(A\) are nonnegative (\(\lambda_i \ge 0\)).
         </p>
@@ -346,11 +314,7 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">3</div>
-      <div>
-        <h2>Principal Minors (Necessary Condition)</h2>
+        <h4>c.Principal Minors (Necessary Condition)</h4>
         <p>
           For PSD matrices, all principal minors (determinants of principal submatrices) must be \(\ge0\). This is <em>necessary</em> but not sufficient in higher dimensions.
         </p>
@@ -362,12 +326,7 @@
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="rule">
-      <div class="num">4</div>
-      <div>
-        <h2>Factorization / Decomposition</h2>
+        <h4>d.Factorization / Decomposition</h4>
         <p>
           A symmetric PSD matrix admits a decomposition \(A = B B^T\) for some (possibly rank-deficient) matrix \(B\). Equivalently, an \(LDL^T\) decomposition exists with diagonal \(D\) having nonnegative entries.
         </p>
@@ -380,8 +339,8 @@
     </div>
   </div>
 
-  <div class="card">
-    <h2>Practical checks</h2>
+
+    <h4>Practical checks</h4>
     <ul>
       <li>Prefer the <strong>eigenvalue test</strong> for a definitive check (compute eigenvalues &gt;= 0).</li>
       <li>Use <code>LDL^T</code> decomposition numerically: if all diagonal entries of D are &ge; 0 (within tolerance), matrix is PSD.</li>
@@ -389,16 +348,13 @@
     </ul>
     <div class="note">Note: All these rules assume the matrix is symmetric (real) or Hermitian (complex). For non-symmetric matrices, these criteria don't apply.</div>
   </div>
-<h3>Negitive Definite and Indefinite</h3>
+<h3>3.Negitive Definite and Indefinite</h3>
       
     <p>For a real symmetric matrix \(A\), we can classify using quadratic forms, eigenvalues, or principal minors.</p>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">1</div>
-      <div>
-        <h2>Negative Definite</h2>
+ 
+        <h4>a.Negative Definite</h4>
         <p>
           \(A\) is <strong>negative definite</strong> if:
           \[ x^T A x < 0, \; \forall x \ne 0. \]
@@ -416,11 +372,8 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">2</div>
-      <div>
-        <h2>Negative Semidefinite</h2>
+ 
+        <h4>b.Negative Semidefinite</h4>
         <p>
           \(A\) is <strong>negative semidefinite (NSD)</strong> if:
           \[ x^T A x \le 0, \; \forall x. \]
@@ -437,11 +390,8 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="rule">
-      <div class="num">3</div>
-      <div>
-        <h2>Indefinite</h2>
+
+        <h4>c.Indefinite</h4>
         <p>
           \(A\) is <strong>indefinite</strong> if it has both positive and negative values of \(x^T A x\). Equivalently, eigenvalues are mixed (some positive, some negative).
         </p>
