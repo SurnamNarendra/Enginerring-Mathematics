@@ -1,56 +1,19 @@
 <!doctype html>
 <html lang="en">
-  </div>
-        <nav class="nav">
-                    <a href="https://surnamnarendra.github.io/Enginerring-Mathematics/">Home</a>
-          <a href="ch1-lecture-01.html" aria-current="page">L1</a>
-          <a href="ch1-lecture-02.html">L2</a>
-          <a href="ch1-lecture-03.html">L3</a>
-          <a href="ch1-lecture-04.html">L4</a>
-          <a href="ch1-lecture-05.html">L5</a>
-          <a href="ch1-lecture-06.html">L6</a>
-          <a href="ch1-lecture-07.html">L7</a>
-          <a href="ch1-lecture-08.html">L8</a>
-          <a href="ch1-lecture-09.html">L9</a>
-         <a href="ch1-lecture-10.html">L10</a>
-
-        </nav>
-      </div>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Lecture 9 — Quadratic Forms</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    :root{--bg:#ffffff;--card:#fbfbfb;--accent:#0b63e5;--muted:#555}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.6;color:#111;margin:0;background:linear-gradient(180deg,#f7fbff,white)}
-    header{background:linear-gradient(90deg,rgba(11,99,229,0.12),transparent);padding:28px 24px;border-bottom:1px solid #e6eefb}
-    header h1{margin:0;font-size:1.6rem}
-    header p{margin:6px 0 0;color:var(--muted)}
-    .wrap{max-width:1000px;margin:28px auto;padding:0 18px}
-    nav.toc{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(11,99,229,0.04);margin-bottom:18px}
-    nav.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-    nav.toc a{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid #e9f0ff;text-decoration:none;color:var(--accent);font-weight:600}
-    section.card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 6px 20px rgba(7,8,12,0.03)}
-    h2{margin-top:0;color:#0b3e8a}
-    .example{background:#fff;padding:12px;border-radius:8px;border-left:4px solid #0b63e5;margin:12px 0}
-    pre{background:#0f172433;padding:12px;border-radius:8px;overflow:auto}
-    table{border-collapse:collapse;width:100%}
-    table td,table th{border:1px solid #e6eefb;padding:8px;text-align:left}
-    footer{color:var(--muted);font-size:0.9rem;padding:12px 0;text-align:center}
-    details{margin:8px 0}
-    .exercise{border:1px dashed #e6eefb;padding:10px;border-radius:8px}
-  </style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
+    :root {--bg:#ffffff;--card:#fbfbfb;--accent:#0b63e5;--muted:#555;}
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f9f9fb;
-      color: #222;
+      background: linear-gradient(180deg,#f7fbff,white);
+      color: #111;
       line-height: 1.6;
     }
     header {
@@ -99,71 +62,56 @@
       border-left: 4px solid #003366;
       margin: 15px 0;
     }
-    .calculator {
-      background: #f4f8ff;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      font-family: monospace;
-      margin-bottom: 10px;
-    }
-    button {
-      background: #003366;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 5px;
-    }
-    button:hover {
-      background: #0055aa;
-    }
-    pre {
-      background: #f0f0f0;
+    .exercise {
+      border: 1px dashed #e6eefb;
       padding: 10px;
-      border-radius: 6px;
+      border-radius: 8px;
+      margin-top: 10px;
     }
     table {
       border-collapse: collapse;
       margin: 20px auto;
+      width: 100%;
     }
-    td {
+    td, th {
       border: 1px solid #ccc;
       padding: 8px 15px;
       text-align: center;
-    }
-    #steps {
-      margin-top: 20px;
-      padding: 15px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <header>
-      <h1>Lecture 9 — Quadratic Forms </h1>
+    <h1>Lecture 9 — Quadratic Forms</h1>
   </header>
 
- 
+  <nav>
+    <a href="https://surnamnarendra.github.io/Enginerring-Mathematics/">Home</a>
+    <a href="ch1-lecture-01.html">L1</a>
+    <a href="ch1-lecture-02.html">L2</a>
+    <a href="ch1-lecture-03.html">L3</a>
+    <a href="ch1-lecture-04.html">L4</a>
+    <a href="ch1-lecture-05.html">L5</a>
+    <a href="ch1-lecture-06.html">L6</a>
+    <a href="ch1-lecture-07.html">L7</a>
+    <a href="ch1-lecture-08.html">L8</a>
+    <a href="ch1-lecture-09.html" aria-current="page">L9</a>
+    <a href="ch1-lecture-10.html">L10</a>
+  </nav>
 
-    <nav >
-      <ul>
-        <li><a href="#def">Definitions & Basic Properties</a></li>
-        <li><a href="#sym">Symmetric Matrices</a></li>
-        <li><a href="#diag">Diagonalization & Principal Axes</a></li>
-        <li><a href="#sylvester">Sylvester's Law of Inertia</a></li>
-        <li><a href="#examples">Worked Examples</a></li>
-        <li><a href="#posdef">Positive/Negative/Indefinite</a></li>
-        <li><a href="#exercises">Exercises</a></li>
-      </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li><a href="#def">Definitions & Basic Properties</a></li>
+      <li><a href="#sym">Symmetric Matrices</a></li>
+      <li><a href="#diag">Diagonalization & Principal Axes</a></li>
+      <li><a href="#sylvester">Sylvester's Law of Inertia</a></li>
+      <li><a href="#examples">Worked Examples</a></li>
+      <li><a href="#posdef">Positive/Negative/Indefinite</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ul>
+  </nav>
+
+
 
     <section id="def" class="card">
       <h2>1. Definitions & Basic Properties</h2>
