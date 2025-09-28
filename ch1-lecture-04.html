@@ -122,6 +122,21 @@
       border: 1px solid #ccc;
       border-radius: 10px;
     }
+    .video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
   </style>
 </head>
 <body>
@@ -133,6 +148,8 @@
     <a href="#imp">Properties</a>
     <a href="#examples">Examples</a>
     <a href="#calc">Rank Calculator</a>
+          <a href="#video">Video</a>
+
   </nav>
 
   <section id="def">
@@ -316,6 +333,20 @@
 
   window.addEventListener('load', ()=>{ if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(); });
 </script>
+
+     <section id="video">
+    <h2>Video</h2>
+       <div class="video-container">
+  <iframe
+    src="https://www.youtube.com/embed/wfEihKhQVXA"
+    title="Lecture Video"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+</div>
+
   <footer style="
     background: #f8f9fa;
     color: #333;
