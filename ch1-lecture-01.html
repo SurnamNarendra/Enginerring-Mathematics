@@ -107,6 +107,24 @@
       margin: 15px 0;
     }
   </style>
+       <style>
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
 </head>
 <body>
   <header>
@@ -121,6 +139,8 @@
        <a href="#determinant">Det</a>
            <a href="#inverse">Inverse</a>
     <a href="#applications">Applications</a>
+             <a href="#video">Video</a>
+
   </nav>
 
   <section id="definition">
@@ -470,6 +490,8 @@
     <li>Machine learning and neural networks</li>
     <li>Signal processing and communication systems</li>
   </ul>
+         <section id="video">
+
         <div class="video-container">
   <iframe src="https://youtu.be/51YfU4jsDWs"
     title="Lecture 1 – Introduction to Matrices"
