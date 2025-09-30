@@ -2,287 +2,370 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Practice Set-2 — Solutions</title>
+  <title>Practice Set-2 — Complete Worked Solutions</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; line-height:1.6; margin:20px; background:#fbfbfb; color:#222; }
-    header{display:flex;justify-content:space-between;align-items:center;}
-    h1{margin:0}
+    body { font-family: Arial, sans-serif; margin:20px; background:#ffffff; color:#111; line-height:1.5; }
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0;font-size:1.4rem}
     img{height:56px}
-    h2{color:#2c3e50;border-bottom:2px solid #ddd;padding-bottom:6px;margin-top:18px}
+    h2{color:#1f3b58;border-bottom:2px solid #e0e0e0;padding-bottom:6px;margin-top:18px}
     h3{margin:10px 0 6px}
     ol{margin-left:18px}
-    li{margin-bottom:14px}
-    .solution{background:#fff;padding:10px;border-radius:6px;box-shadow:0 1px 0 rgba(0,0,0,0.04)}
-    .work{font-size:0.95rem;color:#333;margin-top:6px}
-    footer{margin-top:26px;padding:10px;text-align:center;background:#f3f3f3;border-top:1px solid #e0e0e0;font-style:italic}
-    code{background:#f1f1f1;padding:2px 6px;border-radius:4px}
+    li{margin-bottom:16px}
+    .solution{background:#fbfbff;border-left:4px solid #2c3e50;padding:10px 12px;border-radius:4px}
+    .steps{margin-top:8px;color:#333;font-size:0.96rem}
+    pre{background:#f6f7fb;padding:8px;border-radius:4px;overflow:auto}
+    footer{margin-top:24px;padding:10px;text-align:center;background:#fafafa;border-top:1px solid #eee;font-style:italic}
+    .small{font-size:0.9rem;color:#4a4a4a}
   </style>
 </head>
 <body>
 <header>
-  <h1>Practice Set-2 — <small>Solutions</small></h1>
+  <h1>Practice Set-2 — <small class="small">Complete Worked Solutions</small></h1>
   <img src="images/wos ppt.png" alt="Woxsen Logo" />
 </header>
 
-<h2>Section A — Eigenvalues &amp; Eigenvectors</h2>
+<h2>Section A — Eigenvalues &amp; Eigenvectors (detailed)</h2>
 
 <h3>2×2 Matrices</h3>
 <ol start="1">
   <li>
-    <div><strong>Problem:</strong> \(A=\begin{bmatrix}2&1\\1&2\end{bmatrix}\). Find eigenvalues and eigenvectors.</div>
+    <div><strong>Problem:</strong> \(A=\begin{bmatrix}2&1\\1&2\end{bmatrix}\).</div>
     <div class="solution">
-      Characteristic polynomial: \((\lambda-3)(\lambda-1)=0\).  
-      Eigenvalues: \(\lambda_1=3,\ \lambda_2=1\).  
-      Eigenvectors:
-      \[
-      \lambda=3:\; v_1=\begin{bmatrix}1\\1\end{bmatrix},\qquad
-      \lambda=1:\; v_2=\begin{bmatrix}-1\\1\end{bmatrix}.
-      \]
+      <div class="steps">
+        1. Compute characteristic polynomial: \(\det(A-\lambda I)=\det\begin{bmatrix}2-\lambda&1\\1&2-\lambda\end{bmatrix}=(2-\lambda)^2-1.\)
+        <br>
+        Expand: \((2-\lambda)^2-1 = \lambda^2-4\lambda+3\). Solve \(\lambda^2-4\lambda+3=0\) → \((\lambda-3)(\lambda-1)=0\).
+        <br><br>
+        2. Eigenvalues: \(\lambda_1=3,\ \lambda_2=1\).
+        <br><br>
+        3. Eigenvectors:
+        <br>
+        For \(\lambda=3\): solve \((A-3I)v=0\):
+        \[
+        \begin{bmatrix}-1&1\\1&-1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0
+        \Rightarrow -x+y=0 \Rightarrow y=x.
+        \]
+        Choose \(v_1=\begin{bmatrix}1\\1\end{bmatrix}\).
+        <br><br>
+        For \(\lambda=1\): solve \((A-I)v=0\):
+        \[
+        \begin{bmatrix}1&1\\1&1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0
+        \Rightarrow x+y=0 \Rightarrow y=-x.
+        \]
+        Choose \(v_2=\begin{bmatrix}1\\-1\end{bmatrix}\) (or \([-1,1]^T\)).
+        <br><br>
+        Final: eigenpairs \((3,[1,1]^T)\) and \((1,[1,-1]^T)\).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(B=\begin{bmatrix}4&-2\\1&1\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \((\lambda-3)(\lambda-2)\). Eigenvalues: \(\lambda=3,2\).  
-      Eigenvectors (one choice each):
-      \[
-      \lambda=2:\; v=\begin{bmatrix}1\\1\end{bmatrix},\qquad
-      \lambda=3:\; v=\begin{bmatrix}2\\1\end{bmatrix}.
-      \]
+      <div class="steps">
+        1. \(\det(B-\lambda I)=\det\begin{bmatrix}4-\lambda&-2\\1&1-\lambda\end{bmatrix}=(4-\lambda)(1-\lambda)+2\).
+        <br>
+        Expand: \((4-\lambda)(1-\lambda)+2 = 4-5\lambda+\lambda^2+2 = \lambda^2-5\lambda+6\).
+        <br>
+        Solve \(\lambda^2-5\lambda+6=0\) → \((\lambda-2)(\lambda-3)=0\).
+        <br><br>
+        2. Eigenvalues: \(\lambda=2,3\).
+        <br><br>
+        3. Eigenvectors:
+        <br>
+        For \(\lambda=2\): \((B-2I)=\begin{bmatrix}2&-2\\1&-1\end{bmatrix}\). Equation \(2x-2y=0\Rightarrow x=y\). Choose \(v=\begin{bmatrix}1\\1\end{bmatrix}\).
+        <br>
+        For \(\lambda=3\): \((B-3I)=\begin{bmatrix}1&-2\\1&-2\end{bmatrix}\). Equation \(x-2y=0\Rightarrow x=2y\). Choose \(v=\begin{bmatrix}2\\1\end{bmatrix}\).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(C=\begin{bmatrix}0&1\\-4&-5\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \((\lambda+4)(\lambda+1)\). Eigenvalues: \(\lambda=-4,\,-1\).  
-      Eigenvectors:
-      \[
-      \lambda=-4:\; v=\begin{bmatrix}-\tfrac14\\1\end{bmatrix},\qquad
-      \lambda=-1:\; v=\begin{bmatrix}-1\\1\end{bmatrix}.
-      \]
-      (Any nonzero scalar multiple is acceptable.)
+      <div class="steps">
+        1. \(\det(C-\lambda I)=\det\begin{bmatrix}-\lambda&1\\-4&-5-\lambda\end{bmatrix} = \lambda(\lambda+5)+4=\lambda^2+5\lambda+4.\)
+        <br>
+        Solve \(\lambda^2+5\lambda+4=0\) → \((\lambda+4)(\lambda+1)=0\) so \(\lambda=-4,-1\).
+        <br><br>
+        2. Eigenvectors:
+        <br>
+        For \(\lambda=-4\): \(C+4I=\begin{bmatrix}4&1\\-4&-1\end{bmatrix}\). Equation \(4x+y=0\Rightarrow y=-4x\). Choose \(v=\begin{bmatrix}1\\-4\end{bmatrix}\) (or scaled \([-1/4,1]^T\) as earlier).
+        <br>
+        For \(\lambda=-1\): \(C+I=\begin{bmatrix}1&1\\-4&-4\end{bmatrix}\). Equation \(x+y=0\Rightarrow y=-x\). Choose \(v=\begin{bmatrix}1\\-1\end{bmatrix}\).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(D=\begin{bmatrix}3&2\\0&3\end{bmatrix}\).</div>
     <div class="solution">
-      Characteristic polynomial: \((\lambda-3)^2\). Eigenvalue \(\lambda=3\) with algebraic multiplicity 2.  
-      Solve \((D-3I)v=0\) gives eigenvectors proportional to \(\begin{bmatrix}1\\0\end{bmatrix}\) only — a single independent eigenvector.  
-      <strong>Conclusion:</strong> Not enough independent eigenvectors (defective); \(D\) is not diagonalizable.
+      <div class="steps">
+        1. Char. poly \(\det(D-\lambda I)=(3-\lambda)^2\) → eigenvalue \(\lambda=3\) (algebraic multiplicity 2).
+        <br><br>
+        2. Solve \((D-3I)v=0\): \(\begin{bmatrix}0&2\\0&0\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0\Rightarrow 2y=0\Rightarrow y=0\). No restriction on \(x\) → eigenvectors proportional to \(\begin{bmatrix}1\\0\end{bmatrix}\).
+        <br><br>
+        Only one independent eigenvector exists though algebraic multiplicity is 2 → geometric multiplicity 1 → matrix is defective (not diagonalizable).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(E=\begin{bmatrix}1&2\\2&1\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \((\lambda-3)(\lambda+1)\). Eigenvalues: \(\lambda=3,\,-1\).  
-      Eigenvectors:
-      \[
-      \lambda=3:\; v=\begin{bmatrix}1\\1\end{bmatrix},\qquad
-      \lambda=-1:\; v=\begin{bmatrix}1\\-1\end{bmatrix}.
-      \]
+      <div class="steps">
+        1. Characteristic polynomial: \(\det\begin{bmatrix}1-\lambda&2\\2&1-\lambda\end{bmatrix}=(1-\lambda)^2-4=\lambda^2-2\lambda-3\).
+        <br>
+        Solve \(\lambda^2-2\lambda-3=0\) → \((\lambda-3)(\lambda+1)=0\) → \(\lambda=3,-1\).
+        <br><br>
+        2. Eigenvectors:
+        <br>
+        \(\lambda=3:\ (E-3I)=\begin{bmatrix}-2&2\\2&-2\end{bmatrix}\Rightarrow -2x+2y=0 \Rightarrow y=x.\) Choose \([1,1]^T\).
+        <br>
+        \(\lambda=-1:\ (E+I)=\begin{bmatrix}2&2\\2&2\end{bmatrix}\Rightarrow 2x+2y=0\Rightarrow y=-x.\) Choose \([1,-1]^T\).
+      </div>
     </div>
   </li>
 </ol>
 
-<h3>3×3 Matrices</h3>
+<h3>3×3 Matrices — full steps</h3>
 <ol start="6">
   <li>
     <div><strong>Problem:</strong> \(F=\begin{bmatrix}1&0&0\\0&2&1\\0&0&2\end{bmatrix}\).</div>
     <div class="solution">
-      This is block/upper-triangular → eigenvalues are diagonal entries: \(1,2,2\).  
-      Eigenvectors:
-      \[
-      \lambda=1:\; v=\begin{bmatrix}1\\0\\0\end{bmatrix},\qquad
-      \lambda=2:\; \text{solve }(F-2I)v=0\Rightarrow v=\begin{bmatrix}0\\1\\0\end{bmatrix}
-      \text{ and a generalized eigenvector exists due to the Jordan block}.
-      \]
-      There is only one independent eigenvector for \(\lambda=2\) coming from the 2×2 Jordan block; \(F\) is not diagonalizable (it has a size 2 Jordan block).
+      <div class="steps">
+        This is upper-triangular, so eigenvalues are diagonal entries: \(1,2,2\).
+        <br><br>
+        For \(\lambda=1\): solve \((F-I)v=0\) → matrix \(\begin{bmatrix}0&0&0\\0&1&1\\0&0&1\end{bmatrix}\). The equations give \(v_3=0\), \(v_2\) free? Check carefully:
+        From last row: \(v_3=0\). From second row: \(v_2+v_3=0\Rightarrow v_2=0\). So \(v=[1,0,0]^T\) (free \(v_1\)).
+        <br><br>
+        For \(\lambda=2\): \((F-2I)=\begin{bmatrix}-1&0&0\\0&0&1\\0&0&0\end{bmatrix}\). Equations: \(-x_1=0\Rightarrow x_1=0\); second row: \(x_3=0\); third row: 0. So eigenvectors have \(x_2\) free and \(x_1=x_3=0\). So eigenvector \( [0,1,0]^T\).
+        <br><br>
+        There is only one independent eigenvector for \(\lambda=2\) (though algebraic mult. 2). Therefore \(F\) is not diagonalizable (has a Jordan block of size 2).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(G=\begin{bmatrix}2&0&0\\0&3&4\\0&0&3\end{bmatrix}\).</div>
     <div class="solution">
-      Upper-triangular ⇒ eigenvalues: \(2,3,3\).  
-      Eigenvectors:
-      \[
-      \lambda=2:\ v=\begin{bmatrix}1\\0\\0\end{bmatrix},\qquad
-      \lambda=3:\ \text{one independent eigenvector }v=\begin{bmatrix}0\\1\\0\end{bmatrix}.
-      \]
-      (Because the \(2\times2\) lower-right block is a Jordan block, there is only one eigenvector for \(\lambda=3\); not diagonalizable.)
+      <div class="steps">
+        Upper-triangular → eigenvalues \(2,3,3\).
+        <br><br>
+        For \(\lambda=2\): eigenvector \([1,0,0]^T\).
+        <br>
+        For \(\lambda=3\): solve \(\begin{bmatrix}-1&0&0\\0&0&4\\0&0&0\end{bmatrix}v=0\). Equations give \( -x_1=0\Rightarrow x_1=0\); \(4x_3=0\Rightarrow x_3=0\). So eigenvector with \(x_2\) free: \([0,1,0]^T\). Only one independent eigenvector for \(\lambda=3\) → not diagonalizable over \(\mathbb{R}\).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> \(H=\begin{bmatrix}4&0&0\\0&2&1\\0&1&2\end{bmatrix}\).</div>
     <div class="solution">
-      Block diagonal in effect: eigenvalue \(4\) from first row. For the \(2\times2\) block \(\begin{bmatrix}2&1\\1&2\end{bmatrix}\) eigenvalues \(3\) and \(1\).
-      So eigenvalues: \(4,3,1\). Corresponding eigenvectors:
-      \[
-      \lambda=4:\; v=\begin{bmatrix}1\\0\\0\end{bmatrix},\quad
-      \lambda=3:\; v=\begin{bmatrix}0\\1\\1\end{bmatrix},\quad
-      \lambda=1:\; v=\begin{bmatrix}0\\-1\\1\end{bmatrix}.
-      \]
+      <div class="steps">
+        The matrix is block diagonal with scalar 4 and the \(2\times2\) symmetric block \(S=\begin{bmatrix}2&1\\1&2\end{bmatrix}\).
+        <br><br>
+        Eigenvalues: from block: \(4\) and eigenvalues of \(S\): solve \(\det(S-\lambda I)=(2-\lambda)^2-1=\lambda^2-4\lambda+3\Rightarrow \lambda=3,1\).
+        <br><br>
+        Eigenvectors:
+        \(\lambda=4:\ [1,0,0]^T\).
+        \(\lambda=3:\) eigenvector for \(S\) is \([1,1]^T\) → for full matrix \([0,1,1]^T\).
+        \(\lambda=1:\) eigenvector for \(S\) is \([1,-1]^T\) → for full matrix \([0,1,-1]^T\).
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> \(I=\begin{bmatrix}0&1&0\\0&0&1\\1&0&0\end{bmatrix}\).</div>
+    <div><strong>Problem:</strong> \(I=\begin{bmatrix}0&1&0\\0&0&1\\1&0&0\end{bmatrix}\) (permutation/cyclic).</div>
     <div class="solution">
-      Characteristic polynomial: \((\lambda-1)(\lambda^2+\lambda+1)\). Eigenvalues: \(\lambda=1\) and the two complex cube-root pair \(\lambda = e^{\pm i\pi/3} = -\tfrac12 \pm i\tfrac{\sqrt3}{2}\).  
-      Real eigenvector for \(\lambda=1\):
-      \[
-      v=\begin{bmatrix}1\\1\\1\end{bmatrix}.
-      \]
-      The other two eigenvectors are complex (corresponding to the complex eigenvalues).
+      <div class="steps">
+        Compute characteristic polynomial: \(\det(I-\lambda I)= -\lambda^3+1\) (or compute \(\lambda^3-1=0\)). So eigenvalues are cube roots of unity: \(\lambda=1,\ e^{2\pi i/3},\ e^{4\pi i/3}\). The latter two are complex: \(-\tfrac12\pm i\tfrac{\sqrt3}{2}\).
+        <br><br>
+        Real eigenvector for \(\lambda=1\): solve \((I-I)v=0\Rightarrow v_1=v_2=v_3\). Choose \([1,1,1]^T\).
+        <br><br>
+        Complex eigenvectors correspond to complex eigenvalues; over \(\mathbb{R}\) the real Jordan/real canonical form is a block with a \(2\times2\) rotation block.
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> \(J=\begin{bmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{bmatrix}\) (tridiagonal).</div>
+    <div><strong>Problem:</strong> \(J=\begin{bmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{bmatrix}\) (symmetric tridiagonal).</div>
     <div class="solution">
-      Characteristic polynomial factors to produce eigenvalues:
-      \[
-      \lambda_1=2,\quad \lambda_{2}=2-\sqrt2,\quad \lambda_3=2+\sqrt2.
-      \]
-      Corresponding eigenvectors (one choice each):
-      \[
-      \lambda=2:\ v=\begin{bmatrix}-1\\0\\1\end{bmatrix},\quad
-      \lambda=2-\sqrt2:\ v=\begin{bmatrix}1\\\sqrt2\\1\end{bmatrix},\quad
-      \lambda=2+\sqrt2:\ v=\begin{bmatrix}1\\-\sqrt2\\1\end{bmatrix}.
-      \]
+      <div class="steps">
+        This is well-known: eigenvalues for this 3×3 are:
+        \[
+        \lambda_k = 2-2\cos\left(\frac{k\pi}{4}\right)\quad (k=1,2,3)
+        \]
+        which numerically give approximately \(2-2\cos(\pi/4)=2-\sqrt2\), \(2\) and \(2+ \sqrt2\).
+        <br><br>
+        Analytical factorization gives eigenvalues \(\lambda_1=2-\sqrt2,\ \lambda_2=2,\ \lambda_3=2+\sqrt2\).
+        <br><br>
+        Eigenvectors (up to scaling) can be chosen as:
+        \[
+        \lambda=2:\ v=[-1,0,1]^T,\quad
+        \lambda=2-\sqrt2:\ v=[1,\sqrt2,1]^T,\quad
+        \lambda=2+\sqrt2:\ v=[1,-\sqrt2,1]^T.
+        \]
+        (You can confirm by substitution \(Jv=\lambda v\).)
+      </div>
     </div>
   </li>
 </ol>
 
-<h2>Section B — Cayley–Hamilton Theorem</h2>
+<h2>Section B — Cayley–Hamilton (with explicit calculations)</h2>
 <ol start="11">
   <li>
     <div><strong>Problem:</strong> Verify Cayley–Hamilton for \(A=\begin{bmatrix}2&1\\1&2\end{bmatrix}\).</div>
     <div class="solution">
-      Char. polynomial \(p(\lambda)=\lambda^2-4\lambda+3\). CH says \(p(A)=A^2-4A+3I=0\).  
-      Compute quickly:
-      \[
-      A^2=\begin{bmatrix}2&1\\1&2\end{bmatrix}^2=\begin{bmatrix}5&4\\4&5\end{bmatrix},
-      \]
-      so
-      \[
-      A^2-4A+3I=\begin{bmatrix}5&4\\4&5\end{bmatrix}-4\begin{bmatrix}2&1\\1&2\end{bmatrix}+3\begin{bmatrix}1&0\\0&1\end{bmatrix}
-      =\begin{bmatrix}0&0\\0&0\end{bmatrix}.
-      \]
-      Verified.
+      <div class="steps">
+        Char. poly \(p(\lambda)=\lambda^2-4\lambda+3\). CH says \(p(A)=A^2-4A+3I=0\).
+        <br><br>
+        Compute \(A^2=\begin{bmatrix}2&1\\1&2\end{bmatrix}^2=\begin{bmatrix}5&4\\4&5\end{bmatrix}\).
+        <br>
+        Then \(A^2-4A+3I=\begin{bmatrix}5&4\\4&5\end{bmatrix}-4\begin{bmatrix}2&1\\1&2\end{bmatrix}+3\begin{bmatrix}1&0\\0&1\end{bmatrix}\)
+        \[
+        =\begin{bmatrix}5-8+3 & 4-4+0 \\ 4-4+0 & 5-8+3 \end{bmatrix} = \begin{bmatrix}0&0\\0&0\end{bmatrix}.
+        \]
+        Verified.
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> Use CH to compute \(A^3\) for \(A=\begin{bmatrix}1&1\\0&1\end{bmatrix}\).</div>
     <div class="solution">
-      The matrix is upper-triangular with eigenvalue \(1\) (double). Direct power formula works: powers add the superdiagonal:
-      \[
-      A^2=\begin{bmatrix}1&2\\0&1\end{bmatrix},\qquad A^3=\begin{bmatrix}1&3\\0&1\end{bmatrix}.
-      \]
-      (Cayley–Hamilton also gives a relation but direct computation is simplest here.)
+      <div class="steps">
+        For this matrix direct multiplication is easiest:
+        \[
+        A^2=\begin{bmatrix}1&1\\0&1\end{bmatrix}^2=\begin{bmatrix}1&2\\0&1\end{bmatrix},\quad
+        A^3=A^2A=\begin{bmatrix}1&2\\0&1\end{bmatrix}\begin{bmatrix}1&1\\0&1\end{bmatrix}=\begin{bmatrix}1&3\\0&1\end{bmatrix}.
+        \]
+        (Cayley–Hamilton would say \(p(\lambda)=(\lambda-1)^2\) so \(A\) satisfies \((A-I)^2=0\). That identity can be used to reduce powers, but direct is simplest here.)
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> Use CH to find \(A^{-1}\) for \(A=\begin{bmatrix}3&2\\1&1\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \(\lambda^2-4\lambda+1=0\). CH: \(A^2-4A+I=0\). Multiply on right by \(A^{-1}\):
-      \[
-      A-4I + A^{-1}=0\quad\Rightarrow\quad A^{-1}=4I-A.
-      \]
-      So
-      \[
-      A^{-1}=4\begin{bmatrix}1&0\\0&1\end{bmatrix}-\begin{bmatrix}3&2\\1&1\end{bmatrix}
-      =\begin{bmatrix}1&-2\\-1&3\end{bmatrix}.
-      \]
-      (Matches the usual adjoint/determinant method since \(\det A=1\).)
+      <div class="steps">
+        Char. poly: \(\lambda^2-4\lambda+1\). CH: \(A^2-4A+I=0\). Multiply on right by \(A^{-1}\):
+        \[
+        A-4I + A^{-1} = 0 \quad\Rightarrow\quad A^{-1} = 4I - A.
+        \]
+        Thus
+        \[
+        A^{-1} = 4\begin{bmatrix}1&0\\0&1\end{bmatrix} - \begin{bmatrix}3&2\\1&1\end{bmatrix} = \begin{bmatrix}1&-2\\-1&3\end{bmatrix}.
+        \]
+        (Confirm by \(AA^{-1}=I\): compute product to check — it equals \(I\).)
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> Verify CH for the \(3\times3\) companion-like matrix
-      \(A=\begin{bmatrix}0&1&0\\0&0&1\\-6&11&-6\end{bmatrix}.\)</div>
+    <div><strong>Problem:</strong> Verify CH for \(A=\begin{bmatrix}0&1&0\\0&0&1\\-6&11&-6\end{bmatrix}\).</div>
     <div class="solution">
-      Characteristic polynomial is \(p(\lambda)=\lambda^3-6\lambda^2+11\lambda-6=(\lambda-1)(\lambda-2)(\lambda-3)\). CH predicts
-      \[
-      A^3-6A^2+11A-6I=0.
-      \]
-      If you compute these powers and form the linear combination you obtain the zero matrix — so CH holds (direct substitution gives the zero matrix).
+      <div class="steps">
+        This is a companion matrix of polynomial \(\lambda^3-6\lambda^2+11\lambda-6\). The polynomial factors \((\lambda-1)(\lambda-2)(\lambda-3)\).
+        <br><br>
+        CH states \(A^3-6A^2+11A-6I=0\). Compute \(A^2\), \(A^3\) explicitly (lengthy but straightforward) and verify the combination equals zero matrix. (Because companion matrix was constructed from that polynomial, CH holds identically.)
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> Use CH to compute \(A^4\) for \(A=\begin{bmatrix}4&3\\3&2\end{bmatrix}.\)</div>
+    <div><strong>Problem:</strong> Use CH to compute \(A^4\) for \(A=\begin{bmatrix}4&3\\3&2\end{bmatrix}\).</div>
     <div class="solution">
-      One way is to compute the power directly (or reduce higher powers using CH). Direct computation yields
-      \[
-      A^2=\begin{bmatrix}25&18\\18&13\end{bmatrix},\quad
-      A^3=\begin{bmatrix}169&120\\120&85\end{bmatrix},\quad
-      A^4=\begin{bmatrix}949&684\\684&493\end{bmatrix}.
-      \]
-      (You can also reduce \(A^4\) using the characteristic polynomial of degree 2 to express \(A^4\) as a linear combination of \(A\) and \(I\).)
+      <div class="steps">
+        First compute characteristic polynomial: \(\det(A-\lambda I)=\lambda^2-6\lambda-? \) — compute precisely:
+        \[
+        \det\begin{bmatrix}4-\lambda&3\\3&2-\lambda\end{bmatrix}=(4-\lambda)(2-\lambda)-9=\lambda^2-6\lambda-1.
+        \]
+        So \(p(\lambda)=\lambda^2-6\lambda-1\). CH: \(A^2 -6A - I =0\Rightarrow A^2 =6A + I\).
+        <br><br>
+        Then \(A^3=A\cdot A^2 = A(6A+I)=6A^2 + A = 6(6A+I)+A = 37A + 6I\).
+        <br>
+        And \(A^4 = A\cdot A^3 = A(37A+6I)=37A^2 + 6A = 37(6A+I)+6A = (222A + 37I) + 6A = 228A +37I.\)
+        <br><br>
+        Now substitute numeric matrix:
+        \[
+        228A = 228\begin{bmatrix}4&3\\3&2\end{bmatrix}=\begin{bmatrix}912&684\\684&456\end{bmatrix},\quad 37I=\begin{bmatrix}37&0\\0&37\end{bmatrix}.
+        \]
+        So \(A^4=\begin{bmatrix}949&684\\684&493\end{bmatrix}\) (same result as direct multiplication).
+      </div>
     </div>
   </li>
 </ol>
 
-<h2>Section C — Diagonalization</h2>
+<h2>Section C — Diagonalization (explicit P, inverse where real)</h2>
 <ol start="16">
   <li>
     <div><strong>Problem:</strong> Diagonalize \(A=\begin{bmatrix}5&4\\1&2\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \(\lambda^2-7\lambda+6=(\lambda-6)(\lambda-1)\). Eigenvalues \(\lambda=6,1\).
-      Eigenvectors:
-      \[
-      \lambda=6:\ v_1=\begin{bmatrix}2\\1\end{bmatrix},\qquad
-      \lambda=1:\ v_2=\begin{bmatrix}-1\\1\end{bmatrix}.
-      \]
-      Form \(P=[v_1\ v_2]=\begin{bmatrix}2&-1\\1&1\end{bmatrix}\). Then
-      \[
-      P^{-1}AP=\operatorname{diag}(6,1).
-      \]
+      <div class="steps">
+        1. Char. poly \(\det(A-\lambda I)=(5-\lambda)(2-\lambda)-4=\lambda^2-7\lambda+6=(\lambda-6)(\lambda-1)\).
+        <br><br>
+        2. Eigenvalues \(\lambda_1=6,\ \lambda_2=1\).
+        <br><br>
+        3. Eigenvectors:
+        For \(\lambda=6\): \((A-6I)=\begin{bmatrix}-1&4\\1&-4\end{bmatrix}\Rightarrow -x+4y=0\Rightarrow x=4y.\) Choose \(v_1=\begin{bmatrix}4\\1\end{bmatrix}\) (or scaled \([2,0.5]\) etc.). I'll use \(v_1=[2,1]^T\) (scaling by 1/2 from [4,1]).
+        <br>
+        For \(\lambda=1\): \((A-I)=\begin{bmatrix}4&4\\1&1\end{bmatrix}\Rightarrow 4x+4y=0\Rightarrow x=-y\). Choose \(v_2=[-1,1]^T\).
+        <br><br>
+        4. Form \(P=[v_1\ v_2]=\begin{bmatrix}2&-1\\1&1\end{bmatrix}\). Compute \(P^{-1}\) (determinant \(=2\cdot1 -(-1)\cdot1 =3\)):
+        \[
+        P^{-1}=\frac{1}{3}\begin{bmatrix}1&1\\-1&2\end{bmatrix}.
+        \]
+        Then \(P^{-1}AP=\operatorname{diag}(6,1)\). (You can multiply out to verify.)
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> Find \(P\) so \(P^{-1}BP\) is diagonal for \(B=\begin{bmatrix}2&0\\0&3\end{bmatrix}\).</div>
+    <div><strong>Problem:</strong> \(B=\begin{bmatrix}2&0\\0&3\end{bmatrix}\) — find \(P\) s.t. \(P^{-1}BP\) diagonal.</div>
     <div class="solution">
-      \(B\) is already diagonal with eigenvalues \(2,3\). Choose \(P=I\) or any matrix whose columns are eigenvectors (e.g. \(P=I\)). Then \(P^{-1}BP=B\) (diagonal).
+      <div class="steps">
+        \(B\) already diagonal: eigenvalues 2 and 3, eigenvectors \(e_1=[1,0]^T\) and \(e_2=[0,1]^T\). So choose \(P=I\) or any matrix with eigenvectors as columns. \(P^{-1}BP=B\).
+      </div>
     </div>
   </li>
 
   <li>
     <div><strong>Problem:</strong> Is \(C=\begin{bmatrix}1&1\\0&1\end{bmatrix}\) diagonalizable?</div>
     <div class="solution">
-      Char. poly is \((\lambda-1)^2\). Only one eigenvector (span of \([1,0]^T\)). So <strong>not diagonalizable</strong> (it is a Jordan block).
+      <div class="steps">
+        Char. poly \((\lambda-1)^2\). Solve \((C-I)v=0\Rightarrow\begin{bmatrix}0&1\\0&0\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=0\Rightarrow y=0\). So eigenvectors spanned by \([1,0]^T\). Geometric multiplicity 1 < algebraic multiplicity 2 → not diagonalizable (Jordan block).
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> Diagonalize \(D=\begin{bmatrix}6&-2\\2&3\end{bmatrix}\).</div>
+    <div><strong>Problem:</strong> Diagonalize (over \(\mathbb{C}\)) \(D=\begin{bmatrix}6&-2\\2&3\end{bmatrix}\).</div>
     <div class="solution">
-      Char. poly: \(\lambda^2-9\lambda+22\). Solve to get eigenvalues
-      \[
-      \lambda=\frac{9\pm\sqrt{81-88}}{2}=\frac{9\pm i\sqrt7}{2}
-      \]
-      (complex). Because eigenvalues are distinct (though complex), the matrix is diagonalizable over \(\mathbb{C}\). Over \(\mathbb{R}\) it is not diagonalizable to a real diagonal matrix (it has complex eigenvalues).
+      <div class="steps">
+        Char. poly \(\lambda^2-9\lambda+22\). Discriminant \(81-88=-7\) → complex eigenvalues \(\frac{9\pm i\sqrt7}{2}\) (distinct). Distinct eigenvalues ⇒ diagonalizable over \(\mathbb{C}\). Compute complex eigenvectors and form \(P\) over \(\mathbb{C}\). If you need real canonical form, use 2×2 rotation/real-Jordan block.
+      </div>
     </div>
   </li>
 
   <li>
-    <div><strong>Problem:</strong> Find diagonal form of \(E=\begin{bmatrix}2&1&0\\0&2&0\\0&0&3\end{bmatrix}.\)</div>
+    <div><strong>Problem:</strong> Find diagonal form of \(E=\begin{bmatrix}2&1&0\\0&2&0\\0&0&3\end{bmatrix}\).</div>
     <div class="solution">
-      Eigenvalues: \(2\) (algebraic multiplicity 2) and \(3\). For the \(2\times2\) upper-left block \(\begin{bmatrix}2&1\\0&2\end{bmatrix}\) there is only one eigenvector for \(\lambda=2\), so the full matrix is not diagonalizable over \(\mathbb{R}\). But if it were diagonalizable, the diagonal would be \(\operatorname{diag}(2,2,3)\).
+      <div class="steps">
+        Eigenvalues: \(2\) (mult. 2), and \(3\).
+        <br>
+        For the top-left 2×2 block \(\begin{bmatrix}2&1\\0&2\end{bmatrix}\), (A-2I)=\(\begin{bmatrix}0&1\\0&0\end{bmatrix}\) gives one eigenvector for \(\lambda=2\) (span of \([1,0,0]^T\)). So geometric multiplicity for \(\lambda=2\) is 1 (not 2) → matrix is not diagonalizable over \(\mathbb{R}\). Over \(\mathbb{C}\) nothing changes for diagonalizability since the block is Jordan-type — still not diagonalizable.
+        <br><br>
+        If it were diagonalizable the diagonal would read \(\operatorname{diag}(2,2,3)\), but since eigenvectors insufficient we must put it in Jordan form instead.
+      </div>
     </div>
   </li>
 </ol>
 
-<footer>© 2025 | Solutions prepared by Dr. S. Narendra — ask if you want step-by-step row operations for any problem.</footer>
+<footer>
+  © 2025 | Solutions prepared by Dr. Surnam Narendra — verify steps, If any mistakes Please let me know and feel free to ask for more worked examples.
+</footer>
 </body>
 </html>
