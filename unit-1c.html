@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Practice Problems for Unit-1</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    ol {
+      margin-left: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    .sublist {
+      margin-left: 30px;
+      list-style-type: lower-alpha;
+    }
+  </style>
+</head>
+<body>
+ <header style="display: flex; justify-content: space-between; align-items: center;">
+  <h1>Practice Set-1</h1>
+  <img src="images/wos ppt.png" alt="Woxsen Logo" style="height: 60px;">
+</header>
+<h2>0. Basic Concepts and Matrix Representation</h2>
+<ol>
+<li>Write the matrix associated with the quadratic form \(Q(x,y)=3x^2+5y^2+2xy\).</li>
+<li>Write the symmetric matrix for \(Q(x,y,z)=x^2+2y^2+3z^2+2xy+4xz+6yz\).</li>
+<li>For \(Q(x,y)=4x^2+9y^2-12xy\), write the corresponding matrix and show it is singular.</li>
+<li>Express \(Q(x,y)=2x^2+2xy+y^2\) as \(\mathbf{x}^T A\mathbf{x}\) and give matrix \(A\).</li>
+<li>Find the matrix for \(Q(x,y,z)=x^2+y^2-z^2\) and state its trace and determinant.</li>
+</ol>
+
+  <h2>A. Reduction to Canonical (Diagonal) Form</h2>
+<ol>
+<li>Reduce \(Q(x,y)=7x^2+2xy+3y^2\) to diagonal form using an orthogonal transformation (show steps).</li>
+<li>Show that \(Q(x,y)=4x^2+12xy+9y^2\) reduces to a perfect square and give the canonical form.</li>
+<li>Reduce \(Q(x,y,z)=2x^2+2y^2+2z^2+2xy+2xz+2yz\) to diagonal form by finding eigenvectors.</li>
+<li>Find an orthogonal matrix that diagonalizes \(Q(x,y)=13x^2-10xy+13y^2\) and write the canonical form.</li>
+<li>Reduce \(Q(x,y)=9x^2+12xy+4y^2\) into canonical form and identify the change of variables.</li>
+</ol>
+
+  <h2>B. Canonical Form — Methods (Completing the Square / Orthogonal)</h2>
+<ol start="6">
+<li>Use completing the square to reduce \(Q(x,y)=x^2-4xy+4y^2\) to canonical form.</li>
+<li>Apply a rotation (orthogonal transformation) to diagonalize \(Q(x,y)=5x^2+6xy+5y^2\).</li>
+<li>Reduce \(Q(x,y,z)=x^2+y^2+z^2+2xy\) to diagonal form and give the new variables.</li>
+<li>Find canonical form of \(Q(x,y)=6x^2+8xy+3y^2\) by computing eigenvalues of its matrix.</li>
+<li>Diagonalize \(Q(x,y,z)=x^2+y^2+z^2-2xy-2yz-2xz\) and list the diagonal entries.</li>
+</ol>
+
+  <h2>C. Definiteness Classification (Positive / Negative / Indefinite)</h2>
+<ol start="11">
+<li>Classify \(Q(x,y) = x^2+2xy+y^2\) (use Sylvester's criterion or eigenvalues).</li>
+<li>Classify \(Q(x,y) = -x^2-2xy-y^2\).</li>
+<li>Classify \(Q(x,y,z)=x^2+y^2+z^2\).</li>
+<li>Classify \(Q(x,y)=x^2-2xy+y^2\) and explain whether it is positive semidefinite or definite.</li>
+<li>Classify \(Q(x,y)=x^2-y^2\) and state its index and signature.</li>
+<li>Classify \(Q(x,y,z)=x^2+2y^2-z^2\).</li>
+<li>Decide definiteness of \(Q(x,y)=3x^2+2xy+3y^2\) by Sylvester's criterion.</li>
+<li>Decide definiteness of \(Q(x,y)=2x^2-4xy+2y^2+z^2\) and justify.</li>
+<li>Is \(Q(x,y,z)=(x+y+z)^2\) positive definite, semidefinite, or indefinite? Explain.</li>
+<li>Show whether \(Q(x,y)=-4x^2-4xy-y^2\) is negative definite, semidefinite, or indefinite.</li>
+</ol>
+
+  <h2>D. Computation & Applied Exercises</h2>
+<ol start="21">
+<li>Given matrix \(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\), write the quadratic form \(\mathbf{x}^T A\mathbf{x}\) and classify it.</li>
+<li>For matrix \(B=\begin{pmatrix}1&2&1\\2&4&2\\1&2&1\end{pmatrix}\), find the rank and reduce the associated quadratic form to canonical form.</li>
+<li>Show that \(Q(x,y)=2x^2+2xy+y^2\) can be written as a sum of squares and determine definiteness.</li>
+<li>Find the principal axes for \(Q(x,y)=7x^2+2xy+3y^2\) (i.e., eigenvectors) and normalize them.</li>
+<li>Given \(Q(x,y,z)=2x^2+5y^2+3z^2+4xy-2xz\), construct the symmetric matrix and state whether it is positive definite.</li>
+<li>Prove that if the symmetric matrix of a quadratic form has all positive eigenvalues then the form is positive definite.</li>
+<li>Find an example of a 2×2 quadratic form that is indefinite and explain why.</li>
+<li>Show that the quadratic form corresponding to \(A=\begin{pmatrix}0&1\\1&0\end{pmatrix}\) is indefinite by finding a vector \(\mathbf{x}\) with negative value and one with positive value.</li>
+<li>For \(Q(x,y)=9x^2+12xy+4y^2\) find the orthogonal matrix that diagonalizes it and give the diagonal form.</li>
+<li>Given \(Q(x,y)=x^2+4xy+4y^2\), reduce it to canonical form and classify definiteness.</li>
+</ol>
+ <footer style="
+    background: #f8f9fa;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    font-style: italic;
+    border-top: 1px solid #ccc;
+">
+    © 2025 | Designed by Dr. Surnam Narendra
+</footer>
+</body>
+</html>
