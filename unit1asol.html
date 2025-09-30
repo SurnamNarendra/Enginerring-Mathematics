@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Practice Problems for Unit-1 — Solutions</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f9f9f9;
+      color: #222;
+    }
+    header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    h1 { margin:0; font-size:1.6rem; }
+    img { height:60px; }
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      margin-top: 1.25rem;
+    }
+    ol { margin-left: 20px; }
+    li { margin-bottom: 18px; }
+    .solution { background:#fff; padding:10px 12px; border-radius:6px; box-shadow:0 1px 0 rgba(0,0,0,0.04); }
+    .work { margin-top:6px; color:#444; font-size:0.95rem; }
+    .sublist { margin-left: 30px; list-style-type: lower-alpha; }
+    footer {
+      background: #f8f9fa;
+      color: #333;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      font-style: italic;
+      border-top: 1px solid #ccc;
+      margin-top: 2rem;
+    }
+    code { background:#f1f1f1; padding:2px 4px; border-radius:3px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Practice Set-1 — <small>Solutions</small></h1>
+  <img src="images/wos ppt.png" alt="Woxsen Logo">
+</header>
+
+<h2>0. Basic Operations</h2>
+
+<ol>
+  <li>
+    <div><strong>Problem:</strong> Add the matrices  
+      \[
+      A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, 
+      \quad
+      B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \[
+      A+B=\begin{bmatrix}1+5 & 2+6\\[4pt] 3+7 & 4+8\end{bmatrix}
+      =\begin{bmatrix}6 & 8 \\ 10 & 12\end{bmatrix}
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Subtract the matrices  
+      \[
+      \begin{bmatrix} 4 & -2 \\ 1 & 0 \end{bmatrix}
+      -
+      \begin{bmatrix} 2 & 3 \\ -1 & 5 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \[
+      \begin{bmatrix}4-2 & -2-3 \\[4pt] 1-(-1) & 0-5 \end{bmatrix}
+      =\begin{bmatrix}2 & -5 \\ 2 & -5\end{bmatrix}
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Multiply the matrices  
+      \[
+      \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}
+      \cdot
+      \begin{bmatrix} 2 & 0 \\ 3 & 4 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Multiply row by column:
+      \[
+      \begin{bmatrix}
+      1\cdot2+2\cdot3 & 1\cdot0+2\cdot4\\[6pt]
+      0\cdot2+1\cdot3 & 0\cdot0+1\cdot4
+      \end{bmatrix}
+      =\begin{bmatrix}8 & 8 \\ 3 & 4\end{bmatrix}
+      \]
+    </div>
+  </li>
+</ol>
+
+<ol start="4">
+  <li>
+    <div><strong>Problem:</strong> Find the determinant of:  
+      \[
+      \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \[
+      \det = 2\cdot4 - 3\cdot1 = 8-3=5.
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Evaluate the determinant of:  
+      \[
+      \begin{bmatrix}
+      1 & 2 & 3 \\
+      0 & 4 & 5 \\
+      1 & 0 & 6
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Expand along the first row:
+      \[
+      \det = 1\cdot\begin{vmatrix}4&5\\0&6\end{vmatrix}
+      -2\cdot\begin{vmatrix}0&5\\1&6\end{vmatrix}
+      +3\cdot\begin{vmatrix}0&4\\1&0\end{vmatrix}
+      \]
+      \[
+      =1(24-0)-2(0-5)+3(0-4)=24+10-12=22.
+      \]
+    </div>
+  </li>
+</ol>
+
+<ol start="6">
+  <li>
+    <div><strong>Problem:</strong> Find the inverse of:  
+      \[
+      \begin{bmatrix} 4 & 7 \\ 2 & 6 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Determinant \(=4\cdot6-7\cdot2=24-14=10\).  
+      Inverse:
+      \[
+      A^{-1}=\frac{1}{10}\begin{bmatrix}6 & -7\\ -2 & 4\end{bmatrix}
+      =\begin{bmatrix}0.6 & -0.7\\ -0.2 & 0.4\end{bmatrix}.
+      \]
+      (Or keep as fractions: \(\frac{1}{10}\begin{bmatrix}6 & -7\\ -2 & 4\end{bmatrix}\).)
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Show that the matrix is not invertible:  
+      \[
+      \begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Determinant \(=2\cdot2-4\cdot1=4-4=0\). Since \(\det=0\), the matrix is singular (not invertible).
+    </div>
+  </li>
+</ol>
+
+<ol start="8">
+  <li>
+    <div><strong>Problem:</strong> Identify if the following is symmetric, skew-symmetric, or neither:  
+      \[
+      \begin{bmatrix} 0 & 2 \\ -2 & 0 \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Transpose equals
+      \(\begin{bmatrix}0 & -2\\ 2 & 0\end{bmatrix} = -\begin{bmatrix}0&2\\-2&0\end{bmatrix}\).
+      So the matrix is <strong>skew-symmetric</strong>.
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Write a \(3\times3\) diagonal matrix and a scalar matrix with scalar \(5\).</div>
+    <div class="solution">
+      Example diagonal matrix:
+      \[
+      \begin{bmatrix}1&0&0\\0&2&0\\0&0&3\end{bmatrix}.
+      \quad\text{Scalar matrix }5I_3=\begin{bmatrix}5&0&0\\0&5&0\\0&0&5\end{bmatrix}.
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Verify if the identity matrix  
+      \[
+      I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+      \]
+      satisfies \(AI = IA = A\) for  
+      \[
+      A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}.
+      \]
+    </div>
+    <div class="solution">
+      Multiplying any matrix by the identity leaves it unchanged, so
+      \[
+      AI = A,\qquad IA = A.
+      \]
+      (One can multiply to check: rows of \(A\) times columns of \(I\) reproduce the rows of \(A\).)
+    </div>
+  </li>
+</ol>
+
+<h2>A. Row Reduced Echelon Form (RREF)</h2>
+
+<ol>
+  <li>
+    <div><strong>Problem:</strong> Reduce to RREF:  
+      \[
+      A = \begin{bmatrix}
+      1 & 2 & 3 \\
+      2 & 4 & 6 \\
+      3 & 6 & 9
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      Rows 2 and 3 are multiples of row 1. The RREF is
+      \[
+      \operatorname{RREF}(A)=
+      \begin{bmatrix}1 & 2 & 3\\[4pt] 0 & 0 & 0\\[4pt] 0 & 0 & 0\end{bmatrix}.
+      \]
+      (Rank = 1.)
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Find the RREF of:  
+      \[
+      B = \begin{bmatrix}
+      2 & 1 & -1 \\
+      -1 & 0 & 3 \\
+      4 & 1 & 2
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      After row operations the RREF is the \(3\times3\) identity matrix:
+      \[
+      \operatorname{RREF}(B)=\begin{bmatrix}1&0&0\\[3pt]0&1&0\\[3pt]0&0&1\end{bmatrix}.
+      \]
+      So \(B\) is invertible (rank = 3).
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Bring to RREF:  
+      \[
+      C = \begin{bmatrix}
+      0 & 2 & 4 & 6 \\
+      1 & 3 & 5 & 7 \\
+      2 & 4 & 6 & 8
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      RREF is
+      \[
+      \operatorname{RREF}(C)=
+      \begin{bmatrix}
+      1 & 0 & -1 & -2\\[4pt]
+      0 & 1 &  2 &  3\\[4pt]
+      0 & 0 &  0 &  0
+      \end{bmatrix}.
+      \]
+      (Two leading variables — rank = 2.)
+    </div>
+  </li>
+</ol>
+
+<h2>B. Rank of a Matrix</h2>
+
+<ol start="4">
+  <li>
+    <div><strong>Problem:</strong> Find the rank of:  
+      \[
+      D = \begin{bmatrix}
+      1 & 0 & -1 & 2 \\
+      2 & 1 & 0 & 3 \\
+      3 & 1 & -1 & 5
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \(\operatorname{rank}(D)=2.\)
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Compute the rank of:  
+      \[
+      E = \begin{bmatrix}
+      1 & 2 & 3 \\
+      4 & 5 & 6 \\
+      7 & 8 & 9
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \(\operatorname{rank}(E)=2\) (rows/columns are linearly dependent).
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Find the rank of:  
+      \[
+      F = \begin{bmatrix}
+      2 & 4 & 6 & 8 \\
+      1 & 2 & 3 & 4 \\
+      0 & 0 & 0 & 0
+      \end{bmatrix}
+      \]
+    </div>
+    <div class="solution">
+      \(\operatorname{rank}(F)=1\) (row 1 is twice row 2; only one independent row).
+    </div>
+  </li>
+</ol>
+
+<h2>C. System of Linear Equations</h2>
+
+<ol start="7">
+  <li>
+    <div><strong>Problem:</strong> Solve using row-reduction:  
+      \[
+      \begin{cases}
+      x + 2y + 3z = 9 \\
+      2x + 3y + z = 8 \\
+      3x + y + 2z = 7
+      \end{cases}
+      \]
+    </div>
+    <div class="solution">
+      Unique solution:
+      \[
+      (x,y,z)=\left(\tfrac{2}{3},\,\tfrac{5}{3},\,\tfrac{5}{3}\right).
+      \]
+    </div>
+    <div class="work">
+      (You can check by substitution; the augmented matrix reduces to a unique solution.)
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Determine if the system has unique, infinite, or no solution:  
+      \[
+      \begin{cases}
+      x + y + z = 6 \\
+      2x + 2y + 2z = 12 \\
+      3x + 3y + 3z = 18
+      \end{cases}
+      \]
+    </div>
+    <div class="solution">
+      All three equations are multiples of the first → they are dependent.  
+      So the system has <strong>infinitely many solutions</strong>. General form:
+      \[
+      x=6-y-z \quad\text{(two free variables, e.g. set }y=s,z=t\text{).}
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> Solve the system:  
+      \[
+      \begin{cases}
+      x + y - z = 1 \\
+      2x - y + z = 3 \\
+      3x + 2y = 4
+      \end{cases}
+      \]
+    </div>
+    <div class="solution">
+      Unique solution:
+      \[
+      (x,y,z)=\left(\tfrac{4}{3},\,0,\,\tfrac{1}{3}\right).
+      \]
+    </div>
+  </li>
+
+  <li>
+    <div><strong>Problem:</strong> A system of equations is given by:  
+      \[
+      \begin{cases}
+      x_1 + x_2 + x_3 + x_4 = 5 \\
+      2x_1 + 3x_2 + 5x_3 + 7x_4 = 15 \\
+      x_1 - x_2 + 2x_3 + 3x_4 = 4
+      \end{cases}
+      \]
+      <ul class="sublist">
+        <li>Write the augmented matrix.</li>
+        <li>Reduce to RREF.</li>
+        <li>Find the general solution.</li>
+      </ul>
+    </div>
+
+    <div class="solution">
+      <strong>Augmented matrix:</strong>
+      \[
+      \left[\begin{array}{cccc|c}
+      1 & 1 & 1 & 1 & 5\\[4pt]
+      2 & 3 & 5 & 7 & 15\\[4pt]
+      1 & -1 & 2 & 3 & 4
+      \end{array}\right]
+      \]
+      <strong>RREF:</strong>
+      \[
+      \left[\begin{array}{cccc|c}
+      1 & 0 & 0 & -\tfrac{4}{7} & \tfrac{18}{7}\\[6pt]
+      0 & 1 & 0 & -\tfrac{1}{7} & \tfrac{8}{7}\\[6pt]
+      0 & 0 & 1 & \tfrac{12}{7} & \tfrac{9}{7}
+      \end{array}\right]
+      \]
+      Let \(x_4=t\) (free parameter). Then the general solution is
+      \[
+      \begin{aligned}
+      x_1 &= \tfrac{18}{7} + \tfrac{4}{7}t,\\[4pt]
+      x_2 &= \tfrac{8}{7} + \tfrac{1}{7}t,\\[4pt]
+      x_3 &= \tfrac{9}{7} - \tfrac{12}{7}t,\\[4pt]
+      x_4 &= t\quad (t\in\mathbb{R}).
+      \end{aligned}
+      \]
+    </div>
+  </li>
+</ol>
+
+<footer>
+  © 2025 | Solutions prepared by Dr. Surnam Narendra — verify steps and feel free to ask for more worked examples.
+</footer>
+
+</body>
+</html>
